@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mealmate.R;
+
 public class OnBoardScreen1Fragment extends Fragment {
 
     public OnBoardScreen1Fragment() {

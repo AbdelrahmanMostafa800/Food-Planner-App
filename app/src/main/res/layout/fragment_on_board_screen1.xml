@@ -58,7 +58,7 @@
                 android:layout_width="9dp"
                 android:layout_height="9dp"
                 android:layout_margin="4dp"
-                android:src="@drawable/circle" /> <!-- Active dot -->
+                android:src="@drawable/circlegreen" /> <!-- Active dot -->
 
             <ImageView
                 android:layout_width="9dp"

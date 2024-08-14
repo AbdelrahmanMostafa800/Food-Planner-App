@@ -3,5 +3,6 @@
     <string name="welcom">Welcome</string>
     <string name="next">Next</string>
     <string name="skip">Skip</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pesonalize">Personalize Your Plan</string>
+    <string name="discover">Discover Delicious Recipes</string>
 </resources>

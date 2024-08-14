@@ -16,13 +16,13 @@
         android:layout_marginTop="70dp"
         app:lottie_autoPlay="true"
         app:lottie_loop="false"
-        app:lottie_rawRes="@raw/sc1" />
+        app:lottie_rawRes="@raw/sc2" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/welcom"
+        android:text="@string/pesonalize"
         android:layout_marginTop="40dp"
         android:layout_gravity="center_horizontal"
         android:textColor="#51CB56"
@@ -64,7 +64,7 @@
             android:layout_width="9dp"
             android:layout_height="9dp"
             android:layout_margin="4dp"
-            android:src="@drawable/circle" /> <!-- Inactive dot -->
+            android:src="@drawable/circlegreen" /> <!-- Inactive dot -->
 
         <ImageView
             android:layout_width="9dp"

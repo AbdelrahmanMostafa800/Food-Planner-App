@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.mealmate.OnBoardingActivity;
+import com.example.mealmate.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
