@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MealMate</string>
+    <string name="welcom">Welcome</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
