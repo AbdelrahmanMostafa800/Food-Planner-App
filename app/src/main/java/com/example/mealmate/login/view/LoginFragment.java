@@ -1,4 +1,4 @@
-package com.example.mealmate.navigationstart;
+package com.example.mealmate.login.view;
 
 import android.os.Bundle;
 
@@ -14,8 +14,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mealmate.R;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements LoginView {
 
     public LoginFragment() {
         // Required empty public constructor
@@ -37,6 +38,7 @@ public class LoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TextView createAccount=view.findViewById(R.id.createAccount);
+
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

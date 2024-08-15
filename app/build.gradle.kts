@@ -36,8 +36,10 @@ android {
 }
 
 dependencies {
-    implementation ("com.google.firebase:firebase-bom:33.1.2")
+    implementation (platform("com.google.firebase:firebase-bom:31.5.0"))
     implementation ("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation ("androidx.navigation:navigation-fragment:2.5.3")
     implementation ("androidx.navigation:navigation-ui:2.5.3")
     implementation ("com.airbnb.android:lottie:6.1.0")
