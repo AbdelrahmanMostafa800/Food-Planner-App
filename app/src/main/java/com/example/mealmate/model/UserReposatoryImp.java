@@ -50,6 +50,27 @@ public class UserReposatoryImp implements UserReposatoryInterface{
         return userLocal.getUserData();
     }
 
+    @Override
+    public void loginUser(String email, String password) {
+        UserAuthReposatoryImp instance = UserAuthReposatoryImp.getInstance();
+        userAuth.loginUser(email,password)
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        // Called when the subscription is established
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d("userrepo", "onComplete:signed in ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.d("userrepo", "onError: ");
+                    }
+                });
+    }
 
 
 }

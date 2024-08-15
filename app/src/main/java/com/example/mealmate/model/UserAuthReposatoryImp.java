@@ -32,5 +32,18 @@ public class UserAuthReposatoryImp {
                     });
         }).subscribeOn(Schedulers.io());
     }
+
+    public Completable loginUser(String email, String password) {
+        return Completable.create(emitter -> {
+            auth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            emitter.onComplete();
+                        } else {
+                            emitter.onError(task.getException());
+                        }
+                    });
+        }).subscribeOn(Schedulers.io());
+    }
 }
 

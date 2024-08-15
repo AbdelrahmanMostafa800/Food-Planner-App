@@ -16,12 +16,13 @@ import android.widget.Button;
 import com.example.mealmate.R;
 import com.example.mealmate.model.UserAuthReposatoryImp;
 import com.example.mealmate.signup.presenter.SignUpPresenter;
+import com.example.mealmate.signup.presenter.SignUpPresenterInterface;
 import com.google.android.material.textfield.TextInputLayout;
 
 
 public class SignUpFragment extends Fragment implements SignUpView{
 
-    SignUpPresenter presenter;
+    SignUpPresenterInterface presenter;
     public SignUpFragment() {
         // Required empty public constructor
     }
