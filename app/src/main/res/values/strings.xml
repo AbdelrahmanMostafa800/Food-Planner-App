@@ -9,10 +9,13 @@
     <string name="screen2">"Create your own meals plan. Take initiative and\ncreate customized meals based on your own\npreferences."</string>
     <string name="screen3">"Discover a variety of delicious meals, from\nhealthful salads to elegant desserts. Let's explore\nmeals that suit your preferences."</string>
     <string name="signin">Sign In</string>
+    <string name="signup">Sign Up</string>
     <string name="please_login">Please log in your account</string>
     <string name="enter_email">Enter your email</string>
     <string name="email">Email</string>
     <string name="enter_password">Enter your password</string>
+    <string name="name">Name</string>
+    <string name="enter_name">Enter your name</string>
     <string name="passowrd">Password</string>
     <string name="or">Or\n\nContinue with</string>
     <string name="guest">Guest Mode</string>
