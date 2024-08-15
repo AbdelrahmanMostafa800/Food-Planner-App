@@ -1,4 +1,4 @@
-package com.example.mealmate;
+package com.example.mealmate.onboarding;
 
 import android.os.Bundle;
 
@@ -15,12 +15,12 @@ import android.widget.Button;
 
 import com.example.mealmate.R;
 
-public class OnBoardScreen2Fragment extends Fragment {
+public class OnBoardScreen3Fragment extends Fragment {
 
-
-    public OnBoardScreen2Fragment() {
+    public OnBoardScreen3Fragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class OnBoardScreen2Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_on_board_screen2, container, false);
+        return inflater.inflate(R.layout.fragment_on_board_screen3, container, false);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class OnBoardScreen2Fragment extends Fragment {
             @Override
             public void onClick(View view) {
                 NavController navController = Navigation.findNavController(view);
-                navController.navigate(R.id.action_onBoardScreen2Fragment_to_onBoardScreen3Fragment);
+                navController.navigate(R.id.action_OnBoardScreen3Fragment_to_loginFragment);
 
             }
         });

@@ -6,7 +6,7 @@
     app:startDestination="@id/OnBoardScreen1Fragment">
     <fragment
         android:id="@+id/OnBoardScreen1Fragment"
-        android:name="com.example.mealmate.OnBoardScreen1Fragment"
+        android:name="com.example.mealmate.onboarding.OnBoardScreen1Fragment"
         android:label="fragment_on_board_screen1"
         tools:layout="@layout/fragment_on_board_screen1" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/OnBoardScreen2Fragment"
-        android:name="com.example.mealmate.OnBoardScreen2Fragment"
+        android:name="com.example.mealmate.onboarding.OnBoardScreen2Fragment"
         android:label="fragment_on_board_screen2"
         tools:layout="@layout/fragment_on_board_screen2" >
         <action
@@ -28,7 +28,21 @@
     </fragment>
     <fragment
         android:id="@+id/OnBoardScreen3Fragment"
-        android:name="com.example.mealmate.OnBoardScreen3Fragment"
+        android:name="com.example.mealmate.onboarding.OnBoardScreen3Fragment"
         android:label="fragment_on_board_screen3"
-        tools:layout="@layout/fragment_on_board_screen3" />
+        tools:layout="@layout/fragment_on_board_screen3" >
+        <action
+            android:id="@+id/action_OnBoardScreen3Fragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.mealmate.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.mealmate.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" />
 </navigation>

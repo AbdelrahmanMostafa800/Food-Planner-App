@@ -1,4 +1,4 @@
-package com.example.mealmate;
+package com.example.mealmate.onboarding;
 
 import android.os.Bundle;
 
@@ -6,13 +6,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.mealmate.R;
 
 public class OnBoardScreen1Fragment extends Fragment {
 

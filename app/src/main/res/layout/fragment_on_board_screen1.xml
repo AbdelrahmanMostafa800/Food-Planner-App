@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".OnBoardScreen1Fragment">
+        tools:context=".onboarding.OnBoardScreen1Fragment">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
@@ -46,8 +46,8 @@
             android:layout_marginRight="20dp"
             android:textSize="14sp"
             android:textColor="#5F595D"
-            android:text="Welcome to MealMate, your culinary companion.\nLet us start on a voyage of tastes and convenience\ntogether." />
-        <LinearLayout
+            android:text="@string/screen1"/>
+    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
