@@ -1,4 +1,4 @@
-package com.example.mealmate.onboarding;
+package com.example.mealmate.navigationstart.onboarding;
 
 import android.os.Bundle;
 

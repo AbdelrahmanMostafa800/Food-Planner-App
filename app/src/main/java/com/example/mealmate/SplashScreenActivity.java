@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mealmate.onboarding.OnBoardingActivity;
+import com.example.mealmate.navigationstart.onboarding.OnBoardingActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

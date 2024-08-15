@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id ("com.google.gms.google-services")
 }
 
 android {
@@ -35,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation ("com.google.firebase:firebase-bom:33.1.2")
+    implementation ("com.google.firebase:firebase-analytics")
     implementation ("androidx.navigation:navigation-fragment:2.5.3")
     implementation ("androidx.navigation:navigation-ui:2.5.3")
     implementation ("com.airbnb.android:lottie:6.1.0")
