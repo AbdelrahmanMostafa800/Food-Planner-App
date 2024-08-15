@@ -1,5 +1,6 @@
 package com.example.mealmate.signup.view;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -45,16 +46,12 @@ public class SignUpFragment extends Fragment implements SignUpView{
         TextInputLayout emailText=view.findViewById(R.id.emailText);
         TextInputLayout passowrdTex=view.findViewById(R.id.passowrdTex);
         Button sigInBtn=view.findViewById(R.id.sigInBtn);
-        presenter=new SignUpPresenter(this);
+        presenter=new SignUpPresenter(this,getContext());
         sigInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                presenter.createUserWithEmailPassword(emailText.getEditText().getText().toString(),passowrdTex.getEditText().getText().toString(),nameText.getEditText().getText().toString());
-                if(presenter.isUserAdded()){
-                    Log.d("SIGNUP", "onClick: Added Succesful");
-                }else {
-                    Log.d("SIGNUP", "onClick: faild");
-                }
+
             }
         });
     }

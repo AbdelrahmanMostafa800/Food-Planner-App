@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.5")
     implementation (platform("com.google.firebase:firebase-bom:31.5.0"))
     implementation ("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx")

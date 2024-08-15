@@ -4,22 +4,34 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class UserLocalDataImp {
     SharedPreferences sharedPreferences;
-    SharedPreferences.Editor sharedPreferenceseditor;
+    SharedPreferences.Editor sharedPreferencesEditor;
     private static UserLocalDataImp instance=null;
     private UserLocalDataImp(Context context){
-        sharedPreferences= context.getPreferences(MODE_PRIVATE);
-        sharedPreferenceseditor= sharedPreferences.edit();
+        sharedPreferences= context.getSharedPreferences("User",MODE_PRIVATE);
+        sharedPreferencesEditor = sharedPreferences.edit();
     }
-    public static synchronized UserLocalDataImp getInstance() {
+    public static synchronized UserLocalDataImp getInstance(Context context) {
         if (instance == null) {
-            instance = new UserLocalDataImp();
+            instance = new UserLocalDataImp(context);
         }
         return instance;
         }
 
     public void addUser(String name, String email) {
+        sharedPreferencesEditor.putString("Name",name);
+        sharedPreferencesEditor.putString("Email",email);
+        sharedPreferencesEditor.commit();
     }
+    public String [] getUserData() {
+        String [] userData=new String[2];
+        userData[0]=sharedPreferences.getString("Name",null);
+        userData[1]=sharedPreferences.getString("Email",null);
+        Log.d("LocalUser", "getUserData: "+userData[0]+" "+userData[1]);
+        return userData;
+    }
+
 }
