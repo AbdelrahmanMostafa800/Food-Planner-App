@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/OnBoardScreen3"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".OnBoardScreen1Fragment">
+    tools:context=".OnBoardScreen3Fragment">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animationView"
@@ -74,4 +74,24 @@
             android:src="@drawable/circlegreen" /> <!-- Inactive dot -->
 
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/nextbtn"
+        android:layout_width="146dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#51CB56"
+        android:text="@string/next" />
+
+    <TextView
+        android:id="@+id/skip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:textColor="#51CB56"
+        android:textSize="16sp"
+        android:text="@string/skip" />
 </LinearLayout>

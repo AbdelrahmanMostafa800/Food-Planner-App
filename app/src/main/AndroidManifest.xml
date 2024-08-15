@@ -13,10 +13,10 @@
         android:theme="@style/Theme.MealMate"
         tools:targetApi="31">
         <activity
-            android:name=".ui.onbording.OnBoardingActivity"
+            android:name=".OnBoardingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SplashScreenActivity"
+            android:name=".SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
