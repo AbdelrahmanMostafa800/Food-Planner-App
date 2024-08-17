@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    id ("com.google.gms.google-services")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -38,12 +38,17 @@ android {
 dependencies {
     implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
     implementation ("io.reactivex.rxjava3:rxjava:3.1.5")
+
     implementation (platform("com.google.firebase:firebase-bom:31.5.0"))
     implementation ("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.android.gms:play-services-auth:21.2.0")
+
+    implementation ("com.google.firebase:firebase-auth:22.0.0")
+    implementation ("com.google.firebase:firebase-firestore:24.9.0")
+    implementation ("com.google.firebase:firebase-database:20.2.2")
+
     implementation ("androidx.navigation:navigation-fragment:2.5.3")
     implementation ("androidx.navigation:navigation-ui:2.5.3")
+
     implementation ("com.airbnb.android:lottie:6.1.0")
     implementation(libs.appcompat)
     implementation(libs.material)
@@ -52,6 +57,7 @@ dependencies {
     implementation(libs.annotation)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

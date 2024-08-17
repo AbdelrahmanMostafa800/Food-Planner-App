@@ -1,7 +1,6 @@
 package com.example.mealmate.model;
 
-import android.util.Log;
-
+import android.content.Context;
 import com.google.firebase.auth.FirebaseAuth;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -44,6 +43,11 @@ public class UserAuthReposatoryImp {
                         }
                     });
         }).subscribeOn(Schedulers.io());
+    }
+
+    public void googleLogin(Context context) {
+
+
     }
 }
 

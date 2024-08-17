@@ -1,9 +1,15 @@
 package com.example.mealmate.model;
 
+import android.content.Context;
+
 public interface UserReposatoryInterface {
-    void addUserWithEmailPassword(String email, String password, String name);
+    void addUserWithEmailPassword(String loginStatus,String email, String password, String name);
 
     String[] getUserLocalData();
 
-    void loginUser(String email, String password);
+    void loginUser(String loginStatus,String email, String password);
+
+    void googleLogin(Context context);
+
+    String getUserLoginStatus();
 }

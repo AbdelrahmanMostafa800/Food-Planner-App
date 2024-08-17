@@ -18,5 +18,5 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/navigation_lauout" />
+        app:navGraph="@navigation/navigation_onbord_login" />
 </FrameLayout>

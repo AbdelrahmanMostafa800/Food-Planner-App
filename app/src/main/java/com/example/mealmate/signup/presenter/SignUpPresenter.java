@@ -13,7 +13,7 @@ public class SignUpPresenter implements SignUpPresenterInterface{
         this.reposatory=UserReposatoryImp.getInstance(context);
     }
     @Override
-    public void createUserWithEmailPassword(String email, String password,String name) {
-        reposatory.addUserWithEmailPassword(email,password,name);
+    public void createUserWithEmailPassword(String loginStatus,String email, String password,String name) {
+        reposatory.addUserWithEmailPassword(loginStatus,email,password,name);
     }
 }

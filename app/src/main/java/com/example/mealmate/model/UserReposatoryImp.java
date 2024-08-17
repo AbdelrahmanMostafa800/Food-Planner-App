@@ -23,7 +23,7 @@ public class UserReposatoryImp implements UserReposatoryInterface{
         return instance;
     }
     @Override
-    public void addUserWithEmailPassword(String email, String password, String name) {
+    public void addUserWithEmailPassword(String loginStatus,String email, String password, String name) {
         UserAuthReposatoryImp instance = UserAuthReposatoryImp.getInstance();
         userAuth.addUserWithEmailPassword(email,password)
                 .subscribe(new CompletableObserver() {
@@ -43,7 +43,7 @@ public class UserReposatoryImp implements UserReposatoryInterface{
                     }
                 });
 
-        userLocal.addUser(name,email);
+        userLocal.addUser(loginStatus,name,email);
     }
     @Override
     public String[] getUserLocalData() {
@@ -51,7 +51,7 @@ public class UserReposatoryImp implements UserReposatoryInterface{
     }
 
     @Override
-    public void loginUser(String email, String password) {
+    public void loginUser(String loginStatus,String email, String password) {
         UserAuthReposatoryImp instance = UserAuthReposatoryImp.getInstance();
         userAuth.loginUser(email,password)
                 .subscribe(new CompletableObserver() {
@@ -62,6 +62,7 @@ public class UserReposatoryImp implements UserReposatoryInterface{
 
                     @Override
                     public void onComplete() {
+                        userLocal.addUser(loginStatus,name,email);
                         Log.d("userrepo", "onComplete:signed in ");
                     }
 
@@ -70,6 +71,17 @@ public class UserReposatoryImp implements UserReposatoryInterface{
                         Log.d("userrepo", "onError: ");
                     }
                 });
+    }
+
+    @Override
+    public void googleLogin(Context context) {
+        userAuth.googleLogin(context);
+    }
+
+    @Override
+    public String getUserLoginStatus() {
+        String[] userdata=userLocal.getUserData();
+        return userdata[0];
     }
 
 

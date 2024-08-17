@@ -21,15 +21,18 @@ public class UserLocalDataImp {
         return instance;
         }
 
-    public void addUser(String name, String email) {
+    public void addUser(String loginStatus,String name, String email) {
+        sharedPreferencesEditor.putString("Status",loginStatus);
         sharedPreferencesEditor.putString("Name",name);
         sharedPreferencesEditor.putString("Email",email);
         sharedPreferencesEditor.commit();
     }
+
     public String [] getUserData() {
-        String [] userData=new String[2];
-        userData[0]=sharedPreferences.getString("Name",null);
-        userData[1]=sharedPreferences.getString("Email",null);
+        String [] userData=new String[3];
+        userData[0]=sharedPreferences.getString("Status",null);
+        userData[1]=sharedPreferences.getString("Name",null);
+        userData[2]=sharedPreferences.getString("Email",null);
         Log.d("LocalUser", "getUserData: "+userData[0]+" "+userData[1]);
         return userData;
     }

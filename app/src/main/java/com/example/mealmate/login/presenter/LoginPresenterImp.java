@@ -17,8 +17,13 @@ public class LoginPresenterImp implements LoginPresenter{
     }
 
     @Override
-    public void loginUser(String email, String password) {
-        reposatory.loginUser(email,password);
+    public void loginUser(String loginStatus,String email, String password) {
+        reposatory.loginUser(loginStatus,email,password);
+    }
+
+    @Override
+    public void googleLogin(Context context) {
+        reposatory.googleLogin(context);
     }
 }
 

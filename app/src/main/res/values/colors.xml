@@ -4,4 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#51CB56</color>
     <color name="gray">#8F878C</color>
+    <color name="text_gray">#5F595D</color>
+    <color name="icon_gray">#858585</color>
+    <color name="dailygray">#3A3639</color>
+    <color name="red">#FD0808</color>
 </resources>

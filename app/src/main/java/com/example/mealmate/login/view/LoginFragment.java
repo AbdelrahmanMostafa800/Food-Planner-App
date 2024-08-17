@@ -1,5 +1,6 @@
 package com.example.mealmate.login.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,22 +9,26 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mealmate.R;
 import com.example.mealmate.login.presenter.LoginPresenter;
 import com.example.mealmate.login.presenter.LoginPresenterImp;
-import com.example.mealmate.signup.presenter.SignUpPresenter;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginFragment extends Fragment implements LoginView {
     LoginPresenter presenter;
-
+    private static final String EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -43,18 +48,29 @@ public class LoginFragment extends Fragment implements LoginView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView createAccount=view.findViewById(R.id.createAccount);
-        TextInputLayout emailText=view.findViewById(R.id.emailText);
-        TextInputLayout passowrdTex=view.findViewById(R.id.passowrdTex);
-        presenter=new LoginPresenterImp(this,getContext());
-        Button loginBtn=view.findViewById(R.id.sigInBtn);
+        TextView createAccount = view.findViewById(R.id.createAccount);
+        TextInputLayout emailText = view.findViewById(R.id.emailText);
+        TextInputLayout passowrdTex = view.findViewById(R.id.passowrdTex);
+        ImageView google = view.findViewById(R.id.google);
+        presenter = new LoginPresenterImp(this, getContext());
+        TextView errorText=view.findViewById(R.id.errorMessage);
+        Button loginBtn = view.findViewById(R.id.sigInBtn);
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.loginUser(emailText.getEditText().getText().toString(),passowrdTex.getEditText().getText().toString());
+                errorText.setVisibility(View.INVISIBLE);
+                if(!emailText.getEditText().getText().toString().isEmpty()&&!passowrdTex.getEditText().getText().toString().isEmpty()) {
+                    if (!isValidEmail(emailText.getEditText().getText().toString())) {
+                        presenter.loginUser("LoginedIn",emailText.getEditText().getText().toString(), passowrdTex.getEditText().getText().toString());
+                    }else{
+                        emailText.setError("Invalid Email");
+                    }
+                }
+                else{
+                    errorText.setVisibility(View.INVISIBLE);
+                }
             }
         });
-
         createAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,5 +78,10 @@ public class LoginFragment extends Fragment implements LoginView {
                 navController.navigate(R.id.action_loginFragment_to_signUpFragment);
             }
         });
+    }
+    public static boolean isValidEmail(String email) {
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.mealmate.R;
 import com.example.mealmate.model.UserAuthReposatoryImp;
@@ -19,10 +20,15 @@ import com.example.mealmate.signup.presenter.SignUpPresenter;
 import com.example.mealmate.signup.presenter.SignUpPresenterInterface;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class SignUpFragment extends Fragment implements SignUpView{
 
     SignUpPresenterInterface presenter;
+    private static final String EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+
     public SignUpFragment() {
         // Required empty public constructor
     }
@@ -47,13 +53,29 @@ public class SignUpFragment extends Fragment implements SignUpView{
         TextInputLayout emailText=view.findViewById(R.id.emailText);
         TextInputLayout passowrdTex=view.findViewById(R.id.passowrdTex);
         Button sigInBtn=view.findViewById(R.id.sigInBtn);
+        TextView errorText=view.findViewById(R.id.errorMessage);
         presenter=new SignUpPresenter(this,getContext());
         sigInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               presenter.createUserWithEmailPassword(emailText.getEditText().getText().toString(),passowrdTex.getEditText().getText().toString(),nameText.getEditText().getText().toString());
+                errorText.setVisibility(View.INVISIBLE);
+                if(!nameText.getEditText().getText().toString().isEmpty()&&!emailText.getEditText().getText().toString().isEmpty()&&!passowrdTex.getEditText().getText().toString().isEmpty()) {
+                    if (!isValidEmail(emailText.getEditText().getText().toString())) {
+                        presenter.createUserWithEmailPassword("SignUp", emailText.getEditText().getText().toString(), passowrdTex.getEditText().getText().toString(), nameText.getEditText().getText().toString());
+                    }else{
+                        emailText.setError("Invalid Email");
+                    }
+                }
+                else{
+                    errorText.setVisibility(View.INVISIBLE);
+                }
 
             }
         });
+    }
+    public static boolean isValidEmail(String email) {
+        Pattern pattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }
