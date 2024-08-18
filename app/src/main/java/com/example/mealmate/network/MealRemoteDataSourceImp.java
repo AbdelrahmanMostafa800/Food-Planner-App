@@ -2,6 +2,7 @@ package com.example.mealmate.network;
 
 import android.util.Log;
 
+import com.example.mealmate.model.CategoryList;
 import com.example.mealmate.model.Meal;
 import com.example.mealmate.model.MealList;
 
@@ -29,7 +30,7 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
         }
         return client;
     }
-    public void makeNetworkCall(NetworkCallback networkCallback){
+    public void makeNetworkCallSingleMeal(NetworkCallback networkCallback){
         Call<MealList> call =  apiInterface.getSingleMeal();
         call.enqueue(new Callback<MealList>() {
             @Override
@@ -41,6 +42,26 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
             @Override
             public void onFailure(Call<MealList> call, Throwable throwable) {
                 Log.i(TAG,"onFailure: "+throwable.getMessage());
+                networkCallback.onFailureResult(throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void makeNetworkCallCategory(NetworkCallback networkCallback) {
+        Call<CategoryList> call =  apiInterface.getAllCategories();
+        call.enqueue(new Callback<CategoryList>() {
+            @Override
+            public void onResponse(Call<CategoryList> call, Response<CategoryList> response) {
+                Log.i("TAG","onResponse: "+response.raw() +response.body().getCategories());
+                Log.d("categories1", "onCheckedChanged: "+response.body().getCategories().toString());
+                networkCallback.onRequestCategorySuccessResult(response.body().getCategories());
+            }
+
+            @Override
+            public void onFailure(Call<CategoryList> call, Throwable throwable) {
+                Log.i("TAG","onFailure: "+throwable.getMessage());
                 networkCallback.onFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }

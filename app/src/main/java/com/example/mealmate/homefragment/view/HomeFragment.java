@@ -5,8 +5,11 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,19 +22,21 @@ import com.bumptech.glide.Glide;
 import com.example.mealmate.R;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenter;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenterImp;
+import com.example.mealmate.model.Category;
 import com.example.mealmate.model.Meal;
 import com.example.mealmate.model.userrepo.UserReposatoryImp;
 import com.example.mealmate.model.userrepo.UserReposatoryInterface;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
+import java.util.ArrayList;
+
 public class HomeFragment extends Fragment implements HomeFragmentView{
 
-    private RecyclerView recyclerView;
-//    private HomeFragmentRecycleAdapter myAdapter;
     HomeFragmentPresenter hpresenter;
     ImageView mealImageView;
     TextView mealName;
+    RecyclerView recyclerView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -56,11 +61,11 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         UserReposatoryInterface reposatory= UserReposatoryImp.getInstance(getContext());
         TextView nameText=view.findViewById(R.id.nameText);
          mealName=view.findViewById(R.id.mealNameView);
+         recyclerView = view.findViewById(R.id.recycleView);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
          mealImageView=view.findViewById(R.id.mealImageView);
         nameText.setText(getString(R.string.hellow)+reposatory.getUserLocalData()[1]+"!");
         ChipGroup chipGroup = view.findViewById(R.id.chipGroup);
-//        myAdapter = new HomeFragmentRecycleAdapter();
-//        recyclerView.setAdapter(myAdapter);
         hpresenter=new HomeFragmentPresenterImp(this);
         hpresenter.getSingleMeal();
 
@@ -72,7 +77,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
                     if(b){
                         int checkedId = chipGroup.getCheckedChipId();
                         if (checkedId == R.id.chip_category) {
-                            hpresenter.getSingleMeal();
+                           hpresenter.getCategories();
                         } else if (checkedId == R.id.chip_countries) {
 
                         } else if (checkedId == R.id.chip_ingrediants) {
@@ -91,5 +96,11 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         Glide.with(mealImageView.getContext())
                 .load(meal.getStrMealThumb())
                 .into(mealImageView);
+    }
+
+    @Override
+    public void showCategories(ArrayList<Category> category) {
+        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(category);
+        recyclerView.setAdapter(adapter);
     }
 }

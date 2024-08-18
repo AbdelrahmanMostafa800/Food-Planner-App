@@ -4,4 +4,6 @@ import com.example.mealmate.network.NetworkCallback;
 
 public interface DataReposatoryInterface {
     void getSingleMeal(NetworkCallback networkCallback);
+
+    void getCategories(NetworkCallback networkCallback);
 }

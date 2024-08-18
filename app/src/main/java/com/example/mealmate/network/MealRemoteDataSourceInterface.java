@@ -1,5 +1,7 @@
 package com.example.mealmate.network;
 
 public interface MealRemoteDataSourceInterface {
-    void makeNetworkCall(NetworkCallback networkCallback);
+    void makeNetworkCallSingleMeal(NetworkCallback networkCallback);
+
+    void makeNetworkCallCategory(NetworkCallback networkCallback);
 }

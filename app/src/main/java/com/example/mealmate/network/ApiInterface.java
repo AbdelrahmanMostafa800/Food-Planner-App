@@ -3,6 +3,7 @@ package com.example.mealmate.network;
 
 import android.provider.DocumentsContract;
 
+import com.example.mealmate.model.CategoryList;
 import com.example.mealmate.model.Meal;
 import com.example.mealmate.model.MealList;
 
@@ -13,5 +14,5 @@ public interface ApiInterface {
     @GET("api/json/v1/1/random.php")
      Call<MealList> getSingleMeal();
     @GET("api/json/v1/1/categories.php")
-    Call<MealList> getAllCategories();
+    Call<CategoryList> getAllCategories();
 }
