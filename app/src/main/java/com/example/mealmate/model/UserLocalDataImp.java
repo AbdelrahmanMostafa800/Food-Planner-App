@@ -37,4 +37,10 @@ public class UserLocalDataImp {
         return userData;
     }
 
+    public void addUserGuest() {
+        sharedPreferencesEditor.putString("Status","Guest");
+        sharedPreferencesEditor.putString("Name","Guest");
+        sharedPreferencesEditor.putString("Email","Guest");
+        sharedPreferencesEditor.commit();
+    }
 }

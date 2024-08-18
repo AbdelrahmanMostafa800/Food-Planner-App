@@ -1,5 +1,6 @@
 package com.example.mealmate.signup.view;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -14,8 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.mealmate.HomeActivity;
 import com.example.mealmate.R;
 import com.example.mealmate.model.UserAuthReposatoryImp;
+import com.example.mealmate.navigationstart.onboarding.OnBoardingActivity;
 import com.example.mealmate.signup.presenter.SignUpPresenter;
 import com.example.mealmate.signup.presenter.SignUpPresenterInterface;
 import com.google.android.material.textfield.TextInputLayout;
@@ -27,7 +30,10 @@ import java.util.regex.Pattern;
 public class SignUpFragment extends Fragment implements SignUpView{
 
     SignUpPresenterInterface presenter;
+    View view;
+    TextView errorText;
     private static final String EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+    boolean isErrorMsgVisble;
 
     public SignUpFragment() {
         // Required empty public constructor
@@ -48,26 +54,62 @@ public class SignUpFragment extends Fragment implements SignUpView{
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        this.view=view;
         super.onViewCreated(view, savedInstanceState);
         TextInputLayout nameText=view.findViewById(R.id.nameText);
+        nameText.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    nameText.getEditText().setText("");
+                }
+            }
+        });
         TextInputLayout emailText=view.findViewById(R.id.emailText);
+        emailText.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    emailText.getEditText().setText("");
+                }
+            }
+        });
         TextInputLayout passowrdTex=view.findViewById(R.id.passowrdTex);
+        passowrdTex.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    passowrdTex.getEditText().setText("");
+                }
+            }
+        });
         Button sigInBtn=view.findViewById(R.id.sigInBtn);
-        TextView errorText=view.findViewById(R.id.errorMessage);
+         errorText=view.findViewById(R.id.errorMessage);
         presenter=new SignUpPresenter(this,getContext());
+        errorText.setVisibility(View.INVISIBLE);
+        isErrorMsgVisble=false;
         sigInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                errorText.setVisibility(View.INVISIBLE);
-                if(!nameText.getEditText().getText().toString().isEmpty()&&!emailText.getEditText().getText().toString().isEmpty()&&!passowrdTex.getEditText().getText().toString().isEmpty()) {
-                    if (!isValidEmail(emailText.getEditText().getText().toString())) {
-                        presenter.createUserWithEmailPassword("SignUp", emailText.getEditText().getText().toString(), passowrdTex.getEditText().getText().toString(), nameText.getEditText().getText().toString());
+                if(isErrorMsgVisble){
+                    errorText.setVisibility(View.INVISIBLE);
+                    isErrorMsgVisble=false;
+                }
+                if(!nameText.getEditText().getText().toString().isEmpty()
+                        && !nameText.getEditText().getText().toString().equals(getString(R.string.enter_name))
+                        && !emailText.getEditText().getText().toString().isEmpty()
+                        && !passowrdTex.getEditText().getText().toString().isEmpty()
+                        && !passowrdTex.getEditText().getText().toString().equals(getString(R.string.enter_password))){
+                    if (isValidEmail(emailText.getEditText().getText().toString())) {
+                        presenter.createUserWithEmailPassword( emailText.getEditText().getText().toString(), passowrdTex.getEditText().getText().toString(), nameText.getEditText().getText().toString());
                     }else{
-                        emailText.setError("Invalid Email");
+                        errorText.setText("Invalid Email");
+                        errorText.setVisibility(View.VISIBLE);
                     }
                 }
                 else{
-                    errorText.setVisibility(View.INVISIBLE);
+                    errorText.setText(R.string.errormsg);
+                    errorText.setVisibility(View.VISIBLE);
                 }
 
             }
@@ -77,5 +119,19 @@ public class SignUpFragment extends Fragment implements SignUpView{
         Pattern pattern = Pattern.compile(EMAIL_REGEX);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    @Override
+    public void userAddSuccess() {
+        Intent intent = new Intent(getContext(), HomeActivity.class);
+        startActivity(intent);
+        requireActivity().finish();
+    }
+
+    @Override
+    public void userAddSerror() {
+        errorText.setText("Not Valid User");
+        errorText.setVisibility(View.VISIBLE);
+        isErrorMsgVisble=true;
     }
 }

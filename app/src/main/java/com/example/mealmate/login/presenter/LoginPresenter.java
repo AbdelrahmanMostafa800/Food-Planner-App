@@ -4,7 +4,11 @@ import android.content.Context;
 
 public interface LoginPresenter {
 
-    void loginUser(String loginStatus,String email, String password);
+    void loginUser(String email, String password);
 
     void googleLogin(Context context);
+
+    void loginUserGuest();
+
+    void isLoginSuccess(boolean b);
 }

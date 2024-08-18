@@ -32,6 +32,8 @@ public class UserAuthReposatoryImp {
         }).subscribeOn(Schedulers.io());
     }
 
+
+
     public Completable loginUser(String email, String password) {
         return Completable.create(emitter -> {
             auth.signInWithEmailAndPassword(email, password)

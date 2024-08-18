@@ -3,6 +3,12 @@ package com.example.mealmate.model;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.mealmate.login.presenter.LoginPresenter;
+import com.example.mealmate.remotedb.RemotaDbDataSource;
+import com.example.mealmate.signup.presenter.SignUpPresenter;
+import com.example.mealmate.signup.presenter.SignUpPresenterInterface;
+import com.example.mealmate.signup.view.SignUpView;
+
 import java.util.Arrays;
 
 import io.reactivex.rxjava3.core.CompletableObserver;
@@ -11,6 +17,8 @@ import io.reactivex.rxjava3.disposables.Disposable;
 public class UserReposatoryImp implements UserReposatoryInterface{
     UserAuthReposatoryImp userAuth;
     UserLocalDataImp userLocal;
+    RemotaDbDataSource dbFirebaseRemote;
+    boolean userIsAdded;
     private static UserReposatoryImp instance=null;
     private UserReposatoryImp(UserAuthReposatoryImp userAuth, UserLocalDataImp userLocal){
         this.userAuth=userAuth;
@@ -23,7 +31,7 @@ public class UserReposatoryImp implements UserReposatoryInterface{
         return instance;
     }
     @Override
-    public void addUserWithEmailPassword(String loginStatus,String email, String password, String name) {
+    public boolean addUserWithEmailPassword(SignUpPresenterInterface spresenter,String email, String password, String name) {
         UserAuthReposatoryImp instance = UserAuthReposatoryImp.getInstance();
         userAuth.addUserWithEmailPassword(email,password)
                 .subscribe(new CompletableObserver() {
@@ -34,16 +42,19 @@ public class UserReposatoryImp implements UserReposatoryInterface{
 
                     @Override
                     public void onComplete() {
+                        userLocal.addUser("UserLogidIn",name,email);
                         Log.d("userrepo", "onComplete: ");
+                        spresenter.isuserAdded(true);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.d("userrepo", "onError: ");
+                        spresenter.isuserAdded(false);
                     }
                 });
 
-        userLocal.addUser(loginStatus,name,email);
+            return userIsAdded;
     }
     @Override
     public String[] getUserLocalData() {
@@ -51,8 +62,7 @@ public class UserReposatoryImp implements UserReposatoryInterface{
     }
 
     @Override
-    public void loginUser(String loginStatus,String email, String password) {
-        UserAuthReposatoryImp instance = UserAuthReposatoryImp.getInstance();
+    public void loginUser(LoginPresenter lpresenter, String email, String password) {
         userAuth.loginUser(email,password)
                 .subscribe(new CompletableObserver() {
                     @Override
@@ -62,13 +72,14 @@ public class UserReposatoryImp implements UserReposatoryInterface{
 
                     @Override
                     public void onComplete() {
-                        userLocal.addUser(loginStatus,name,email);
-                        Log.d("userrepo", "onComplete:signed in ");
+                        userLocal.addUser("UserLogidIn","",email);
+                        lpresenter.isLoginSuccess(true);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.d("userrepo", "onError: ");
+                        lpresenter.isLoginSuccess(false);
                     }
                 });
     }
@@ -82,6 +93,12 @@ public class UserReposatoryImp implements UserReposatoryInterface{
     public String getUserLoginStatus() {
         String[] userdata=userLocal.getUserData();
         return userdata[0];
+    }
+
+    @Override
+    public void loginUserGuest(LoginPresenter lpresenter) {
+        userLocal.addUserGuest();
+        lpresenter.isLoginSuccess(true);
     }
 
 

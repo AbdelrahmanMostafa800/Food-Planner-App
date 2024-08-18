@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mealmate.model.UserReposatoryImp;
 import com.example.mealmate.model.UserReposatoryInterface;
 import com.example.mealmate.navigationstart.onboarding.OnBoardingActivity;
+import com.example.mealmate.signup.presenter.SignUpPresenter;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

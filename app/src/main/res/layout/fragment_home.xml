@@ -8,13 +8,14 @@
     tools:context=".HomeFragment">
 
     <TextView
+        android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hellowjohnny"
-        android:textSize="24sp"
-        android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/hellowjohnny"
         android:textColor="@color/dailygray"
+        android:textSize="24sp"
 
         android:textStyle="bold" />
 

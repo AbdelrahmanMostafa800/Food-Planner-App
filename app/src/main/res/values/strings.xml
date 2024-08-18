@@ -25,6 +25,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Home</string>
     <string name="hellowjohnny">Hello, Johnny!</string>
+    <string name="hellow">Hello, </string>
     <string name="readytotasty">Ready to make something <font color="#51CB56">tasty</font>?</string>
     <string name="dailyisp">Daily Inspiration</string>
     <string name="srawberry">Strawberry Pancake</string>
@@ -32,5 +33,6 @@
     <string name="countries">Countries</string>
     <string name="ingrediants">Ingrediants</string>
     <string name="errormsg">Please Fill All Data</string>
+    <string name="default_web_client_id">781598236255-rhh2bbtfo3bj7tsmvr6ec2sn60ugeaei.apps.googleusercontent.com</string>
 </resources>
 

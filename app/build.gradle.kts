@@ -43,7 +43,7 @@ dependencies {
     implementation ("com.google.firebase:firebase-analytics")
 
     implementation ("com.google.firebase:firebase-auth:22.0.0")
-    implementation ("com.google.firebase:firebase-firestore:24.9.0")
+    implementation ("com.google.android.gms:play-services-auth:20.7.0")
     implementation ("com.google.firebase:firebase-database:20.2.2")
 
     implementation ("androidx.navigation:navigation-fragment:2.5.3")

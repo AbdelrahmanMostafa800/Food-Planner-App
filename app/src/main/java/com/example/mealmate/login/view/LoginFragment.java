@@ -18,17 +18,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mealmate.HomeActivity;
 import com.example.mealmate.R;
 import com.example.mealmate.login.presenter.LoginPresenter;
 import com.example.mealmate.login.presenter.LoginPresenterImp;
+import com.example.mealmate.signup.view.SignUpFragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginFragment extends Fragment implements LoginView {
     LoginPresenter presenter;
+    boolean isErrorMsgVisble;
+    GoogleSignInClient client;
+    TextView errorText;
+    View view;
     private static final String EMAIL_REGEX = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+
     public LoginFragment() {
         // Required empty public constructor
     }
@@ -52,22 +70,54 @@ public class LoginFragment extends Fragment implements LoginView {
         TextInputLayout emailText = view.findViewById(R.id.emailText);
         TextInputLayout passowrdTex = view.findViewById(R.id.passowrdTex);
         ImageView google = view.findViewById(R.id.google);
+        ImageView guest=view.findViewById(R.id.guestMode);
+        emailText.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    emailText.getEditText().setText("");
+                }
+            }
+        });
+        passowrdTex.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                if (hasFocus) {
+                    passowrdTex.getEditText().setText("");
+                }
+            }
+        });
+
+        GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        client = GoogleSignIn.getClient(getContext(),options);
+
         presenter = new LoginPresenterImp(this, getContext());
-        TextView errorText=view.findViewById(R.id.errorMessage);
+         errorText = view.findViewById(R.id.errorMessage);
         Button loginBtn = view.findViewById(R.id.sigInBtn);
+        errorText.setVisibility(View.INVISIBLE);
+        isErrorMsgVisble = false;
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                errorText.setVisibility(View.INVISIBLE);
-                if(!emailText.getEditText().getText().toString().isEmpty()&&!passowrdTex.getEditText().getText().toString().isEmpty()) {
-                    if (!isValidEmail(emailText.getEditText().getText().toString())) {
-                        presenter.loginUser("LoginedIn",emailText.getEditText().getText().toString(), passowrdTex.getEditText().getText().toString());
-                    }else{
-                        emailText.setError("Invalid Email");
-                    }
-                }
-                else{
+                if (isErrorMsgVisble) {
                     errorText.setVisibility(View.INVISIBLE);
+                    isErrorMsgVisble = false;
+                }
+                if (!emailText.getEditText().getText().toString().isEmpty()
+                        && !passowrdTex.getEditText().getText().toString().isEmpty()
+                        && !passowrdTex.getEditText().getText().toString().equals(getString(R.string.enter_password))) {
+                    if (SignUpFragment.isValidEmail(emailText.getEditText().getText().toString())) {
+                        presenter.loginUser(emailText.getEditText().getText().toString(), passowrdTex.getEditText().getText().toString());
+                    } else {
+                        errorText.setText("Invalid Email");
+                        errorText.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    errorText.setText(R.string.errormsg);
+                    errorText.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -78,10 +128,62 @@ public class LoginFragment extends Fragment implements LoginView {
                 navController.navigate(R.id.action_loginFragment_to_signUpFragment);
             }
         });
+
+        google.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.googleLogin(getContext());
+            }
+        });
+        guest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.loginUserGuest();
+            }
+        });
+
     }
-    public static boolean isValidEmail(String email) {
-        Pattern pattern = Pattern.compile(EMAIL_REGEX);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1234){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+
+                AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
+                FirebaseAuth.getInstance().signInWithCredential(credential)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(getContext(),"success", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+
+            } catch (ApiException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    @Override
+    public void loginSuccess() {
+        Intent intent = new Intent(getContext(), HomeActivity.class);
+        startActivity(intent);
+        requireActivity().finish();
+    }
+
+    @Override
+    public void loginfail() {
+        errorText.setText("Not Valid User");
+        errorText.setVisibility(View.VISIBLE);
+        isErrorMsgVisble=true;
     }
 }
