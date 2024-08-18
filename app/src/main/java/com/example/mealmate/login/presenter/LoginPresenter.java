@@ -6,7 +6,7 @@ public interface LoginPresenter {
 
     void loginUser(String email, String password);
 
-    void googleLogin(Context context);
+    void googleLogin();
 
     void loginUserGuest();
 

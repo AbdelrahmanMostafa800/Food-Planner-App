@@ -1,6 +1,4 @@
-package com.example.mealmate.model;
-
-import android.content.Context;
+package com.example.mealmate.model.userrepo;
 
 import com.example.mealmate.login.presenter.LoginPresenter;
 import com.example.mealmate.signup.presenter.SignUpPresenterInterface;
@@ -12,7 +10,7 @@ public interface UserReposatoryInterface {
 
     void loginUser(LoginPresenter lpresenter, String email, String password);
 
-    void googleLogin(Context context);
+    void googleLogin();
 
     String getUserLoginStatus();
 

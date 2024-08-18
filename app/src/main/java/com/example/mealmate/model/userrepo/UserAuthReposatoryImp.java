@@ -1,6 +1,5 @@
-package com.example.mealmate.model;
+package com.example.mealmate.model.userrepo;
 
-import android.content.Context;
 import com.google.firebase.auth.FirebaseAuth;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -47,8 +46,7 @@ public class UserAuthReposatoryImp {
         }).subscribeOn(Schedulers.io());
     }
 
-    public void googleLogin(Context context) {
-
+    public void googleLogin() {
 
     }
 }

@@ -3,11 +3,8 @@ package com.example.mealmate.login.presenter;
 import android.content.Context;
 
 import com.example.mealmate.login.view.LoginView;
-import com.example.mealmate.model.UserReposatoryImp;
-import com.example.mealmate.model.UserReposatoryInterface;
-import com.example.mealmate.signup.presenter.SignUpPresenter;
-import com.example.mealmate.signup.view.SignUpView;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.mealmate.model.userrepo.UserReposatoryImp;
+import com.example.mealmate.model.userrepo.UserReposatoryInterface;
 
 public class LoginPresenterImp implements LoginPresenter{
     LoginView view;
@@ -23,8 +20,8 @@ public class LoginPresenterImp implements LoginPresenter{
     }
 
     @Override
-    public void googleLogin(Context context) {
-        reposatory.googleLogin(context);
+    public void googleLogin() {
+        reposatory.googleLogin();
     }
 
     @Override

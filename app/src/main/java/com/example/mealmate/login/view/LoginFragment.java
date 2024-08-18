@@ -88,12 +88,6 @@ public class LoginFragment extends Fragment implements LoginView {
             }
         });
 
-        GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        client = GoogleSignIn.getClient(getContext(),options);
-
         presenter = new LoginPresenterImp(this, getContext());
          errorText = view.findViewById(R.id.errorMessage);
         Button loginBtn = view.findViewById(R.id.sigInBtn);
@@ -128,11 +122,18 @@ public class LoginFragment extends Fragment implements LoginView {
                 navController.navigate(R.id.action_loginFragment_to_signUpFragment);
             }
         });
+        GoogleSignInOptions options = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        client = GoogleSignIn.getClient(getActivity(),options);
 
         google.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.googleLogin(getContext());
+//              presenter.googleLogin();
+                Intent i = client.getSignInIntent();
+                startActivityForResult(i,1234);
             }
         });
         guest.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +144,6 @@ public class LoginFragment extends Fragment implements LoginView {
         });
 
     }
-    @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1234){
@@ -157,9 +157,11 @@ public class LoginFragment extends Fragment implements LoginView {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    Toast.makeText(getContext(),"success", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getActivity(),HomeActivity.class);
+                                    startActivity(intent);
+
                                 }else {
-                                    Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(view.getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
                             }

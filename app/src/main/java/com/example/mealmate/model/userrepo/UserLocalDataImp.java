@@ -1,4 +1,4 @@
-package com.example.mealmate.model;
+package com.example.mealmate.model.userrepo;
 
 import static android.content.Context.MODE_PRIVATE;
 

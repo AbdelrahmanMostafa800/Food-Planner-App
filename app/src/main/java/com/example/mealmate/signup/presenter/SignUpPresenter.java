@@ -1,8 +1,8 @@
 package com.example.mealmate.signup.presenter;
 
 import android.content.Context;
-import com.example.mealmate.model.UserReposatoryImp;
-import com.example.mealmate.model.UserReposatoryInterface;
+import com.example.mealmate.model.userrepo.UserReposatoryImp;
+import com.example.mealmate.model.userrepo.UserReposatoryInterface;
 import com.example.mealmate.signup.view.SignUpView;
 
 public class SignUpPresenter implements SignUpPresenterInterface{

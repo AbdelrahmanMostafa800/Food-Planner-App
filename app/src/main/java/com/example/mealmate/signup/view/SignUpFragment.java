@@ -1,14 +1,12 @@
 package com.example.mealmate.signup.view;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +15,6 @@ import android.widget.TextView;
 
 import com.example.mealmate.HomeActivity;
 import com.example.mealmate.R;
-import com.example.mealmate.model.UserAuthReposatoryImp;
-import com.example.mealmate.navigationstart.onboarding.OnBoardingActivity;
 import com.example.mealmate.signup.presenter.SignUpPresenter;
 import com.example.mealmate.signup.presenter.SignUpPresenterInterface;
 import com.google.android.material.textfield.TextInputLayout;

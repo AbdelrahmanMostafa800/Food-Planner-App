@@ -76,7 +76,9 @@
     </LinearLayout>
 
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
+        android:textColor="@color/white"
+        android:background="@drawable/rectangle"
         android:id="@+id/nextbtn"
         android:layout_width="146dp"
         android:layout_height="45dp"

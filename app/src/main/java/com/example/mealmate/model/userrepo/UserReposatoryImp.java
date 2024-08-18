@@ -1,15 +1,11 @@
-package com.example.mealmate.model;
+package com.example.mealmate.model.userrepo;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.example.mealmate.login.presenter.LoginPresenter;
 import com.example.mealmate.remotedb.RemotaDbDataSource;
-import com.example.mealmate.signup.presenter.SignUpPresenter;
 import com.example.mealmate.signup.presenter.SignUpPresenterInterface;
-import com.example.mealmate.signup.view.SignUpView;
-
-import java.util.Arrays;
 
 import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -19,6 +15,7 @@ public class UserReposatoryImp implements UserReposatoryInterface{
     UserLocalDataImp userLocal;
     RemotaDbDataSource dbFirebaseRemote;
     boolean userIsAdded;
+    LoginPresenter presenter;
     private static UserReposatoryImp instance=null;
     private UserReposatoryImp(UserAuthReposatoryImp userAuth, UserLocalDataImp userLocal){
         this.userAuth=userAuth;
@@ -32,7 +29,6 @@ public class UserReposatoryImp implements UserReposatoryInterface{
     }
     @Override
     public boolean addUserWithEmailPassword(SignUpPresenterInterface spresenter,String email, String password, String name) {
-        UserAuthReposatoryImp instance = UserAuthReposatoryImp.getInstance();
         userAuth.addUserWithEmailPassword(email,password)
                 .subscribe(new CompletableObserver() {
                     @Override
@@ -85,8 +81,8 @@ public class UserReposatoryImp implements UserReposatoryInterface{
     }
 
     @Override
-    public void googleLogin(Context context) {
-        userAuth.googleLogin(context);
+    public void googleLogin() {
+        userAuth.googleLogin();
     }
 
     @Override
