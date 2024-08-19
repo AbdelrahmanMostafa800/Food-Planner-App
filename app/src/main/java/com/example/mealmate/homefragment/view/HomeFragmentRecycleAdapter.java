@@ -47,18 +47,24 @@ public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmen
     public void onBindViewHolder(@NonNull HomeFragmentRecycleAdapter.ViewHolder holder, int position) {
         switch (currentSelected){
             case "category":
+                holder.calender.setVisibility(View.VISIBLE);
+                holder.favourites.setVisibility(View.VISIBLE);
                 holder.titlee.setText(category.get(position).getStrCategory());
                 Glide.with(holder.itemView.getContext())
                         .load(category.get(position).getStrCategoryThumb())
                         .into(holder.imagee);
                 break;
             case "countries":
+                holder.calender.setVisibility(View.INVISIBLE);
+                holder.favourites.setVisibility(View.INVISIBLE);
                 holder.titlee.setText(countries.get(position).getStrArea());
                 Glide.with(holder.itemView.getContext())
                         .load(countries.get(position).getstrContryThumb())
                         .into(holder.imagee);
                 break;
             case "ingrediant":
+                holder.calender.setVisibility(View.INVISIBLE);
+                holder.favourites.setVisibility(View.INVISIBLE);
                 holder.titlee.setText(ingrediant.get(position).getStrIngredient());
                 Glide.with(holder.itemView.getContext())
                         .load("https://www.themealdb.com/images/ingredients/"+ingrediant.get(position).getStrIngredient()+".png")
@@ -87,11 +93,15 @@ public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmen
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imagee;
         public TextView titlee;
+        public ImageView calender;
+        public ImageView favourites;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.titlee = (TextView) itemView.findViewById(R.id.mealNameView);
             this.imagee = (ImageView) itemView.findViewById(R.id.mealImageView);
+            this.calender = (ImageView) itemView.findViewById(R.id.calenderView);
+            this.favourites = (ImageView) itemView.findViewById(R.id.favoritView);
         }
     }
 }

@@ -35,5 +35,8 @@
     <string name="errormsg">Please Fill All Data</string>
     <!--    <string name="default_web_client_id">781598236255-rhh2bbtfo3bj7tsmvr6ec2sn60ugeaei.apps.googleusercontent.com</string>-->
     <string name="default_web_client_id">781598236255-rhh2bbtfo3bj7tsmvr6ec2sn60ugeaei.apps.googleusercontent.com</string>
+    <string name="description">Description</string>
+    <string name="strawbery">Strawberry Pancake</string>
+    <string name="ingrediant">Ingredients</string>
 </resources>
 

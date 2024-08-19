@@ -8,4 +8,5 @@
     <color name="icon_gray">#858585</color>
     <color name="dailygray">#3A3639</color>
     <color name="red">#FD0808</color>
+    <color name="mealdescr">#666666</color>
 </resources>
