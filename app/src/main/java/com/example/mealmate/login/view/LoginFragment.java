@@ -71,23 +71,6 @@ public class LoginFragment extends Fragment implements LoginView {
         TextInputLayout passowrdTex = view.findViewById(R.id.passowrdTex);
         ImageView google = view.findViewById(R.id.google);
         ImageView guest=view.findViewById(R.id.guestMode);
-        emailText.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    emailText.getEditText().setText("");
-                }
-            }
-        });
-        passowrdTex.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    passowrdTex.getEditText().setText("");
-                }
-            }
-        });
-
         presenter = new LoginPresenterImp(this, getContext());
          errorText = view.findViewById(R.id.errorMessage);
         Button loginBtn = view.findViewById(R.id.sigInBtn);

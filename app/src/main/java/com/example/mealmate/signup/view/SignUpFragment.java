@@ -53,32 +53,8 @@ public class SignUpFragment extends Fragment implements SignUpView{
         this.view=view;
         super.onViewCreated(view, savedInstanceState);
         TextInputLayout nameText=view.findViewById(R.id.nameText);
-        nameText.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    nameText.getEditText().setText("");
-                }
-            }
-        });
         TextInputLayout emailText=view.findViewById(R.id.emailText);
-        emailText.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    emailText.getEditText().setText("");
-                }
-            }
-        });
         TextInputLayout passowrdTex=view.findViewById(R.id.passowrdTex);
-        passowrdTex.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean hasFocus) {
-                if (hasFocus) {
-                    passowrdTex.getEditText().setText("");
-                }
-            }
-        });
         Button sigInBtn=view.findViewById(R.id.sigInBtn);
          errorText=view.findViewById(R.id.errorMessage);
         presenter=new SignUpPresenter(this,getContext());

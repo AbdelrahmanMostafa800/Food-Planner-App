@@ -31,14 +31,13 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="@string/name"
         app:boxBackgroundMode="none"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/enter_name"
+            android:hint="@string/enter_name"
             app:boxBackgroundMode="none"
             android:textSize="14sp"
             android:textColor="@color/gray"/>
@@ -52,7 +51,6 @@
         android:layout_marginTop="27dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="@string/email"
         app:boxBackgroundMode="none"
         app:startIconDrawable="@drawable/mail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -60,7 +58,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/enter_email"
+            android:hint="@string/enter_email"
             android:textSize="14sp"
             android:textColor="@color/gray"/>
 
@@ -73,7 +71,6 @@
         android:layout_marginTop="27dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="@string/passowrd"
         app:errorTextColor="@color/red"
         app:boxBackgroundMode="none"
         app:startIconDrawable="@drawable/lock"
@@ -82,17 +79,18 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/enter_password"
+            android:hint="@string/enter_password"
             android:textSize="14sp"
             android:textColor="@color/gray"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sigInBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/green"
+        android:textColor="@color/white"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"

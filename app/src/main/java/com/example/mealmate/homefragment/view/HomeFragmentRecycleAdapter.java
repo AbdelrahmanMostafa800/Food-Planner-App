@@ -15,16 +15,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.mealmate.R;
 import com.example.mealmate.model.Category;
+import com.example.mealmate.model.countriespojo.Country;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmentRecycleAdapter.ViewHolder>{
     ArrayList<Category> category;
-    Context context;
-    public HomeFragmentRecycleAdapter(ArrayList<Category> category) {
+    ArrayList<Country> countries;
+    ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> ingrediant;
+    String currentSelected;
+    private int pageSize = 20; // adjust this value to control the number of items per page
+    private int currentPage = 1;
+    public HomeFragmentRecycleAdapter(ArrayList<Category> category,ArrayList<Country> countries,ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> ingrediant) {
         this.category = category;
-        this.context = context;
+        this.countries=countries;
+        this.ingrediant=ingrediant;
+        currentSelected="";
     }
 
 
@@ -38,15 +45,44 @@ public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmen
 
     @Override
     public void onBindViewHolder(@NonNull HomeFragmentRecycleAdapter.ViewHolder holder, int position) {
-        holder.titlee.setText(category.get(position).getStrCategory());
-        Glide.with(holder.itemView.getContext())
-                .load(category.get(position).getStrCategoryThumb())
-                .into(holder.imagee);
+        switch (currentSelected){
+            case "category":
+                holder.titlee.setText(category.get(position).getStrCategory());
+                Glide.with(holder.itemView.getContext())
+                        .load(category.get(position).getStrCategoryThumb())
+                        .into(holder.imagee);
+                break;
+            case "countries":
+                holder.titlee.setText(countries.get(position).getStrArea());
+                Glide.with(holder.itemView.getContext())
+                        .load(countries.get(position).getstrContryThumb())
+                        .into(holder.imagee);
+                break;
+            case "ingrediant":
+                holder.titlee.setText(ingrediant.get(position).getStrIngredient());
+                Glide.with(holder.itemView.getContext())
+                        .load("https://www.themealdb.com/images/ingredients/"+ingrediant.get(position).getStrIngredient()+".png")
+                        .into(holder.imagee);
+                break;
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return category!=null?category.size():0;
+        if(category!=null) {
+            currentSelected="category";
+            return category.size();
+        }
+        else if(countries!=null) {
+            currentSelected="countries";
+            return countries.size();
+        }
+        else if(ingrediant!=null) {
+            currentSelected="ingrediant";
+            return Math.min(ingrediant.size(), currentPage * pageSize);
+        }
+        return 0;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imagee;

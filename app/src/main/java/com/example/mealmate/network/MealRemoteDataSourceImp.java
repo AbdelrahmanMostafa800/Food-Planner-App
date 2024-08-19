@@ -3,8 +3,9 @@ package com.example.mealmate.network;
 import android.util.Log;
 
 import com.example.mealmate.model.CategoryList;
-import com.example.mealmate.model.Meal;
+import com.example.mealmate.model.countriespojo.CountriesList;
 import com.example.mealmate.model.MealList;
+import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,4 +68,25 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
             }
         });
     }
+
+    @Override
+    public void makeNetworkCallIngrediants(NetworkCallback networkCallback) {
+        Call<IngrediantList> call =  apiInterface.getAllIngrediant();
+        call.enqueue(new Callback<IngrediantList>() {
+            @Override
+            public void onResponse(Call<IngrediantList> call, Response<IngrediantList> response) {
+                networkCallback.onRequestIngrediantSuccessResult(response.body().getMeals());
+            }
+
+            @Override
+            public void onFailure(Call<IngrediantList> call, Throwable throwable) {
+                Log.i("TAG","onFailure: "+throwable.getMessage());
+                networkCallback.onFailureResult(throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        });
+    }
+
+
 }
+

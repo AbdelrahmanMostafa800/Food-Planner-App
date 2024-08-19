@@ -1,5 +1,6 @@
 package com.example.mealmate.model.mealdatarepo;
 
+import com.example.mealmate.homefragment.presenter.HomeFragmentPresenterImp;
 import com.example.mealmate.network.MealRemoteDataSourceImp;
 import com.example.mealmate.network.MealRemoteDataSourceInterface;
 import com.example.mealmate.network.NetworkCallback;
@@ -24,4 +25,10 @@ public class DataReposatoryImp implements DataReposatoryInterface{
     public void getCategories(NetworkCallback networkCallback) {
         mealdatasource.makeNetworkCallCategory(networkCallback);
     }
+
+    @Override
+    public void getIngrediants(NetworkCallback networkCallback) {
+        mealdatasource.makeNetworkCallIngrediants(networkCallback);
+    }
+
 }

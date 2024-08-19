@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public interface NetworkCallback {
     void onSuccessResult(Meal meal);
     void onFailureResult(String errorMsg);
-    void onRequestCategorySuccessResult(ArrayList<Category> category);
 
+    void onRequestCategorySuccessResult(ArrayList<Category> categories);
+
+    void onRequestIngrediantSuccessResult(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals);
 }

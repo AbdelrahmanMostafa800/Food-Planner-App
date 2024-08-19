@@ -9,4 +9,6 @@ public interface HomeFragmentView {
     void showMeal(Meal meal);
 
     void showCategories(ArrayList<Category> category);
+
+    void showIngrediants(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals);
 }

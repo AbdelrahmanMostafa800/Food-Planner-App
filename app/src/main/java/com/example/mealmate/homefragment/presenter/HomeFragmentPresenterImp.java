@@ -29,6 +29,11 @@ public class HomeFragmentPresenterImp implements NetworkCallback, HomeFragmentPr
         reposatory.getCategories(this);
     }
 
+    @Override
+    public void getIngrediants() {
+        reposatory.getIngrediants(this);
+    }
+
 
     @Override
     public void onSuccessResult(Meal meal) {
@@ -43,5 +48,10 @@ public class HomeFragmentPresenterImp implements NetworkCallback, HomeFragmentPr
     @Override
     public void onRequestCategorySuccessResult(ArrayList<Category> category) {
        view.showCategories(category);
+    }
+
+    @Override
+    public void onRequestIngrediantSuccessResult(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals) {
+        view.showIngrediants(meals);
     }
 }

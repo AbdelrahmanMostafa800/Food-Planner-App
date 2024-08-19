@@ -8,4 +8,6 @@ public interface HomeFragmentPresenter {
     public void getSingleMeal();
 
     void getCategories();
+
+    void getIngrediants();
 }

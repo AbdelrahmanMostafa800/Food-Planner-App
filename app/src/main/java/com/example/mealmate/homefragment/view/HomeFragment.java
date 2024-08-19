@@ -6,15 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +21,8 @@ import com.example.mealmate.homefragment.presenter.HomeFragmentPresenter;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenterImp;
 import com.example.mealmate.model.Category;
 import com.example.mealmate.model.Meal;
+import com.example.mealmate.model.countriespojo.CountriesList;
+import com.example.mealmate.model.countriespojo.Country;
 import com.example.mealmate.model.userrepo.UserReposatoryImp;
 import com.example.mealmate.model.userrepo.UserReposatoryInterface;
 import com.google.android.material.chip.Chip;
@@ -68,7 +67,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         ChipGroup chipGroup = view.findViewById(R.id.chipGroup);
         hpresenter=new HomeFragmentPresenterImp(this);
         hpresenter.getSingleMeal();
-
+        hpresenter.getCategories();
         for(int i=0;i<chipGroup.getChildCount();i++){
             Chip chip=(Chip)chipGroup.getChildAt(i);
             chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -79,9 +78,11 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
                         if (checkedId == R.id.chip_category) {
                            hpresenter.getCategories();
                         } else if (checkedId == R.id.chip_countries) {
-
+                            CountriesList countryList=CountriesList.getInstance();
+                            HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,countryList.getcountries(),null);
+                            recyclerView.setAdapter(adapter);
                         } else if (checkedId == R.id.chip_ingrediants) {
-
+                            hpresenter.getIngrediants();
                         }
 
                     }
@@ -100,7 +101,13 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
 
     @Override
     public void showCategories(ArrayList<Category> category) {
-        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(category);
+        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(category,null,null);
         recyclerView.setAdapter(adapter);
     }
+    @Override
+    public void showIngrediants(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals) {
+        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,null,meals);
+        recyclerView.setAdapter(adapter);
+    }
+
 }

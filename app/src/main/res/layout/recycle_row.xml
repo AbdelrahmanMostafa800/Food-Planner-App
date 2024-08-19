@@ -3,20 +3,21 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.cardview.widget.CardView
-        android:layout_width="231dp"
-        android:layout_height="202dp"
-        app:cardElevation="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_marginTop="15dp"
-        >
+        android:layout_marginLeft="13dp"
+        app:cardElevation="0dp">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="198dp"
-            android:layout_height="165dp"
-            app:cardCornerRadius="18dp"
+            android:layout_width="167dp"
+            android:layout_height="154dp"
+            android:layout_gravity="center_horizontal"
 
-            android:layout_gravity="center_horizontal">
+            app:cardCornerRadius="18dp">
 
             <ImageView
                 android:id="@+id/mealImageView"
@@ -54,9 +55,9 @@
             android:id="@+id/mealNameView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/srawberry"
             android:layout_gravity="bottom | center_horizontal"
             android:layout_marginBottom="7dp"
+            android:text="@string/srawberry"
             android:textSize="16dp"
             android:textStyle="bold" />
 

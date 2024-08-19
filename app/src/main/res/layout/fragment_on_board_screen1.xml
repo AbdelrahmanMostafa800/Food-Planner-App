@@ -75,14 +75,13 @@
         </LinearLayout>
     <androidx.appcompat.widget.AppCompatButton
         android:textColor="@color/white"
+        android:background="@drawable/rectangle"
         android:id="@+id/nextbtn"
         android:layout_width="146dp"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:backgroundTint="#51CB56"
-
-        android:background="@drawable/rectangle"
         android:text="@string/next" />
 
     <TextView
