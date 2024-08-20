@@ -15,4 +15,5 @@ public interface UserReposatoryInterface {
     String getUserLoginStatus();
 
     void loginUserGuest(LoginPresenter lpresenter);
+
 }

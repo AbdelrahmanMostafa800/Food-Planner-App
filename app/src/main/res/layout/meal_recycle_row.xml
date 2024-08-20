@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:id="@+id/cardView2"
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="13dp"
+    app:cardElevation="0dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="167dp"
+        android:layout_height="154dp"
+        android:layout_gravity="center_horizontal"
+
+        app:cardCornerRadius="18dp">
+
+        <ImageView
+            android:id="@+id/mealImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/foodimage" />
+        <ImageView
+            android:id="@+id/calenderView"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="start"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/circle_white_background"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/calender_green_icon" />
+
+        <ImageView
+            android:id="@+id/favoritView"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/circle_white_background"
+            android:padding="5dp"
+            android:src="@drawable/heart_green_icon" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/mealNameView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom | center_horizontal"
+        android:layout_marginBottom="7dp"
+        android:text="@string/srawberry"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+</androidx.cardview.widget.CardView>
+</FrameLayout>

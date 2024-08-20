@@ -6,6 +6,13 @@
         <item name="android:statusBarColor" >@color/gray</item>
 
     </style>
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat">
+        <item name="android:actionBarStyle">@style/MyActionBarStyle</item>
+    </style>
+
+    <style name="MyActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/white</item>
+    </style>
 
     <style name="Theme.MealMate" parent="Base.Theme.MealMate" />
 </resources>

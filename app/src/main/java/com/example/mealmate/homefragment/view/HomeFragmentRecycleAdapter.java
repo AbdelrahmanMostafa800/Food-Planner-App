@@ -1,12 +1,11 @@
 package com.example.mealmate.homefragment.view;
 
-import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,19 +17,20 @@ import com.example.mealmate.model.Category;
 import com.example.mealmate.model.countriespojo.Country;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmentRecycleAdapter.ViewHolder>{
     ArrayList<Category> category;
     ArrayList<Country> countries;
     ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> ingrediant;
     String currentSelected;
+    private OnCardClickListener cardListener;
     private int pageSize = 20; // adjust this value to control the number of items per page
     private int currentPage = 1;
-    public HomeFragmentRecycleAdapter(ArrayList<Category> category,ArrayList<Country> countries,ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> ingrediant) {
+    public HomeFragmentRecycleAdapter(ArrayList<Category> category,ArrayList<Country> countries,ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> ingrediant,HomeFragment cardListener) {
         this.category = category;
         this.countries=countries;
         this.ingrediant=ingrediant;
+        this.cardListener=cardListener;
         currentSelected="";
     }
 
@@ -39,7 +39,7 @@ public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmen
     @Override
     public HomeFragmentRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.recycle_row, parent, false);
+        View listItem= layoutInflater.inflate(R.layout.home_recycle_row, parent, false);
         return new ViewHolder(listItem);
     }
 
@@ -47,28 +47,41 @@ public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmen
     public void onBindViewHolder(@NonNull HomeFragmentRecycleAdapter.ViewHolder holder, int position) {
         switch (currentSelected){
             case "category":
-                holder.calender.setVisibility(View.VISIBLE);
-                holder.favourites.setVisibility(View.VISIBLE);
                 holder.titlee.setText(category.get(position).getStrCategory());
                 Glide.with(holder.itemView.getContext())
                         .load(category.get(position).getStrCategoryThumb())
                         .into(holder.imagee);
+                holder.rowCard.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Log.d("rowcard", "onClick: "+category.get(position).getStrCategory());
+                        cardListener.goMealDetailsPage("c",category.get(position).getStrCategory());
+                    }
+                });
                 break;
             case "countries":
-                holder.calender.setVisibility(View.INVISIBLE);
-                holder.favourites.setVisibility(View.INVISIBLE);
                 holder.titlee.setText(countries.get(position).getStrArea());
                 Glide.with(holder.itemView.getContext())
                         .load(countries.get(position).getstrContryThumb())
                         .into(holder.imagee);
+                holder.rowCard.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        cardListener.goMealDetailsPage("a",countries.get(position).getStrArea());
+                    }
+                });
                 break;
             case "ingrediant":
-                holder.calender.setVisibility(View.INVISIBLE);
-                holder.favourites.setVisibility(View.INVISIBLE);
                 holder.titlee.setText(ingrediant.get(position).getStrIngredient());
                 Glide.with(holder.itemView.getContext())
                         .load("https://www.themealdb.com/images/ingredients/"+ingrediant.get(position).getStrIngredient()+".png")
                         .into(holder.imagee);
+                holder.rowCard.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        cardListener.goMealDetailsPage("i",ingrediant.get(position).getStrIngredient());
+                    }
+                });
                 break;
         }
 
@@ -93,15 +106,13 @@ public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmen
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imagee;
         public TextView titlee;
-        public ImageView calender;
-        public ImageView favourites;
+        public FrameLayout rowCard;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.titlee = (TextView) itemView.findViewById(R.id.mealNameView);
             this.imagee = (ImageView) itemView.findViewById(R.id.mealImageView);
-            this.calender = (ImageView) itemView.findViewById(R.id.calenderView);
-            this.favourites = (ImageView) itemView.findViewById(R.id.favoritView);
+            this.rowCard = (FrameLayout) itemView.findViewById(R.id.cardView2);
         }
     }
 }

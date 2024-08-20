@@ -1,5 +1,6 @@
 package com.example.mealmate.homefragment.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,10 +20,10 @@ import com.bumptech.glide.Glide;
 import com.example.mealmate.R;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenter;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenterImp;
+import com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivity;
 import com.example.mealmate.model.Category;
 import com.example.mealmate.model.Meal;
 import com.example.mealmate.model.countriespojo.CountriesList;
-import com.example.mealmate.model.countriespojo.Country;
 import com.example.mealmate.model.userrepo.UserReposatoryImp;
 import com.example.mealmate.model.userrepo.UserReposatoryInterface;
 import com.google.android.material.chip.Chip;
@@ -30,7 +31,7 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements HomeFragmentView{
+public class HomeFragment extends Fragment implements HomeFragmentView,OnCardClickListener{
 
     HomeFragmentPresenter hpresenter;
     ImageView mealImageView;
@@ -79,7 +80,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
                            hpresenter.getCategories();
                         } else if (checkedId == R.id.chip_countries) {
                             CountriesList countryList=CountriesList.getInstance();
-                            HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,countryList.getcountries(),null);
+                            HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,countryList.getcountries(),null,HomeFragment.this);
                             recyclerView.setAdapter(adapter);
                         } else if (checkedId == R.id.chip_ingrediants) {
                             hpresenter.getIngrediants();
@@ -101,13 +102,21 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
 
     @Override
     public void showCategories(ArrayList<Category> category) {
-        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(category,null,null);
+        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(category,null,null,this);
         recyclerView.setAdapter(adapter);
     }
     @Override
     public void showIngrediants(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals) {
-        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,null,meals);
+        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,null,meals,this);
         recyclerView.setAdapter(adapter);
     }
 
+
+    @Override
+    public void goMealDetailsPage(String query,String StrCategory) {
+        Intent intent = new Intent(getActivity(), ShowFilterChipActivity.class);
+        intent.putExtra("StrCategory", StrCategory);
+        intent.putExtra("query", query);
+        startActivity(intent);
+    }
 }

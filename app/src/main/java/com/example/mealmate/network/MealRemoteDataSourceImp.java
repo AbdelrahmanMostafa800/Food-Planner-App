@@ -3,8 +3,8 @@ package com.example.mealmate.network;
 import android.util.Log;
 
 import com.example.mealmate.model.CategoryList;
-import com.example.mealmate.model.countriespojo.CountriesList;
 import com.example.mealmate.model.MealList;
+import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 
 import retrofit2.Call;
@@ -31,7 +31,7 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
         }
         return client;
     }
-    public void makeNetworkCallSingleMeal(NetworkCallback networkCallback){
+    public void makeNetworkCallSingleMeal(HomeNetworkCallback networkCallback){
         Call<MealList> call =  apiInterface.getSingleMeal();
         call.enqueue(new Callback<MealList>() {
             @Override
@@ -50,7 +50,7 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
     }
 
     @Override
-    public void makeNetworkCallCategory(NetworkCallback networkCallback) {
+    public void makeNetworkCallCategory(HomeNetworkCallback networkCallback) {
         Call<CategoryList> call =  apiInterface.getAllCategories();
         call.enqueue(new Callback<CategoryList>() {
             @Override
@@ -70,7 +70,7 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
     }
 
     @Override
-    public void makeNetworkCallIngrediants(NetworkCallback networkCallback) {
+    public void makeNetworkCallIngrediants(HomeNetworkCallback networkCallback) {
         Call<IngrediantList> call =  apiInterface.getAllIngrediant();
         call.enqueue(new Callback<IngrediantList>() {
             @Override
@@ -80,6 +80,38 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
 
             @Override
             public void onFailure(Call<IngrediantList> call, Throwable throwable) {
+                Log.i("TAG","onFailure: "+throwable.getMessage());
+                networkCallback.onFailureResult(throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void getFilterByCategory(ShowFilterChipNetworkCallBack networkCallback,String query, String strCategory) {
+        Log.d("query", query);
+        Call<CategoryByFilter> call=null;
+        switch (query){
+            case "c":
+                call=  apiInterface.getFilterByCategory(strCategory);
+                break;
+            case "i":
+                call=  apiInterface.getFilterByIngredient(strCategory);
+                break;
+            case "a":
+                call=  apiInterface.getFilterByArea(strCategory);
+                break;
+        }
+
+        call.enqueue(new Callback<CategoryByFilter>() {
+            @Override
+            public void onResponse(Call<CategoryByFilter> call, Response<CategoryByFilter> response) {
+                Log.d("getFilterByCategory", "onResponse: "+response.body().getMeals().get(0).getStrMeal());
+                networkCallback.onRequestgetFilterByCategory(response.body().getMeals());
+            }
+
+            @Override
+            public void onFailure(Call<CategoryByFilter> call, Throwable throwable) {
                 Log.i("TAG","onFailure: "+throwable.getMessage());
                 networkCallback.onFailureResult(throwable.getMessage());
                 throwable.printStackTrace();

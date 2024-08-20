@@ -1,12 +1,11 @@
 package com.example.mealmate.model.mealdatarepo;
 
-import com.example.mealmate.homefragment.presenter.HomeFragmentPresenterImp;
-import com.example.mealmate.network.NetworkCallback;
+import com.example.mealmate.network.HomeNetworkCallback;
 
 public interface DataReposatoryInterface {
-    void getSingleMeal(NetworkCallback networkCallback);
+    void getSingleMeal(HomeNetworkCallback networkCallback);
 
-    void getCategories(NetworkCallback networkCallback);
+    void getCategories(HomeNetworkCallback networkCallback);
 
-    void getIngrediants(NetworkCallback networkCallback);
+    void getIngrediants(HomeNetworkCallback networkCallback);
 }

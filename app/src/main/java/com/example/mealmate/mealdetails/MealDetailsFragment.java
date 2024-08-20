@@ -1,5 +1,6 @@
 package com.example.mealmate.mealdetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mealmate.R;
+import com.example.mealmate.homefragment.view.HomeFragmentRecycleAdapter;
+import com.example.mealmate.model.countriespojo.CountriesList;
 
 public class MealDetailsFragment extends Fragment {
 
     RecyclerView recyclerView;
+    String mealID;
     public MealDetailsFragment() {
         // Required empty public constructor
     }
@@ -37,7 +41,11 @@ public class MealDetailsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.recycleView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL));
+        recyclerView = view.findViewById(R.id.ingrediantRecycleView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        CountriesList countryList=CountriesList.getInstance();
+        IngeridiantRecycleAdapter adapter = new IngeridiantRecycleAdapter(countryList.getcountries());
+        recyclerView.setAdapter(adapter);
+
     }
 }
