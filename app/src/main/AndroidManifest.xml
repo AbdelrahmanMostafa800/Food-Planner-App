@@ -13,9 +13,11 @@
         android:theme="@style/Theme.MealMate"
         tools:targetApi="31">
         <activity
+            android:name=".mealdetails.view.MealDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".homefragmentselectedchip.view.ShowFilterChipActivity"
-            android:exported="false"
-           />
+            android:exported="false" />
         <activity
             android:name=".HomeActivity"
             android:exported="false" />

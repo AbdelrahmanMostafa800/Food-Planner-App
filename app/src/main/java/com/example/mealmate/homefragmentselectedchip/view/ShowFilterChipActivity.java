@@ -7,19 +7,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mealmate.R;
-import com.example.mealmate.homefragment.view.HomeFragmentRecycleAdapter;
 import com.example.mealmate.homefragmentselectedchip.presenter.ShowFilterChippresenter;
 import com.example.mealmate.homefragmentselectedchip.presenter.ShowFilterChippresenterInterface;
+import com.example.mealmate.mealdetails.view.MealDetailsActivity;
 import com.example.mealmate.model.filterbycategorypojo.Meal;
 
 import java.util.ArrayList;
 
-public class ShowFilterChipActivity extends AppCompatActivity implements com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivityView {
+public class ShowFilterChipActivity extends AppCompatActivity implements com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivityView,onMealCArdRecycleClicked {
 
     ShowFilterChippresenterInterface presenter;
     RecyclerView recycleView;
@@ -55,7 +54,14 @@ public class ShowFilterChipActivity extends AppCompatActivity implements com.exa
 
     @Override
     public void showFilterByCategory(ArrayList<Meal> meals) {
-        ShowFilterChippresenterAdapter adapter = new ShowFilterChippresenterAdapter(meals);
+        ShowFilterChippresenterAdapter adapter = new ShowFilterChippresenterAdapter(meals,this);
         recycleView.setAdapter(adapter);
+    }
+
+    @Override
+    public void goMealDetailsPage(String idMeal) {
+        Intent intent = new Intent(this, MealDetailsActivity.class);
+        intent.putExtra("idMeal", idMeal);
+        startActivity(intent);
     }
 }

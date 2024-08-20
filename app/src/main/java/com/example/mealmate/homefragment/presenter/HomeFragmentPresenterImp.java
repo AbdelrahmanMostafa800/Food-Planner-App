@@ -18,6 +18,7 @@ public class HomeFragmentPresenterImp implements HomeNetworkCallback, HomeFragme
         this.view = view;
         this.reposatory= DataReposatoryImp.getInstance();
     }
+    @Override
     public void getSingleMeal(){
         reposatory.getSingleMeal(this);
     }
@@ -33,9 +34,11 @@ public class HomeFragmentPresenterImp implements HomeNetworkCallback, HomeFragme
     }
 
 
+
+
     @Override
-    public void onSuccessResult(Meal meal) {
-       view.showMeal(meal);
+    public void onSuccessResult(ArrayList meal) {
+        view.showMeal((Meal) meal.get(0));
     }
 
     @Override

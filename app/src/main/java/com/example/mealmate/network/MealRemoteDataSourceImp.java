@@ -2,6 +2,7 @@ package com.example.mealmate.network;
 
 import android.util.Log;
 
+import com.example.mealmate.homefragmentselectedchip.presenter.ShowFilterChippresenter;
 import com.example.mealmate.model.CategoryList;
 import com.example.mealmate.model.MealList;
 import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
@@ -37,7 +38,7 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
             @Override
             public void onResponse(Call<MealList> call, Response<MealList> response) {
                 Log.i(TAG,"onResponse: "+response.raw() +response.body().getMeals());
-                networkCallback.onSuccessResult(response.body().getMeals().get(0));
+                networkCallback.onSuccessResult(response.body().getMeals());
             }
 
             @Override
@@ -89,7 +90,6 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
 
     @Override
     public void getFilterByCategory(ShowFilterChipNetworkCallBack networkCallback,String query, String strCategory) {
-        Log.d("query", query);
         Call<CategoryByFilter> call=null;
         switch (query){
             case "c":
@@ -113,6 +113,25 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
             @Override
             public void onFailure(Call<CategoryByFilter> call, Throwable throwable) {
                 Log.i("TAG","onFailure: "+throwable.getMessage());
+                networkCallback.onFailureResult(throwable.getMessage());
+                throwable.printStackTrace();
+            }
+        });
+    }
+
+    @Override
+    public void getMealDetails(MealDetailsNetworkCallBack networkCallback, String idMeal) {
+        Call<MealList> call =  apiInterface.getMealById(idMeal);
+        call.enqueue(new Callback<MealList>() {
+            @Override
+            public void onResponse(Call<MealList> call, Response<MealList> response) {
+                Log.i(TAG,"onResponse: "+response.raw() +response.body().getMeals());
+                networkCallback.onSuccessResultOfgetMealDetails(response.body().getMeals().get(0));
+            }
+
+            @Override
+            public void onFailure(Call<MealList> call, Throwable throwable) {
+                Log.i(TAG,"onFailure: "+throwable.getMessage());
                 networkCallback.onFailureResult(throwable.getMessage());
                 throwable.printStackTrace();
             }

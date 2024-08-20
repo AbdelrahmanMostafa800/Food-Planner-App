@@ -55,7 +55,7 @@ public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmen
                     @Override
                     public void onClick(View view) {
                         Log.d("rowcard", "onClick: "+category.get(position).getStrCategory());
-                        cardListener.goMealDetailsPage("c",category.get(position).getStrCategory());
+                        cardListener.goShowFilterChipPage("c",category.get(position).getStrCategory());
                     }
                 });
                 break;
@@ -67,7 +67,7 @@ public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmen
                 holder.rowCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        cardListener.goMealDetailsPage("a",countries.get(position).getStrArea());
+                        cardListener.goShowFilterChipPage("a",countries.get(position).getStrArea());
                     }
                 });
                 break;
@@ -79,7 +79,7 @@ public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmen
                 holder.rowCard.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        cardListener.goMealDetailsPage("i",ingrediant.get(position).getStrIngredient());
+                        cardListener.goShowFilterChipPage("i",ingrediant.get(position).getStrIngredient());
                     }
                 });
                 break;

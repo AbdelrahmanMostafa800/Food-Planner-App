@@ -1,4 +1,4 @@
-package com.example.mealmate.mealdetails;
+package com.example.mealmate.mealdetails.view;
 
 import android.view.LayoutInflater;
 import android.view.View;

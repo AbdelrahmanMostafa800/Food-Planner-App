@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,9 +19,11 @@ import java.util.ArrayList;
 
 public class ShowFilterChippresenterAdapter  extends RecyclerView.Adapter<ShowFilterChippresenterAdapter.ViewHolder> {
     ArrayList<Meal> meals;
-    public ShowFilterChippresenterAdapter(ArrayList<Meal> meals){
+    onMealCArdRecycleClicked onMealCArdRecycleClicked;
+
+    public ShowFilterChippresenterAdapter(ArrayList<Meal> meals,ShowFilterChipActivity onMealCArdRecycleClicked){
         this.meals=meals;
-        Log.d("adapterconstructor", "ShowFilterChippresenterAdapter: "+meals.size());
+        this.onMealCArdRecycleClicked=onMealCArdRecycleClicked;
 
     }
     @NonNull
@@ -33,16 +36,20 @@ public class ShowFilterChippresenterAdapter  extends RecyclerView.Adapter<ShowFi
 
     @Override
     public void onBindViewHolder(@NonNull ShowFilterChippresenterAdapter.ViewHolder holder, int position) {
-        Log.d("position", "ShowFilterChippresenterAdapter: "+position);
         holder.mealName.setText(meals.get(position).getStrMeal());
         Glide.with(holder.mealImage.getContext())
                 .load(meals.get(position).getStrMealThumb())
                 .into(holder.mealImage);
+        holder.rowCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onMealCArdRecycleClicked.goMealDetailsPage(meals.get(position).getIdMeal().toString());
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        Log.d("getItemCount", meals.size()+"");
         return meals.size();
     }
 
@@ -51,6 +58,7 @@ public class ShowFilterChippresenterAdapter  extends RecyclerView.Adapter<ShowFi
         public ImageView mealImage;
         public ImageView favorit;
         public ImageView calender;
+        public FrameLayout rowCard;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -58,6 +66,7 @@ public class ShowFilterChippresenterAdapter  extends RecyclerView.Adapter<ShowFi
             this.mealImage = (ImageView) itemView.findViewById(R.id.mealImageView);
             this.favorit = (ImageView) itemView.findViewById(R.id.favoritView);
             this.calender = (ImageView) itemView.findViewById(R.id.calenderView);
+            this.rowCard=(FrameLayout)itemView.findViewById(R.id.meal_recycle_row);
         }
 }
 }

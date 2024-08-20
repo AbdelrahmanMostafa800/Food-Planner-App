@@ -24,14 +24,16 @@ public class ShowFilterChippresenter implements ShowFilterChipNetworkCallBack, c
         reposatory.getFilterByCategory(this,query,strCategory);
     }
 
+
     @Override
     public void onRequestgetFilterByCategory(ArrayList<Meal> meals) {
-        Log.d("onRequestgetFilterByCategory", "onRequestgetFilterByCategory: "+meals.get(0).getStrMeal());
        view.showFilterByCategory(meals);
     }
 
     @Override
     public void onFailureResult(String errorMsg) {
-        Log.d("Filter", "onFailureResult: "+errorMsg);
+        Log.d("onFailureResult", "onFailureResult: "+errorMsg);
     }
+
+
 }

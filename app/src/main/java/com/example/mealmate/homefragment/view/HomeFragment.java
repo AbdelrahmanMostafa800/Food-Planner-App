@@ -113,7 +113,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
 
 
     @Override
-    public void goMealDetailsPage(String query,String StrCategory) {
+    public void goShowFilterChipPage(String query, String StrCategory) {
         Intent intent = new Intent(getActivity(), ShowFilterChipActivity.class);
         intent.putExtra("StrCategory", StrCategory);
         intent.putExtra("query", query);

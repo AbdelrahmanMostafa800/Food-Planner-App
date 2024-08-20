@@ -5,8 +5,8 @@ import com.example.mealmate.model.Meal;
 
 import java.util.ArrayList;
 
-public interface HomeNetworkCallback {
-    void onSuccessResult(Meal meal);
+public interface HomeNetworkCallback{
+    <T>void onSuccessResult(ArrayList<T> meal);
 
 
 
