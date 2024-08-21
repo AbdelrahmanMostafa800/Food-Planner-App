@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".SearchFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/searchfragmentarrow_back"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_gravity="start"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="52dp"
+            android:padding="10dp"
+            android:src="@drawable/arrow_back" />
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="47dp"
+            android:queryHint="@string/searchhere" />
+    </FrameLayout>
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:paddingHorizontal="20dp"
+        android:orientation="horizontal"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_category"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="105dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/chip_color_selection"
+            android:elevation="1dp"
+            android:textColor="@color/chip_text_color_selection"
+            android:layout_marginRight="8dp"
+            android:text="@string/categories" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_countries"
+            android:layout_width="105dp"
+            android:textAlignment="center"
+            android:layout_marginRight="8dp"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/chip_color_selection"
+
+            android:elevation="1dp"
+            android:text="@string/countries"
+            android:textColor="@color/chip_text_color_selection"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_ingrediants"
+            android:layout_width="105dp"
+            android:textAlignment="center"
+            android:textColor="@color/chip_text_color_selection"
+            android:backgroundTint="@color/chip_color_selection"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:text="@string/ingrediants" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_marginTop="25dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/gray_border"
+        android:elevation="1dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchresult"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="25dp"
+        />
 
-</FrameLayout>
+</LinearLayout>

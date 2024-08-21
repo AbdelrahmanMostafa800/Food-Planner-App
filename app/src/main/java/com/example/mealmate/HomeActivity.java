@@ -22,16 +22,10 @@ import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity  {
 
-//    BottomNavigationView bottomNavigationView;
-//    NavigationView navview;
-//    DrawerLayout drawerLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-//        drawerLayout=findViewById(R.id.main_activity);
-//        bottomNavigationView= findViewById(R.id.bottom_navigation);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 
