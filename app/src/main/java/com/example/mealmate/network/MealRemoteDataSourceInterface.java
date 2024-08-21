@@ -12,4 +12,6 @@ public interface MealRemoteDataSourceInterface {
     void getFilterByCategory(ShowFilterChipNetworkCallBack networkCallback,String query, String strCategory);
 
     void getMealDetails(MealDetailsNetworkCallBack MealDetailspresenter, String idMeal);
+
+    void makeNetworkCallGetMealsByFirstLetter(SearchFragmentNetworkCallBack networkCallback, String chatMealFilter);
 }

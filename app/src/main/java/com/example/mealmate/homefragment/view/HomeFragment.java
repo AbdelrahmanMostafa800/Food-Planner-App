@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
     TextView mealName;
     RecyclerView recyclerView;
     CardView mealdesc;
+    ChipGroup chipGroup;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -70,7 +71,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
          mealImageView=view.findViewById(R.id.mealImageView);
         nameText.setText(getString(R.string.hellow)+reposatory.getUserLocalData()[1]+"!");
-        ChipGroup chipGroup = view.findViewById(R.id.chipGroup);
+        chipGroup = view.findViewById(R.id.chipGroup);
         hpresenter=new HomeFragmentPresenterImp(this);
         hpresenter.getSingleMeal();
         hpresenter.getCategories();

@@ -28,4 +28,6 @@ public interface ApiInterface {
     Call<CategoryByFilter> getFilterByCategory(@Query("c") String category);
     @GET("api/json/v1/1/lookup.php")
     Call<MealList> getMealById(@Query("i") String idMeal);
+    @GET("api/json/v1/1/search.php")
+    Call<MealList> getMealsByFirstLetter(@Query("f") String chatMealFilter);
 }

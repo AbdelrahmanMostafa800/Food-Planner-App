@@ -4,6 +4,7 @@ import com.example.mealmate.mealdetails.presenter.MealDetailsPresenterImp;
 import com.example.mealmate.network.MealRemoteDataSourceImp;
 import com.example.mealmate.network.MealRemoteDataSourceInterface;
 import com.example.mealmate.network.HomeNetworkCallback;
+import com.example.mealmate.network.SearchFragmentNetworkCallBack;
 
 public class DataReposatoryImp implements DataReposatoryInterface{
     MealRemoteDataSourceInterface mealdatasource;
@@ -34,6 +35,11 @@ public class DataReposatoryImp implements DataReposatoryInterface{
     @Override
     public void getMealDetails(MealDetailsPresenterImp mealDetailsPresenterImp, String idMeal) {
         mealdatasource.getMealDetails(mealDetailsPresenterImp,idMeal);
+    }
+
+    @Override
+    public void getMealsByFirstLetter(SearchFragmentNetworkCallBack networkCallback, String chatMealFilter) {
+        mealdatasource.makeNetworkCallGetMealsByFirstLetter(networkCallback,chatMealFilter);
     }
 
 }
