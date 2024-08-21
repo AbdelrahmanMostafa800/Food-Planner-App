@@ -1,7 +1,7 @@
 package com.example.mealmate.homefragment.view;
 
-import com.example.mealmate.model.Category;
-import com.example.mealmate.model.Meal;
+import com.example.mealmate.model.category.Category;
+import com.example.mealmate.model.meal.Meal;
 
 import java.util.ArrayList;
 

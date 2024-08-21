@@ -14,11 +14,15 @@ import com.example.mealmate.R;
 import com.example.mealmate.model.countriespojo.Country;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class IngeridiantRecycleAdapter extends RecyclerView.Adapter<IngeridiantRecycleAdapter.ViewHolder>{
-    ArrayList<Country> countries;
-    public IngeridiantRecycleAdapter(ArrayList<Country> countries) {
-        this.countries=countries;
+    List<String> strIngredients;
+    List<String> strMeasures;
+
+    public IngeridiantRecycleAdapter(List<String> strIngredients, List<String> strMeasures) {
+        this.strIngredients=strIngredients;
+        this.strMeasures=strMeasures;
     }
 
 
@@ -26,23 +30,23 @@ public class IngeridiantRecycleAdapter extends RecyclerView.Adapter<IngeridiantR
     @Override
     public IngeridiantRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.home_recycle_row, parent, false);
+        View listItem= layoutInflater.inflate(R.layout.ingrediant_card, parent, false);
         return new IngeridiantRecycleAdapter.ViewHolder(listItem);
     }
 
     @Override
     public void onBindViewHolder(@NonNull IngeridiantRecycleAdapter.ViewHolder holder, int position) {
-        holder.details.setText("dasdsdasdasdsadasd");
-        holder.grames.setText("50 g");
+        holder.details.setText(strIngredients.get(position));
+        holder.grames.setText(strMeasures.get(position));
         Glide.with(holder.itemView.getContext())
-                .load(countries.get(position).getstrContryThumb())
+                .load("https://www.themealdb.com/images/ingredients/"+strIngredients.get(position)+".png")
                 .into(holder.imagee);
 
     }
 
     @Override
     public int getItemCount() {
-        return countries.size();
+        return strIngredients.size();
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imagee;

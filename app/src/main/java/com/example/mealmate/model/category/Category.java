@@ -1,4 +1,4 @@
-package com.example.mealmate.model;
+package com.example.mealmate.model.category;
 
 public class Category{
     public String idCategory;

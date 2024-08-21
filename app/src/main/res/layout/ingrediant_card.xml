@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="150dp"
+    android:layout_height="215dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="4dp"
+    android:layout_marginVertical="15dp"
     android:background="@drawable/gray_border"
     android:orientation="vertical">
 
     <ImageView
         android:id="@+id/mealImg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="119dp"
+        android:layout_height="101dp"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="4dp"
         android:padding="20dp"
 
@@ -17,19 +21,21 @@
 
     <TextView
         android:id="@+id/mealSDetails"
-        android:layout_width="wrap_content"
+        android:layout_width="94dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="4dp"
-        android:textColor="@color/dailygray"
-        android:text="Strawberry" />
+        android:gravity="center_horizontal"
+        android:text="Strawberry\nsdas\n"
+        android:textAlignment="center"
+        android:textColor="@color/dailygray" />
 
     <TextView
         android:id="@+id/mealGrame"
         android:layout_width="wrap_content"
         android:layout_margin="4dp"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:textSize="15sp"
-        android:layout_gravity="center"
-        android:text="50 g" />
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="50 g\n" />
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.mealmate.model;
+package com.example.mealmate.model.category;
 
 import java.util.ArrayList;
 

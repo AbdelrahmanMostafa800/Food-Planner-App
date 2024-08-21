@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,8 +22,9 @@ import com.example.mealmate.R;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenter;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenterImp;
 import com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivity;
-import com.example.mealmate.model.Category;
-import com.example.mealmate.model.Meal;
+import com.example.mealmate.mealdetails.view.MealDetailsActivity;
+import com.example.mealmate.model.category.Category;
+import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.countriespojo.CountriesList;
 import com.example.mealmate.model.userrepo.UserReposatoryImp;
 import com.example.mealmate.model.userrepo.UserReposatoryInterface;
@@ -37,6 +39,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
     ImageView mealImageView;
     TextView mealName;
     RecyclerView recyclerView;
+    CardView mealdesc;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -61,6 +64,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
         UserReposatoryInterface reposatory= UserReposatoryImp.getInstance(getContext());
         TextView nameText=view.findViewById(R.id.nameText);
          mealName=view.findViewById(R.id.mealNameView);
+        mealdesc=view.findViewById(R.id.mealdesc);
          recyclerView = view.findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
          mealImageView=view.findViewById(R.id.mealImageView);
@@ -98,6 +102,14 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
         Glide.with(mealImageView.getContext())
                 .load(meal.getStrMealThumb())
                 .into(mealImageView);
+        mealdesc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
+                intent.putExtra("idMeal", meal.getIdMeal());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

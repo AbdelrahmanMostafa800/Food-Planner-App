@@ -1,7 +1,5 @@
 package com.example.mealmate.model.countriespojo;
 
-import com.example.mealmate.model.Meal;
-
 import java.util.ArrayList;
 
 public class CountriesList {

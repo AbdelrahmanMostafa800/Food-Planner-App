@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.mealmate.R;
-import com.example.mealmate.model.Category;
+import com.example.mealmate.model.category.Category;
 import com.example.mealmate.model.countriespojo.Country;
 
 import java.util.ArrayList;

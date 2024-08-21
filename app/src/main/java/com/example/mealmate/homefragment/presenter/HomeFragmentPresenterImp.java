@@ -2,8 +2,8 @@ package com.example.mealmate.homefragment.presenter;
 
 import android.util.Log;
 
-import com.example.mealmate.model.Category;
-import com.example.mealmate.model.Meal;
+import com.example.mealmate.model.category.Category;
+import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryInterface;
 import com.example.mealmate.homefragment.view.HomeFragmentView;

@@ -46,6 +46,7 @@
         android:textStyle="bold" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/mealdesc"
         android:layout_width="253dp"
         android:layout_height="209dp"
         android:layout_marginLeft="30dp"

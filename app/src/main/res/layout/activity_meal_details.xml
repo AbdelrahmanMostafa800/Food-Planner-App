@@ -16,7 +16,7 @@
             app:cardElevation="0dp">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/mealImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -70,17 +70,16 @@
 
             <TextView
                 android:id="@+id/mealNameView"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="-20dp"
+                android:layout_marginLeft="70dp"
                 android:text="@string/strawbery"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/textView7"
+      <TextView
+            android:id="@+id/textView77"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dailygray"
@@ -88,7 +87,26 @@
             android:textSize="18sp"
             android:layout_marginTop="22dp"
             android:layout_marginLeft="15dp"
-            android:text="@string/description" />
+            android:text="@string/ingrediant" />
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ingrediantRecycleView"
+            />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/istructions"
+            android:textColor="@color/dailygray"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/describtiosView"
@@ -98,23 +116,15 @@
             android:layout_margin="15dp"
             android:textSize="15sp"
             android:lineSpacingExtra="6dp"
-            android:text="Strawberry Pancakes are a morning masterpiece, marrying the timeless appeal of golden, fluffy pancakes with the vibrant sweetness of ripe strawberries. Each bite delivers a harmonious blend of comforting indulgence and wholesome nourishment." />
-        <TextView
-            android:id="@+id/textView77"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/dailygray"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="15dp"
-            android:text="@string/ingrediant" />
+            tools:text="Strawberry Pancakes are a morning masterpiece, marrying the timeless appeal of golden, fluffy pancakes with the vibrant sweetness of ripe strawberries. Each bite delivers a harmonious blend of comforting indulgence and wholesome nourishment." />
+        <WebView
+            android:id="@+id/mealVideoView"
+            android:layout_marginVertical="20dp"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="15dp"
+            android:layout_height="wrap_content" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ingrediantRecycleView"
-            />
+
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

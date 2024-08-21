@@ -2,9 +2,8 @@ package com.example.mealmate.network;
 
 import android.util.Log;
 
-import com.example.mealmate.homefragmentselectedchip.presenter.ShowFilterChippresenter;
-import com.example.mealmate.model.CategoryList;
-import com.example.mealmate.model.MealList;
+import com.example.mealmate.model.category.CategoryList;
+import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 

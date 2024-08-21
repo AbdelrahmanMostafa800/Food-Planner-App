@@ -1,7 +1,6 @@
 package com.example.mealmate.network;
 
-import com.example.mealmate.model.Category;
-import com.example.mealmate.model.Meal;
+import com.example.mealmate.model.category.Category;
 
 import java.util.ArrayList;
 
