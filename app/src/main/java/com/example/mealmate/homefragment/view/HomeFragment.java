@@ -62,6 +62,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         UserReposatoryInterface reposatory= UserReposatoryImp.getInstance(getContext());
+
         TextView nameText=view.findViewById(R.id.nameText);
          mealName=view.findViewById(R.id.mealNameView);
         mealdesc=view.findViewById(R.id.mealdesc);
