@@ -103,13 +103,11 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
         Glide.with(mealImageView.getContext())
                 .load(meal.getStrMealThumb())
                 .into(mealImageView);
-        mealdesc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        mealdesc.setOnClickListener(view-> {
                 Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
                 intent.putExtra("idMeal", meal.getIdMeal());
                 startActivity(intent);
-            }
+
         });
     }
 

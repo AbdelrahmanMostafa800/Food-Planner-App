@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/home"
+        android:id="@+id/HomeFragment"
         android:icon="@drawable/nav_home_item_icon_selector"
         android:title="@string/home" />
     <item
@@ -11,7 +11,7 @@
         android:title="Meal Plan"
         android:icon="@drawable/nav_calender_item_icon_selector"/>
     <item
-        android:id="@+id/searchView"
+        android:id="@+id/searchFragment"
         android:icon="@drawable/search_icon"
         android:title="Search"
         app:actionViewClass="android.widget.SearchView" />

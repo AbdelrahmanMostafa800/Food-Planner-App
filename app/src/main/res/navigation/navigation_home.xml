@@ -8,11 +8,7 @@
         android:id="@+id/HomeFragment"
         android:name="com.example.mealmate.homefragment.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_HomeFragment_to_searchFragment"
-            app:destination="@id/searchFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.mealmate.SearchFragment"
