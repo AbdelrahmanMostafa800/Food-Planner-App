@@ -1,10 +1,13 @@
 package com.example.mealmate.model.mealdatarepo;
 
 import com.example.mealmate.mealdetails.presenter.MealDetailsPresenterImp;
+import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.network.MealRemoteDataSourceImp;
 import com.example.mealmate.network.MealRemoteDataSourceInterface;
 import com.example.mealmate.network.HomeNetworkCallback;
 import com.example.mealmate.network.SearchFragmentNetworkCallBack;
+
+import io.reactivex.rxjava3.core.Observable;
 
 public class DataReposatoryImp implements DataReposatoryInterface{
     MealRemoteDataSourceInterface mealdatasource;
@@ -18,8 +21,8 @@ public class DataReposatoryImp implements DataReposatoryInterface{
         }
         return instance;
     }
-    public void getSingleMeal(HomeNetworkCallback networkCallback){
-        mealdatasource.makeNetworkCallSingleMeal(networkCallback);
+    public Observable<MealList> getSingleMeal(){
+       return mealdatasource.makeNetworkCallSingleMeal();
     }
 
     @Override

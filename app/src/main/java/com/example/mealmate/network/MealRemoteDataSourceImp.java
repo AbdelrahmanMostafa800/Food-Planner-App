@@ -7,6 +7,8 @@ import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,6 +24,7 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
         Retrofit retrofit=new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build();
         apiInterface=retrofit.create(ApiInterface.class);
     }
@@ -31,22 +34,22 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
         }
         return client;
     }
-    public void makeNetworkCallSingleMeal(HomeNetworkCallback networkCallback){
-        Call<MealList> call =  apiInterface.getSingleMeal();
-        call.enqueue(new Callback<MealList>() {
-            @Override
-            public void onResponse(Call<MealList> call, Response<MealList> response) {
-                Log.i(TAG,"onResponse: "+response.raw() +response.body().getMeals());
-                networkCallback.onSuccessResult(response.body().getMeals());
-            }
-
-            @Override
-            public void onFailure(Call<MealList> call, Throwable throwable) {
-                Log.i(TAG,"onFailure: "+throwable.getMessage());
-                networkCallback.onFailureResult(throwable.getMessage());
-                throwable.printStackTrace();
-            }
-        });
+    public Observable<MealList> makeNetworkCallSingleMeal(){
+       return apiInterface.getSingleMeal();
+//        call.enqueue(new Callback<MealList>() {
+//            @Override
+//            public void onResponse(Call<MealList> call, Response<MealList> response) {
+//                Log.i(TAG,"onResponse: "+response.raw() +response.body().getMeals());
+//                networkCallback.onSuccessResult(response.body().getMeals());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MealList> call, Throwable throwable) {
+//                Log.i(TAG,"onFailure: "+throwable.getMessage());
+//                networkCallback.onFailureResult(throwable.getMessage());
+//                throwable.printStackTrace();
+//            }
+//        });
     }
 
     @Override

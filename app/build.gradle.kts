@@ -58,7 +58,7 @@ dependencies {
 
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.11.0")
-    implementation ("com.squareup.retrofit2:adapter-rxjava2:2.7.1")
+    implementation ("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)

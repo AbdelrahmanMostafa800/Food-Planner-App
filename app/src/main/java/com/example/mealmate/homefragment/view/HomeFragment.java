@@ -74,8 +74,11 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         nameText.setText(getString(R.string.hellow)+reposatory.getUserLocalData()[1]+"!");
         chipGroup = view.findViewById(R.id.chipGroup);
         hpresenter=new HomeFragmentPresenterImp(this);
+        //api
         hpresenter.getSingleMeal();
+        //api
         hpresenter.getCategories();
+
          chipGroupFilterOnClickListener = new ChipGroupFilterOnClickListener(getContext());
         for(int i=0;i<chipGroup.getChildCount();i++){
             Chip chip=(Chip)chipGroup.getChildAt(i);
@@ -85,12 +88,14 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
                     if(b){
                         int checkedId = chipGroup.getCheckedChipId();
                         if (checkedId == R.id.chip_category) {
+                            //api
                            hpresenter.getCategories();
                         } else if (checkedId == R.id.chip_countries) {
                             CountriesList countryList=CountriesList.getInstance();
                             HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,countryList.getcountries(),null,chipGroupFilterOnClickListener);
                             recyclerView.setAdapter(adapter);
                         } else if (checkedId == R.id.chip_ingrediants) {
+                            //api
                             hpresenter.getIngrediants();
                         }
 

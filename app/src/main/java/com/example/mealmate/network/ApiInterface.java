@@ -6,13 +6,14 @@ import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
     @GET("api/json/v1/1/random.php")
-    Call<MealList> getSingleMeal();
+    Observable<MealList> getSingleMeal();
 
     @GET("api/json/v1/1/categories.php")
     Call<CategoryList> getAllCategories();
