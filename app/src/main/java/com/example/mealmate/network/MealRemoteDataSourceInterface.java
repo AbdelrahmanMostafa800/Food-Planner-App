@@ -19,5 +19,5 @@ public interface MealRemoteDataSourceInterface {
 
     Observable<MealList> getMealDetails(String idMeal);
 
-    void makeNetworkCallGetMealsByFirstLetter(SearchFragmentNetworkCallBack networkCallback, String chatMealFilter);
+    Observable<MealList>  makeNetworkCallGetMealsByFirstLetter(String chatMealFilter);
 }

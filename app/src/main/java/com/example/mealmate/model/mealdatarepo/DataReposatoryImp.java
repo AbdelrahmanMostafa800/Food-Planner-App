@@ -43,8 +43,8 @@ public class DataReposatoryImp implements DataReposatoryInterface{
     }
 
     @Override
-    public void getMealsByFirstLetter(SearchFragmentNetworkCallBack networkCallback, String chatMealFilter) {
-        mealdatasource.makeNetworkCallGetMealsByFirstLetter(networkCallback,chatMealFilter);
+    public Observable<MealList>  getMealsByFirstLetter(String chatMealFilter) {
+       return mealdatasource.makeNetworkCallGetMealsByFirstLetter(chatMealFilter);
     }
 
 }

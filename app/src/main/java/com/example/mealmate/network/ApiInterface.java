@@ -29,5 +29,5 @@ public interface ApiInterface {
     @GET("api/json/v1/1/lookup.php")
     Observable<MealList> getMealById(@Query("i") String idMeal);
     @GET("api/json/v1/1/search.php")
-    Call<MealList> getMealsByFirstLetter(@Query("f") String chatMealFilter);
+    Observable<MealList>  getMealsByFirstLetter(@Query("f") String chatMealFilter);
 }

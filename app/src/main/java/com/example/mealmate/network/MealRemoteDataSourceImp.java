@@ -61,11 +61,16 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
     @Override
     public Observable<MealList> getMealDetails(String idMeal) {
        return apiInterface.getMealById(idMeal);
+    }
+
+    @Override
+    public Observable<MealList>  makeNetworkCallGetMealsByFirstLetter(String chatMealFilter) {
+       return apiInterface.getMealsByFirstLetter(chatMealFilter);
 //        call.enqueue(new Callback<MealList>() {
 //            @Override
 //            public void onResponse(Call<MealList> call, Response<MealList> response) {
 //                Log.i(TAG,"onResponse: "+response.raw() +response.body().getMeals());
-//                networkCallback.onSuccessResultOfgetMealDetails(response.body().getMeals().get(0));
+//                networkCallback.onSuccessResultOfgetMealsByFirstLetter(response.body().getMeals());
 //            }
 //
 //            @Override
@@ -75,25 +80,6 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
 //                throwable.printStackTrace();
 //            }
 //        });
-    }
-
-    @Override
-    public void makeNetworkCallGetMealsByFirstLetter(SearchFragmentNetworkCallBack networkCallback, String chatMealFilter) {
-        Call<MealList> call =  apiInterface.getMealsByFirstLetter(chatMealFilter);
-        call.enqueue(new Callback<MealList>() {
-            @Override
-            public void onResponse(Call<MealList> call, Response<MealList> response) {
-                Log.i(TAG,"onResponse: "+response.raw() +response.body().getMeals());
-                networkCallback.onSuccessResultOfgetMealsByFirstLetter(response.body().getMeals());
-            }
-
-            @Override
-            public void onFailure(Call<MealList> call, Throwable throwable) {
-                Log.i(TAG,"onFailure: "+throwable.getMessage());
-                networkCallback.onFailureResult(throwable.getMessage());
-                throwable.printStackTrace();
-            }
-        });
     }
 
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.mealmate.model.category.Category;
 import com.example.mealmate.model.category.CategoryList;
 import com.example.mealmate.model.meal.Meal;
+import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryInterface;
 import com.example.mealmate.network.HomeNetworkCallback;
@@ -23,7 +24,7 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class SearchPresenterImp implements SearchFragmentNetworkCallBack, ShowFilterChipNetworkCallBack,HomeNetworkCallback,SearchPresenterInterface{
+public class SearchPresenterImp implements  SearchPresenterInterface{
     SearchFragmentView view;
     DataReposatoryInterface dReposatory;
     MealRemoteDataSourceInterface mReposatory;
@@ -69,18 +70,31 @@ public class SearchPresenterImp implements SearchFragmentNetworkCallBack, ShowFi
 
     @Override
     public void getMealsByFirstLetter(String chatMealFilter) {
-//        dReposatory.getMealsByFirstLetter(this,chatMealFilter);
-    }
+        Observable<MealList> observable= dReposatory.getMealsByFirstLetter(chatMealFilter)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        Observer<MealList> observer=new Observer<MealList>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d("retro", "onSubscribe: ");
+            }
 
-    @Override
-    public void onSuccessResultOfgetMealsByFirstLetter(ArrayList<Meal> meals) {
-//        view.showMeals(meals);
-    }
+            @Override
+            public void onNext(MealList meal) {
+                view.showMeals(meal.getMeals());
+            }
 
+            @Override
+            public void onError(@NonNull Throwable e) {
+            }
 
-    @Override
-    public void onFailureResult(String message) {
-        Log.d("onFailureResult", message);
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribe(observer);
+
     }
 
 
