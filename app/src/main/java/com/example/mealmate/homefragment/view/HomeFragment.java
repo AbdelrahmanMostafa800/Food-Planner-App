@@ -33,7 +33,7 @@ import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment implements HomeFragmentView,OnCardClickListener{
+public class HomeFragment extends Fragment implements HomeFragmentView{
 
     HomeFragmentPresenter hpresenter;
     ImageView mealImageView;
@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
     RecyclerView recyclerView;
     CardView mealdesc;
     ChipGroup chipGroup;
+    ChipGroupFilterOnClickListener chipGroupFilterOnClickListener;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -75,6 +76,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
         hpresenter=new HomeFragmentPresenterImp(this);
         hpresenter.getSingleMeal();
         hpresenter.getCategories();
+         chipGroupFilterOnClickListener = new ChipGroupFilterOnClickListener(getContext());
         for(int i=0;i<chipGroup.getChildCount();i++){
             Chip chip=(Chip)chipGroup.getChildAt(i);
             chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -86,7 +88,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
                            hpresenter.getCategories();
                         } else if (checkedId == R.id.chip_countries) {
                             CountriesList countryList=CountriesList.getInstance();
-                            HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,countryList.getcountries(),null,HomeFragment.this);
+                            HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,countryList.getcountries(),null,chipGroupFilterOnClickListener);
                             recyclerView.setAdapter(adapter);
                         } else if (checkedId == R.id.chip_ingrediants) {
                             hpresenter.getIngrediants();
@@ -114,21 +116,15 @@ public class HomeFragment extends Fragment implements HomeFragmentView,OnCardCli
 
     @Override
     public void showCategories(ArrayList<Category> category) {
-        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(category,null,null,this);
+        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(category,null,null,chipGroupFilterOnClickListener);
         recyclerView.setAdapter(adapter);
     }
     @Override
     public void showIngrediants(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals) {
-        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,null,meals,this);
+        HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,null,meals,chipGroupFilterOnClickListener);
         recyclerView.setAdapter(adapter);
     }
 
 
-    @Override
-    public void goShowFilterChipPage(String query, String StrCategory) {
-        Intent intent = new Intent(getActivity(), ShowFilterChipActivity.class);
-        intent.putExtra("StrCategory", StrCategory);
-        intent.putExtra("query", query);
-        startActivity(intent);
-    }
+
 }

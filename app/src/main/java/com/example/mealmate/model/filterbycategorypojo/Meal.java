@@ -23,6 +23,12 @@ public class Meal {
         return idMeal;
     }
 
+    public Meal(String strMeal, String strMealThumb, String idMeal) {
+        this.strMeal = strMeal;
+        this.strMealThumb = strMealThumb;
+        this.idMeal = idMeal;
+    }
+
     public void setIdMeal(String idMeal) {
         this.idMeal = idMeal;
     }

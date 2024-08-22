@@ -26,7 +26,7 @@ public class HomeFragmentRecycleAdapter extends RecyclerView.Adapter<HomeFragmen
     private OnCardClickListener cardListener;
     private int pageSize = 20; // adjust this value to control the number of items per page
     private int currentPage = 1;
-    public HomeFragmentRecycleAdapter(ArrayList<Category> category,ArrayList<Country> countries,ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> ingrediant,HomeFragment cardListener) {
+    public HomeFragmentRecycleAdapter(ArrayList<Category> category,ArrayList<Country> countries,ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> ingrediant,OnCardClickListener cardListener) {
         this.category = category;
         this.countries=countries;
         this.ingrediant=ingrediant;

@@ -18,7 +18,7 @@ import com.example.mealmate.model.filterbycategorypojo.Meal;
 
 import java.util.ArrayList;
 
-public class ShowFilterChipActivity extends AppCompatActivity implements com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivityView,onMealCArdRecycleClicked {
+public class ShowFilterChipActivity extends AppCompatActivity implements com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivityView {
 
     ShowFilterChippresenterInterface presenter;
     RecyclerView recycleView;
@@ -54,14 +54,9 @@ public class ShowFilterChipActivity extends AppCompatActivity implements com.exa
 
     @Override
     public void showFilterByCategory(ArrayList<Meal> meals) {
-        ShowFilterChippresenterAdapter adapter = new ShowFilterChippresenterAdapter(meals,this);
+        MealCardClickListener mealCardClickListener = new MealCardClickListener(this);
+        ShowFilterChipAdapter adapter = new ShowFilterChipAdapter(meals,mealCardClickListener);
         recycleView.setAdapter(adapter);
     }
 
-    @Override
-    public void goMealDetailsPage(String idMeal) {
-        Intent intent = new Intent(this, MealDetailsActivity.class);
-        intent.putExtra("idMeal", idMeal);
-        startActivity(intent);
-    }
 }

@@ -6,4 +6,10 @@ import java.util.ArrayList;
 
 public interface SearchPresenterInterface {
     void getMealsByFirstLetter(String chatMealFilter);
+
+    void getCategories();
+
+    void getIngrediants();
+
+    void getFilterByCategory(String a, String selectedItem);
 }
