@@ -64,23 +64,19 @@ public class SearchPresenterImp implements SearchFragmentNetworkCallBack, ShowFi
 
     @Override
     public void getFilterByCategory(String a, String selectedItem) {
-        mReposatory.getFilterByCategory(this,a,selectedItem);
+//        mReposatory.getFilterByCategory(this,a,selectedItem);
     }
 
     @Override
     public void getMealsByFirstLetter(String chatMealFilter) {
-        dReposatory.getMealsByFirstLetter(this,chatMealFilter);
+//        dReposatory.getMealsByFirstLetter(this,chatMealFilter);
     }
 
     @Override
     public void onSuccessResultOfgetMealsByFirstLetter(ArrayList<Meal> meals) {
-        view.showMeals(meals);
+//        view.showMeals(meals);
     }
 
-
-    @Override
-    public void onRequestgetFilterByCategory(ArrayList<com.example.mealmate.model.filterbycategorypojo.Meal> meals) {
-    }
 
     @Override
     public void onFailureResult(String message) {

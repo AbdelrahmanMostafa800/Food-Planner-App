@@ -7,6 +7,9 @@ import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
@@ -49,34 +52,10 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
     }
 
     @Override
-    public void getFilterByCategory(ShowFilterChipNetworkCallBack networkCallback,String query, String strCategory) {
-        Call<CategoryByFilter> call=null;
-        switch (query){
-            case "c":
-                call=  apiInterface.getFilterByCategory(strCategory);
-                break;
-            case "i":
-                call=  apiInterface.getFilterByIngredient(strCategory);
-                break;
-            case "a":
-                call=  apiInterface.getFilterByArea(strCategory);
-                break;
-        }
-
-        call.enqueue(new Callback<CategoryByFilter>() {
-            @Override
-            public void onResponse(Call<CategoryByFilter> call, Response<CategoryByFilter> response) {
-                Log.d("getFilterByCategory", "onResponse: "+response.body().getMeals().get(0).getStrMeal());
-                networkCallback.onRequestgetFilterByCategory(response.body().getMeals());
-            }
-
-            @Override
-            public void onFailure(Call<CategoryByFilter> call, Throwable throwable) {
-                Log.i("TAG","onFailure: "+throwable.getMessage());
-                networkCallback.onFailureResult(throwable.getMessage());
-                throwable.printStackTrace();
-            }
-        });
+    public Observable<CategoryByFilter> getFilterByCategory(String query, String strCategory) {
+        Map<String, String> params = new HashMap<>();
+        params.put(query, strCategory);
+        return apiInterface.getFilterByParams(params);
     }
 
     @Override

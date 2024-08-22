@@ -6,10 +6,13 @@ import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 
+import java.util.Map;
+
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface ApiInterface {
     @GET("api/json/v1/1/random.php")
@@ -19,14 +22,10 @@ public interface ApiInterface {
     Observable<CategoryList> getAllCategories();
     @GET("api/json/v1/1/list.php?i=list")
     Observable<IngrediantList> getAllIngrediant();
+//
     @GET("api/json/v1/1/filter.php")
-    Call<CategoryByFilter> getFilterByIngredient(@Query("i") String ingredient);
+    Observable<CategoryByFilter> getFilterByParams(@QueryMap Map<String, String> params);
 
-    @GET("api/json/v1/1/filter.php")
-    Call<CategoryByFilter> getFilterByArea(@Query("a") String area);
-
-    @GET("api/json/v1/1/filter.php")
-    Call<CategoryByFilter> getFilterByCategory(@Query("c") String category);
     @GET("api/json/v1/1/lookup.php")
     Call<MealList> getMealById(@Query("i") String idMeal);
     @GET("api/json/v1/1/search.php")
