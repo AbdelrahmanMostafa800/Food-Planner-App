@@ -59,22 +59,22 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
     }
 
     @Override
-    public void getMealDetails(MealDetailsNetworkCallBack networkCallback, String idMeal) {
-        Call<MealList> call =  apiInterface.getMealById(idMeal);
-        call.enqueue(new Callback<MealList>() {
-            @Override
-            public void onResponse(Call<MealList> call, Response<MealList> response) {
-                Log.i(TAG,"onResponse: "+response.raw() +response.body().getMeals());
-                networkCallback.onSuccessResultOfgetMealDetails(response.body().getMeals().get(0));
-            }
-
-            @Override
-            public void onFailure(Call<MealList> call, Throwable throwable) {
-                Log.i(TAG,"onFailure: "+throwable.getMessage());
-                networkCallback.onFailureResult(throwable.getMessage());
-                throwable.printStackTrace();
-            }
-        });
+    public Observable<MealList> getMealDetails(String idMeal) {
+       return apiInterface.getMealById(idMeal);
+//        call.enqueue(new Callback<MealList>() {
+//            @Override
+//            public void onResponse(Call<MealList> call, Response<MealList> response) {
+//                Log.i(TAG,"onResponse: "+response.raw() +response.body().getMeals());
+//                networkCallback.onSuccessResultOfgetMealDetails(response.body().getMeals().get(0));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<MealList> call, Throwable throwable) {
+//                Log.i(TAG,"onFailure: "+throwable.getMessage());
+//                networkCallback.onFailureResult(throwable.getMessage());
+//                throwable.printStackTrace();
+//            }
+//        });
     }
 
     @Override

@@ -4,11 +4,19 @@ import android.util.Log;
 
 import com.example.mealmate.mealdetails.view.MealDetailsActivityView;
 import com.example.mealmate.model.meal.Meal;
+import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryInterface;
 import com.example.mealmate.network.MealDetailsNetworkCallBack;
 
-public class MealDetailsPresenterImp implements MealDetailsPresenterInterface, MealDetailsNetworkCallBack {
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
+public class MealDetailsPresenterImp implements MealDetailsPresenterInterface {
     MealDetailsActivityView view;
     DataReposatoryInterface reposatory;
     public MealDetailsPresenterImp(MealDetailsActivityView view) {
@@ -18,14 +26,29 @@ public class MealDetailsPresenterImp implements MealDetailsPresenterInterface, M
 
     @Override
     public void getMealDetails(String idMeal) {
-        reposatory.getMealDetails(this,idMeal);
-    }
-    @Override
-    public void onSuccessResultOfgetMealDetails(Meal meal) {
-        view.showMealDetails(meal);
-    }
-    @Override
-    public void onFailureResult(String message) {
-        Log.d("TAG", "onFailureResult: "+message);
+        Observable<MealList> observable=reposatory.getMealDetails(idMeal)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        Observer<MealList> observer=new Observer<MealList>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(MealList meal) {
+                view.showMealDetails(meal.getMeals().get(0));
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribe(observer);
     }
 }

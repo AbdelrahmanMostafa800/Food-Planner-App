@@ -17,7 +17,7 @@ public interface MealRemoteDataSourceInterface {
 
     Observable<CategoryByFilter> getFilterByCategory(String query, String strCategory);
 
-    void getMealDetails(MealDetailsNetworkCallBack MealDetailspresenter, String idMeal);
+    Observable<MealList> getMealDetails(String idMeal);
 
     void makeNetworkCallGetMealsByFirstLetter(SearchFragmentNetworkCallBack networkCallback, String chatMealFilter);
 }

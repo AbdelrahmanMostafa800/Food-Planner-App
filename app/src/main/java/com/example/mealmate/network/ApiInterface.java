@@ -27,7 +27,7 @@ public interface ApiInterface {
     Observable<CategoryByFilter> getFilterByParams(@QueryMap Map<String, String> params);
 
     @GET("api/json/v1/1/lookup.php")
-    Call<MealList> getMealById(@Query("i") String idMeal);
+    Observable<MealList> getMealById(@Query("i") String idMeal);
     @GET("api/json/v1/1/search.php")
     Call<MealList> getMealsByFirstLetter(@Query("f") String chatMealFilter);
 }

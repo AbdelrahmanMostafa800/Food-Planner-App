@@ -38,8 +38,8 @@ public class DataReposatoryImp implements DataReposatoryInterface{
     }
 
     @Override
-    public void getMealDetails(MealDetailsPresenterImp mealDetailsPresenterImp, String idMeal) {
-        mealdatasource.getMealDetails(mealDetailsPresenterImp,idMeal);
+    public Observable<MealList> getMealDetails(String idMeal) {
+       return mealdatasource.getMealDetails(idMeal);
     }
 
     @Override

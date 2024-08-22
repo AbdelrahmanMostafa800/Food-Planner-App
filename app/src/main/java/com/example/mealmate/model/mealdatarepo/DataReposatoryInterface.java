@@ -17,7 +17,7 @@ public interface DataReposatoryInterface {
 
     Observable<IngrediantList> getIngrediants();
 
-    void getMealDetails(MealDetailsPresenterImp mealDetailsPresenterImp, String idMeal);
+    Observable<MealList> getMealDetails(String idMeal);
 
     void getMealsByFirstLetter(SearchFragmentNetworkCallBack searchPresenterImp, String chatMealFilter);
 }
