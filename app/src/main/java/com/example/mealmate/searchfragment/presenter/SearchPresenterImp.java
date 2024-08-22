@@ -59,7 +59,7 @@ public class SearchPresenterImp implements SearchFragmentNetworkCallBack, ShowFi
 
     @Override
     public void getIngrediants() {
-        dReposatory.getIngrediants(this);
+//        dReposatory.getIngrediants(this);
     }
 
     @Override
@@ -88,8 +88,4 @@ public class SearchPresenterImp implements SearchFragmentNetworkCallBack, ShowFi
     }
 
 
-    @Override
-    public void onRequestIngrediantSuccessResult(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals) {
-
-    }
 }

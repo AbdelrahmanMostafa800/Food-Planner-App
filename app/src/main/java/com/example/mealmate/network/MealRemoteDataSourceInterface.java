@@ -2,6 +2,7 @@ package com.example.mealmate.network;
 
 import com.example.mealmate.homefragmentselectedchip.presenter.ShowFilterChippresenter;
 import com.example.mealmate.model.category.CategoryList;
+import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 import com.example.mealmate.model.meal.MealList;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -11,7 +12,7 @@ public interface MealRemoteDataSourceInterface {
 
     Observable<CategoryList> makeNetworkCallCategory();
 
-    void makeNetworkCallIngrediants(HomeNetworkCallback networkCallback);
+    Observable<IngrediantList> makeNetworkCallIngrediants();
 
     void getFilterByCategory(ShowFilterChipNetworkCallBack networkCallback,String query, String strCategory);
 

@@ -2,6 +2,7 @@ package com.example.mealmate.model.mealdatarepo;
 
 import com.example.mealmate.mealdetails.presenter.MealDetailsPresenterImp;
 import com.example.mealmate.model.category.CategoryList;
+import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.network.HomeNetworkCallback;
 import com.example.mealmate.network.SearchFragmentNetworkCallBack;
@@ -14,7 +15,7 @@ public interface DataReposatoryInterface {
 
     Observable<CategoryList> getCategories();
 
-    void getIngrediants(HomeNetworkCallback networkCallback);
+    Observable<IngrediantList> getIngrediants();
 
     void getMealDetails(MealDetailsPresenterImp mealDetailsPresenterImp, String idMeal);
 

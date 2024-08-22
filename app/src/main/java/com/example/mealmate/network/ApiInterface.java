@@ -18,7 +18,7 @@ public interface ApiInterface {
     @GET("api/json/v1/1/categories.php")
     Observable<CategoryList> getAllCategories();
     @GET("api/json/v1/1/list.php?i=list")
-    Call<IngrediantList> getAllIngrediant();
+    Observable<IngrediantList> getAllIngrediant();
     @GET("api/json/v1/1/filter.php")
     Call<CategoryByFilter> getFilterByIngredient(@Query("i") String ingredient);
 

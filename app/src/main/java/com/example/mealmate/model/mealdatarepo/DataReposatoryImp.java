@@ -2,6 +2,7 @@ package com.example.mealmate.model.mealdatarepo;
 
 import com.example.mealmate.mealdetails.presenter.MealDetailsPresenterImp;
 import com.example.mealmate.model.category.CategoryList;
+import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.network.MealRemoteDataSourceImp;
 import com.example.mealmate.network.MealRemoteDataSourceInterface;
@@ -32,8 +33,8 @@ public class DataReposatoryImp implements DataReposatoryInterface{
     }
 
     @Override
-    public void getIngrediants(HomeNetworkCallback networkCallback) {
-        mealdatasource.makeNetworkCallIngrediants(networkCallback);
+    public Observable<IngrediantList> getIngrediants() {
+       return mealdatasource.makeNetworkCallIngrediants();
     }
 
     @Override

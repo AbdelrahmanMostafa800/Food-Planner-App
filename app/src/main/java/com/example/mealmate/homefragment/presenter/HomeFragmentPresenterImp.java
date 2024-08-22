@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.mealmate.model.category.Category;
 import com.example.mealmate.model.category.CategoryList;
+import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
@@ -20,7 +21,7 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class HomeFragmentPresenterImp implements HomeNetworkCallback, HomeFragmentPresenter {
+public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     HomeFragmentView view;
     DataReposatoryInterface reposatory;
     public HomeFragmentPresenterImp(HomeFragmentView view) {
@@ -40,7 +41,6 @@ public class HomeFragmentPresenterImp implements HomeNetworkCallback, HomeFragme
 
             @Override
             public void onNext(MealList meal) {
-                Log.d("single meal", meal.getMeals().get(0).getStrMeal());
                 view.showMeal(meal.getMeals().get(0));
             }
 
@@ -50,7 +50,7 @@ public class HomeFragmentPresenterImp implements HomeNetworkCallback, HomeFragme
 
             @Override
             public void onComplete() {
-                Log.d("retro", "onComplete: ");
+
             }
         };
         observable.subscribe(observer);
@@ -70,7 +70,7 @@ public class HomeFragmentPresenterImp implements HomeNetworkCallback, HomeFragme
             @Override
             public void onNext(CategoryList meal) {
                 Log.d("single meal", meal.getCategories().get(0).getStrCategory());
-
+                view.showCategories(meal.getCategories());
             }
 
             @Override
@@ -87,24 +87,29 @@ public class HomeFragmentPresenterImp implements HomeNetworkCallback, HomeFragme
 
     @Override
     public void getIngrediants() {
-        reposatory.getIngrediants(this);
+        Observable<IngrediantList> observable=  reposatory.getIngrediants()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        Observer<IngrediantList> observer=new Observer<IngrediantList>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(IngrediantList meal) {
+                view.showIngrediants(meal.getMeals());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribe(observer);
     }
-
-
-
-
-
-
-    @Override
-    public void onFailureResult(String errorMsg) {
-        Log.d("Failur", "onFailureResult: "+errorMsg);
-    }
-
-
-
-    @Override
-    public void onRequestIngrediantSuccessResult(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals) {
-        view.showIngrediants(meals);
-    }
-
 }
