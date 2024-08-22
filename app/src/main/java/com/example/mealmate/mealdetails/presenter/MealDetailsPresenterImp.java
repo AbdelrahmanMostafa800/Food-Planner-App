@@ -1,13 +1,9 @@
 package com.example.mealmate.mealdetails.presenter;
 
-import android.util.Log;
-
 import com.example.mealmate.mealdetails.view.MealDetailsActivityView;
-import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryInterface;
-import com.example.mealmate.network.MealDetailsNetworkCallBack;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;

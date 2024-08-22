@@ -66,20 +66,6 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
     @Override
     public Observable<MealList>  makeNetworkCallGetMealsByFirstLetter(String chatMealFilter) {
        return apiInterface.getMealsByFirstLetter(chatMealFilter);
-//        call.enqueue(new Callback<MealList>() {
-//            @Override
-//            public void onResponse(Call<MealList> call, Response<MealList> response) {
-//                Log.i(TAG,"onResponse: "+response.raw() +response.body().getMeals());
-//                networkCallback.onSuccessResultOfgetMealsByFirstLetter(response.body().getMeals());
-//            }
-//
-//            @Override
-//            public void onFailure(Call<MealList> call, Throwable throwable) {
-//                Log.i(TAG,"onFailure: "+throwable.getMessage());
-//                networkCallback.onFailureResult(throwable.getMessage());
-//                throwable.printStackTrace();
-//            }
-//        });
     }
 
 

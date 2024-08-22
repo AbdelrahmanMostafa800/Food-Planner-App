@@ -2,17 +2,12 @@ package com.example.mealmate.homefragment.presenter;
 
 import android.util.Log;
 
-import com.example.mealmate.model.category.Category;
 import com.example.mealmate.model.category.CategoryList;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
-import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryInterface;
 import com.example.mealmate.homefragment.view.HomeFragmentView;
-import com.example.mealmate.network.HomeNetworkCallback;
-
-import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
