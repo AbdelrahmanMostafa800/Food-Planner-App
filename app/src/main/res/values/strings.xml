@@ -38,6 +38,6 @@
     <string name="istructions">Instructions</string>
     <string name="strawbery">Strawberry Pancake</string>
     <string name="ingrediant">Ingredients</string>
-    <string name="searchhere">Search Recipes...</string>
+    <string name="searchhere">Search Meal Recipes...</string>
 </resources>
 

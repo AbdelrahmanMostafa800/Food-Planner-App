@@ -1,6 +1,7 @@
 package com.example.mealmate.model.mealdatarepo;
 
 import com.example.mealmate.model.category.CategoryList;
+import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 import com.example.mealmate.model.meal.MealList;
 
@@ -16,4 +17,6 @@ public interface DataReposatoryInterface {
     Observable<MealList> getMealDetails(String idMeal);
 
     Observable<MealList>  getMealsByFirstLetter(String chatMealFilter);
+
+    Observable<CategoryByFilter> getFilterByCategory(String query, String strCategory);
 }

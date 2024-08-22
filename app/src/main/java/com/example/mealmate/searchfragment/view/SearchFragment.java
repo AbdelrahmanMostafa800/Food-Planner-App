@@ -49,6 +49,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView{
     SearchPresenterInterface presenter;
     ShowFilterChipAdapter adapter;
     boolean chipIsSelected;
+    List<com.example.mealmate.model.filterbycategorypojo.Meal> mealss;
     public SearchFragment() {
         // Required empty public constructor
     }
@@ -77,24 +78,38 @@ public class SearchFragment extends Fragment implements SearchFragmentView{
         chipGroup = view.findViewById(R.id.chipGroup);
         presenter=new SearchPresenterImp(this);
 
+        mealss=null;
+
+        arrowBack.setOnClickListener(vew->{
+            getActivity().onBackPressed();
+        });
+
         for(int i=0;i<chipGroup.getChildCount();i++){
             Chip chip=(Chip)chipGroup.getChildAt(i);
             chip.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                     if(b){
+                        showMeals(new ArrayList<>());
                         chipIsSelected= true;
                         int checkedId = chipGroup.getCheckedChipId();
                         if (checkedId == R.id.search_category) {
+                            search.setQueryHint("Search By Category");
                             presenter.getCategories();
                         } else if (checkedId == R.id.search_countries) {
+                            search.setQueryHint("Search By Country");
                             CountriesList countryList=CountriesList.getInstance();
                             List<String> f=countryList.getcountries().stream().map(country -> country.getStrArea()).collect(Collectors.toList());
-                            showListInSpinner(f);
+                            showListInSpinner("a",f);
                         } else if (checkedId == R.id.search_ingrediants) {
+                            search.setQueryHint("Search By Ingrediant");
                             presenter.getIngrediants();
                         }
 
+                    }else{
+                        chipIsSelected= false;
+                        search.setQueryHint("Search Meal Recipes...");
+                        showMeals(new ArrayList<>());
                     }
                 }
             });
@@ -115,32 +130,42 @@ public class SearchFragment extends Fragment implements SearchFragmentView{
             public boolean onQueryTextChange(String s) {
                 if(!s.isEmpty()&& !chipIsSelected){
                     String chatMealFilter=s.toLowerCase().charAt(0)+"";
-                    Toast.makeText(getContext(), chatMealFilter, Toast.LENGTH_SHORT).show();
                    presenter.getMealsByFirstLetter(chatMealFilter);
+                } else if (!s.isEmpty()&&chipIsSelected) {
+                    filterList(s);
+                }else {
+                    showMeals(new ArrayList<>());
                 }
                 return true;
             }
         });
 
     }
+    private void filterList(String query) {
+        if(mealss!=null) {
+            List<com.example.mealmate.model.filterbycategorypojo.Meal> filteredList = mealss.stream()
+                    .filter(meal -> meal.getStrMeal().toLowerCase().contains(query.toLowerCase()))
+                    .collect(Collectors.toList());
+            adapter.updateList(filteredList);
+        }
+    }
 
     @Override
-    public void showMeals(ArrayList<Meal> meals) {
-        List<com.example.mealmate.model.filterbycategorypojo.Meal> mealss = meals.stream()
-                .map(meal -> new com.example.mealmate.model.filterbycategorypojo.Meal(meal.getStrMeal(),meal.getStrMealThumb(),meal.getIdMeal()))
-                .filter(item -> item.getStrMeal().toLowerCase().contains(search.getQuery().toString()))
-                .collect(Collectors.toList());
-        adapter.updateList(mealss);
+    public void showMeals(ArrayList<com.example.mealmate.model.filterbycategorypojo.Meal> meals) {
+       if(meals!=null){
+           mealss = meals.stream()
+                   .collect(Collectors.toList());
+           filterList(search.getQuery().toString());
+       }
     }
-    public void showListInSpinner(List<String> items){
-        Toast.makeText(getContext(), items.get(0), Toast.LENGTH_SHORT).show();
+    public void showListInSpinner(String selectedChip,List<String> items){
         CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(getContext(), R.layout.spinner_item, items);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                presenter.getFilterByCategory("a",selectedItem);
+                presenter.getFilterByCategory(selectedChip,selectedItem);
             }
 
             @Override

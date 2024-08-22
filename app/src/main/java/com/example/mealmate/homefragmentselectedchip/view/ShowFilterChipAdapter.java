@@ -22,7 +22,11 @@ public class ShowFilterChipAdapter extends RecyclerView.Adapter<ShowFilterChipAd
     onMealCArdRecycleClicked onMealCArdRecycleClicked;
 
     public ShowFilterChipAdapter(ArrayList<Meal> meals, onMealCArdRecycleClicked onMealCArdRecycleClicked){
-        this.meals=meals;
+        if(meals!=null&&!meals.isEmpty()) {
+            this.meals = meals;
+        }else{
+            this.meals=new ArrayList<>();
+        }
         this.onMealCArdRecycleClicked=onMealCArdRecycleClicked;
 
     }
@@ -55,6 +59,10 @@ public class ShowFilterChipAdapter extends RecyclerView.Adapter<ShowFilterChipAd
     public void updateList(List<Meal> list) {
         this.meals = new ArrayList<>(list);
         notifyDataSetChanged();
+    }
+
+    public Iterable<? extends Meal> getList() {
+        return meals;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

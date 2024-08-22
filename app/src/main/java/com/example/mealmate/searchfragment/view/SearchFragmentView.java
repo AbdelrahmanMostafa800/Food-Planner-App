@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface SearchFragmentView {
-    void showMeals(ArrayList<Meal> meals);
+    void showMeals(ArrayList<com.example.mealmate.model.filterbycategorypojo.Meal> meals);
 
-    void showListInSpinner(List<String> f);
+    void showListInSpinner(String selectedChip,List<String> f);
 }

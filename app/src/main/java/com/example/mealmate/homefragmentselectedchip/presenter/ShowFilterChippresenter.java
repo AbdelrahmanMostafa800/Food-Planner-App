@@ -2,6 +2,8 @@ package com.example.mealmate.homefragmentselectedchip.presenter;
 
 import com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivityView;
 import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
+import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
+import com.example.mealmate.model.mealdatarepo.DataReposatoryInterface;
 import com.example.mealmate.network.MealRemoteDataSourceImp;
 import com.example.mealmate.network.MealRemoteDataSourceInterface;
 
@@ -14,11 +16,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ShowFilterChippresenter implements com.example.mealmate.homefragmentselectedchip.presenter.ShowFilterChippresenterInterface {
    ShowFilterChipActivityView view;
-    MealRemoteDataSourceInterface reposatory;
+    DataReposatoryInterface reposatory;
 
     public ShowFilterChippresenter(ShowFilterChipActivityView view){
         this.view=view;
-        this.reposatory= MealRemoteDataSourceImp.getInstance();
+        this.reposatory= DataReposatoryImp.getInstance();
     }
 
     @Override

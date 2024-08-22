@@ -4,12 +4,15 @@ package com.example.mealmate.searchfragment.presenter;
 import android.util.Log;
 
 import com.example.mealmate.model.category.CategoryList;
+import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
+import com.example.mealmate.model.filterbycategorypojo.Meal;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryInterface;
 import com.example.mealmate.searchfragment.view.SearchFragmentView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,14 +25,14 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class SearchPresenterImp implements  SearchPresenterInterface{
     SearchFragmentView view;
-    DataReposatoryInterface Reposatory;
+    DataReposatoryInterface reposatory;
     public SearchPresenterImp(SearchFragmentView view) {
         this.view = view;
-        this.Reposatory = DataReposatoryImp.getInstance();
+        this.reposatory = DataReposatoryImp.getInstance();
     }
     @Override
     public void getCategories() {
-        Observable<CategoryList> observable= Reposatory.getCategories()
+        Observable<CategoryList> observable= reposatory.getCategories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         Observer<CategoryList> observer=new Observer<CategoryList>() {
@@ -40,7 +43,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
             @Override
             public void onNext(CategoryList meal) {
                 List<String> f= meal.getCategories().stream().map(country -> country.getStrCategory()).collect(Collectors.toList());
-                view.showListInSpinner(f);
+                view.showListInSpinner("c",f);
             }
 
             @Override
@@ -57,7 +60,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
     @Override
     public void getIngrediants() {
-        Observable<IngrediantList> observable= Reposatory.getIngrediants()
+        Observable<IngrediantList> observable= reposatory.getIngrediants()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         Observer<IngrediantList> observer=new Observer<IngrediantList>() {
@@ -68,7 +71,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
             @Override
             public void onNext(IngrediantList meal) {
                 List<String> f= meal.getMeals().stream().map(country -> country.getStrIngredient()).collect(Collectors.toList());
-                view.showListInSpinner(f);
+                view.showListInSpinner("i",f);
             }
 
             @Override
@@ -85,7 +88,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
     @Override
     public void getMealsByFirstLetter(String chatMealFilter) {
-        Observable<MealList> observable= Reposatory.getMealsByFirstLetter(chatMealFilter)
+        Observable<MealList> observable= reposatory.getMealsByFirstLetter(chatMealFilter)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
         Observer<MealList> observer=new Observer<MealList>() {
@@ -96,7 +99,13 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
             @Override
             public void onNext(MealList meal) {
-                view.showMeals(meal.getMeals());
+                if(meal.getMeals()!=null) {
+                    List<com.example.mealmate.model.filterbycategorypojo.Meal> meals = meal.getMeals().stream()
+                            .map(m -> new com.example.mealmate.model.filterbycategorypojo.Meal(m.getStrMeal(), m.getStrMealThumb(), m.getIdMeal()))
+                            .collect(Collectors.toList());
+                    ArrayList<Meal> mealsArrayList = new ArrayList<>(meals);
+                    view.showMeals(mealsArrayList);
+                }
             }
 
             @Override
@@ -113,9 +122,33 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
     }
 
     @Override
-    public void getFilterByCategory(String a, String selectedItem) {
-//        mReposatory.getFilterByCategory(this,a,selectedItem);
+    public void getFilterByCategory(String query, String selectedItem) {
+        Observable<CategoryByFilter> observable= reposatory.getFilterByCategory(query,selectedItem)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        Observer<CategoryByFilter> observer=new Observer<CategoryByFilter>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(CategoryByFilter meal) {
+                view.showMeals(meal.getMeals());
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribe(observer);
+    }
     }
 
 
-}
+
