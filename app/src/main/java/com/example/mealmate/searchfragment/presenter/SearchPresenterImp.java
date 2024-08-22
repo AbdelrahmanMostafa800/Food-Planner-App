@@ -4,6 +4,7 @@ package com.example.mealmate.searchfragment.presenter;
 import android.util.Log;
 
 import com.example.mealmate.model.category.Category;
+import com.example.mealmate.model.category.CategoryList;
 import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryInterface;
@@ -15,6 +16,13 @@ import com.example.mealmate.searchfragment.view.SearchFragmentView;
 
 import java.util.ArrayList;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 public class SearchPresenterImp implements SearchFragmentNetworkCallBack, ShowFilterChipNetworkCallBack,HomeNetworkCallback,SearchPresenterInterface{
     SearchFragmentView view;
     DataReposatoryInterface dReposatory;
@@ -25,7 +33,28 @@ public class SearchPresenterImp implements SearchFragmentNetworkCallBack, ShowFi
     }
     @Override
     public void getCategories() {
-        dReposatory.getCategories(this);
+        Observable<CategoryList> observable= dReposatory.getCategories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        Observer<CategoryList> observer=new Observer<CategoryList>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+            }
+
+            @Override
+            public void onNext(CategoryList meal) {
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("retro", "onComplete: ");
+            }
+        };
+        observable.subscribe(observer);
     }
 
     @Override
@@ -48,10 +77,6 @@ public class SearchPresenterImp implements SearchFragmentNetworkCallBack, ShowFi
         view.showMeals(meals);
     }
 
-    @Override
-    public <T> void onSuccessResult(ArrayList<T> meal) {
-
-    }
 
     @Override
     public void onRequestgetFilterByCategory(ArrayList<com.example.mealmate.model.filterbycategorypojo.Meal> meals) {
@@ -62,10 +87,6 @@ public class SearchPresenterImp implements SearchFragmentNetworkCallBack, ShowFi
         Log.d("onFailureResult", message);
     }
 
-    @Override
-    public void onRequestCategorySuccessResult(ArrayList<Category> categories) {
-
-    }
 
     @Override
     public void onRequestIngrediantSuccessResult(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals) {

@@ -16,7 +16,7 @@ public interface ApiInterface {
     Observable<MealList> getSingleMeal();
 
     @GET("api/json/v1/1/categories.php")
-    Call<CategoryList> getAllCategories();
+    Observable<CategoryList> getAllCategories();
     @GET("api/json/v1/1/list.php?i=list")
     Call<IngrediantList> getAllIngrediant();
     @GET("api/json/v1/1/filter.php")

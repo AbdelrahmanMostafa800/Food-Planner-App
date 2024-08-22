@@ -3,6 +3,7 @@ package com.example.mealmate.homefragment.presenter;
 import android.util.Log;
 
 import com.example.mealmate.model.category.Category;
+import com.example.mealmate.model.category.CategoryList;
 import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
@@ -57,7 +58,31 @@ public class HomeFragmentPresenterImp implements HomeNetworkCallback, HomeFragme
 
     @Override
     public void getCategories() {
-        reposatory.getCategories(this);
+        Observable<CategoryList> observable= reposatory.getCategories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        Observer<CategoryList> observer=new Observer<CategoryList>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+                Log.d("retro", "onSubscribe: ");
+            }
+
+            @Override
+            public void onNext(CategoryList meal) {
+                Log.d("single meal", meal.getCategories().get(0).getStrCategory());
+
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d("retro", "onComplete: ");
+            }
+        };
+        observable.subscribe(observer);
     }
 
     @Override
@@ -68,20 +93,14 @@ public class HomeFragmentPresenterImp implements HomeNetworkCallback, HomeFragme
 
 
 
-    @Override
-    public void onSuccessResult(ArrayList meal) {
-        view.showMeal((Meal) meal.get(0));
-    }
+
 
     @Override
     public void onFailureResult(String errorMsg) {
         Log.d("Failur", "onFailureResult: "+errorMsg);
     }
 
-    @Override
-    public void onRequestCategorySuccessResult(ArrayList<Category> categories) {
-        view.showCategories(categories);
-    }
+
 
     @Override
     public void onRequestIngrediantSuccessResult(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals) {

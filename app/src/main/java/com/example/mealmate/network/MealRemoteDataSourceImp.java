@@ -36,40 +36,26 @@ public class MealRemoteDataSourceImp implements MealRemoteDataSourceInterface{
     }
     public Observable<MealList> makeNetworkCallSingleMeal(){
        return apiInterface.getSingleMeal();
-//        call.enqueue(new Callback<MealList>() {
+    }
+
+    @Override
+    public Observable<CategoryList> makeNetworkCallCategory() {
+         return apiInterface.getAllCategories();
+//        call.enqueue(new Callback<CategoryList>() {
 //            @Override
-//            public void onResponse(Call<MealList> call, Response<MealList> response) {
-//                Log.i(TAG,"onResponse: "+response.raw() +response.body().getMeals());
-//                networkCallback.onSuccessResult(response.body().getMeals());
+//            public void onResponse(Call<CategoryList> call, Response<CategoryList> response) {
+//                Log.i("TAG","onResponse: "+response.raw() +response.body().getCategories());
+//                Log.d("categories1", "onCheckedChanged: "+response.body().getCategories().toString());
+//                networkCallback.onRequestCategorySuccessResult(response.body().getCategories());
 //            }
 //
 //            @Override
-//            public void onFailure(Call<MealList> call, Throwable throwable) {
-//                Log.i(TAG,"onFailure: "+throwable.getMessage());
+//            public void onFailure(Call<CategoryList> call, Throwable throwable) {
+//                Log.i("TAG","onFailure: "+throwable.getMessage());
 //                networkCallback.onFailureResult(throwable.getMessage());
 //                throwable.printStackTrace();
 //            }
 //        });
-    }
-
-    @Override
-    public void makeNetworkCallCategory(HomeNetworkCallback networkCallback) {
-        Call<CategoryList> call =  apiInterface.getAllCategories();
-        call.enqueue(new Callback<CategoryList>() {
-            @Override
-            public void onResponse(Call<CategoryList> call, Response<CategoryList> response) {
-                Log.i("TAG","onResponse: "+response.raw() +response.body().getCategories());
-                Log.d("categories1", "onCheckedChanged: "+response.body().getCategories().toString());
-                networkCallback.onRequestCategorySuccessResult(response.body().getCategories());
-            }
-
-            @Override
-            public void onFailure(Call<CategoryList> call, Throwable throwable) {
-                Log.i("TAG","onFailure: "+throwable.getMessage());
-                networkCallback.onFailureResult(throwable.getMessage());
-                throwable.printStackTrace();
-            }
-        });
     }
 
     @Override
