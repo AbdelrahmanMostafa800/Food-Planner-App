@@ -133,7 +133,10 @@ public class SearchFragment extends Fragment implements SearchFragmentView{
                    presenter.getMealsByFirstLetter(chatMealFilter);
                 } else if (!s.isEmpty()&&chipIsSelected) {
                     filterList(s);
-                }else {
+                } else if (s.isEmpty()&&chipIsSelected){
+                    adapter.updateList(mealss);
+                }
+                else {
                     showMeals(new ArrayList<>());
                 }
                 return true;
