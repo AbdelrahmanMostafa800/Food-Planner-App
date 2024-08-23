@@ -170,14 +170,39 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
             @Override
             public void onNext(MealList meal) {
-                MealDb mealDb= MealTransfere.insertMealIntoDb( meal.getMeals().get(0),context);
-                dbReposatory.insertMeal(mealDb)
+                MealTransfere.insertMealIntoDb( meal.getMeals().get(0),context)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(() -> {
-                            Log.d("insert", "don ");
-                        }, throwable -> {
-                            Log.d("insert", "fail ");
+                        .subscribe(new Observer<MealDb>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                // do nothing
+                            }
+
+                            @Override
+                            public void onNext(MealDb mealDb) {
+                                // Image download is complete, you can now use the MealDb object
+                                dbReposatory.insertMeal(mealDb)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(() -> {
+                                            Log.d("insert", "don ");
+                                        }, throwable -> {
+                                            Log.d("insert", "fail ");
+                                        });
+
+                                // Save the MealDb object to the database
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                // handle error
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                // observable has completed
+                            }
                         });
             }
 

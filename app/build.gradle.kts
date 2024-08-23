@@ -37,6 +37,7 @@ android {
 
 dependencies {
     implementation ("androidx.room:room-rxjava2:2.6.0")
+    implementation ("androidx.room:room-rxjava3:2.4.2")
     implementation ("androidx.room:room-runtime:2.6.1")
     annotationProcessor ("androidx.room:room-compiler:2.6.1")
 

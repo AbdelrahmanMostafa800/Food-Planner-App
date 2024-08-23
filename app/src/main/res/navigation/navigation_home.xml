@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/favoritsFragment"
-        android:name="com.example.mealmate.FavoritsFragment"
+        android:name="com.example.mealmate.favoritsfragment.view.FavoritsFragment"
         android:label="fragment_favorits"
         tools:layout="@layout/fragment_favorits" />
 </navigation>

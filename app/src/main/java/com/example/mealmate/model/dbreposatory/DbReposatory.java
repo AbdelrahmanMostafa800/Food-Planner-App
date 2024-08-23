@@ -4,6 +4,9 @@ import com.example.mealmate.db.localdb.LocalDbDataSource;
 import com.example.mealmate.db.localdb.LocalDbDataSourceInterface;
 import com.example.mealmate.model.MealDb;
 
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Completable;
 
 public class DbReposatory implements DbReposatoryInterface{
@@ -22,6 +25,15 @@ public class DbReposatory implements DbReposatoryInterface{
     @Override
     public Completable insertMeal(MealDb mealDb) {
         return localDbDataSource.insertMeal(mealDb);
-//        localDbDataSource.insertMeal(mealDb);
+    }
+
+    @Override
+    public Flowable<List<MealDb>> getFavorits(String userName) {
+        return localDbDataSource.getFavorits(userName);
+    }
+
+    @Override
+    public Completable deleteMealFromDb(String userName, String idMeal) {
+      return  localDbDataSource.deleteMealFromDb(userName,idMeal);
     }
 }

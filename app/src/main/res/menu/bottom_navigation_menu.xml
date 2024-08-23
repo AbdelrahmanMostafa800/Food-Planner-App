@@ -16,7 +16,7 @@
         android:title="Search"
         app:actionViewClass="android.widget.SearchView" />
     <item
-        android:id="@+id/favorit"
+        android:id="@+id/favoritsFragment"
         android:title="Favorites"
         android:icon="@drawable/nav_heart_item_icon_selector"/>
 

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import com.example.mealmate.R;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenter;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenterImp;
 import com.example.mealmate.mealdetails.view.MealDetailsActivity;
+import com.example.mealmate.model.MealDb;
 import com.example.mealmate.model.category.Category;
 import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.countriespojo.CountriesList;
@@ -32,6 +34,11 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class HomeFragment extends Fragment implements HomeFragmentView{
 
@@ -76,7 +83,33 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         nameText.setText(getString(R.string.hellow)+reposatory.getUserLocalData()[1]+"!");
 
         favoritView.setOnClickListener(v-> {
-            hpresenter.insertMeal(MealTransfere.insertMealIntoDb(meall,getContext()));
+            MealTransfere.insertMealIntoDb(meall,getContext())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MealDb>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        // do nothing
+                    }
+
+                    @Override
+                    public void onNext(MealDb mealDb) {
+                        // Image download is complete, you can now use the MealDb object
+                        hpresenter.insertMeal(mealDb);
+
+                        // Save the MealDb object to the database
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // handle error
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        // observable has completed
+                    }
+                });
             });
 
         chipGroup = view.findViewById(R.id.chipGroup);

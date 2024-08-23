@@ -4,6 +4,9 @@ import android.content.Context;
 
 import com.example.mealmate.model.MealDb;
 
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Completable;
 
 public class LocalDbDataSource implements LocalDbDataSourceInterface{
@@ -24,5 +27,15 @@ public class LocalDbDataSource implements LocalDbDataSourceInterface{
     @Override
     public Completable insertMeal(MealDb mealDb) {
            return dao.insertProduct(mealDb);
+    }
+
+    @Override
+    public Flowable<List<MealDb>> getFavorits(String userName) {
+        return dao.getFavorits(userName);
+    }
+
+    @Override
+    public Completable deleteMealFromDb(String userName, String idMeal) {
+      return dao.deleteMealFromDb(userName,idMeal);
     }
 }
