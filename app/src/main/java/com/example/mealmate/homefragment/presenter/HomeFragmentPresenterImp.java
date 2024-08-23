@@ -119,6 +119,13 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
 
     @Override
     public void insertMeal(MealDb mealDb) {
-        dbReposatory.insertMeal(mealDb);
+        dbReposatory.insertMeal(mealDb)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    Log.d("insert", "don ");
+                }, throwable -> {
+                    Log.d("insert", "fail ");
+                });
     }
 }

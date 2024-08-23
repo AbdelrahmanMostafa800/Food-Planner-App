@@ -1,9 +1,15 @@
 package com.example.mealmate.searchfragment.presenter;
 
 
+import android.content.Context;
 import android.util.Log;
 
+import com.example.mealmate.MealTransfere;
+import com.example.mealmate.db.localdb.LocalDbDataSource;
+import com.example.mealmate.model.MealDb;
 import com.example.mealmate.model.category.CategoryList;
+import com.example.mealmate.model.dbreposatory.DbReposatory;
+import com.example.mealmate.model.dbreposatory.DbReposatoryInterface;
 import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
 import com.example.mealmate.model.filterbycategorypojo.Meal;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
@@ -26,9 +32,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class SearchPresenterImp implements  SearchPresenterInterface{
     SearchFragmentView view;
     DataReposatoryInterface reposatory;
-    public SearchPresenterImp(SearchFragmentView view) {
+    DbReposatoryInterface dbReposatory;
+    public SearchPresenterImp(SearchFragmentView view,Context context) {
         this.view = view;
         this.reposatory = DataReposatoryImp.getInstance();
+        this.dbReposatory= DbReposatory.getInstance(LocalDbDataSource.getInstance(context));
     }
     @Override
     public void getCategories() {
@@ -148,7 +156,43 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
         };
         observable.subscribe(observer);
     }
+
+    @Override
+    public void insertMealToFavorit(String mealId, Context context) {
+        Observable<MealList> observable=reposatory.getMealDetails(mealId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        Observer<MealList> observer=new Observer<MealList>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(MealList meal) {
+                MealDb mealDb= MealTransfere.insertMealIntoDb( meal.getMeals().get(0),context);
+                dbReposatory.insertMeal(mealDb)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(() -> {
+                            Log.d("insert", "don ");
+                        }, throwable -> {
+                            Log.d("insert", "fail ");
+                        });
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribe(observer);
     }
+}
 
 
 

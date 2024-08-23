@@ -3,6 +3,7 @@ package com.example.mealmate.homefragmentselectedchip.view;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.mealmate.MealTransfere;
 import com.example.mealmate.mealdetails.view.MealDetailsActivity;
 
 public class MealCardClickListener implements onMealCArdRecycleClicked{
@@ -18,4 +19,5 @@ public class MealCardClickListener implements onMealCArdRecycleClicked{
         intent.putExtra("idMeal", mealId);
         context.startActivity(intent);
     }
+
 }

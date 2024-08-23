@@ -1,5 +1,6 @@
 package com.example.mealmate.homefragmentselectedchip.view;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,15 +22,16 @@ import java.util.List;
 public class ShowFilterChipAdapter extends RecyclerView.Adapter<ShowFilterChipAdapter.ViewHolder> {
     ArrayList<Meal> meals;
     onMealCArdRecycleClicked onMealCArdRecycleClicked;
+    OnfavoritClicked onfavoritClicked;
 
-    public ShowFilterChipAdapter(ArrayList<Meal> meals, onMealCArdRecycleClicked onMealCArdRecycleClicked){
+    public ShowFilterChipAdapter(ArrayList<Meal> meals, onMealCArdRecycleClicked onMealCArdRecycleClicked,OnfavoritClicked onfavoritClicked){
         if(meals!=null&&!meals.isEmpty()) {
             this.meals = meals;
         }else{
             this.meals=new ArrayList<>();
         }
         this.onMealCArdRecycleClicked=onMealCArdRecycleClicked;
-
+        this.onfavoritClicked=onfavoritClicked;
     }
     @NonNull
     @Override
@@ -48,6 +51,13 @@ public class ShowFilterChipAdapter extends RecyclerView.Adapter<ShowFilterChipAd
             @Override
             public void onClick(View view) {
                 onMealCArdRecycleClicked.goMealDetailsPage(meals.get(position).getIdMeal().toString());
+            }
+        });
+        holder.favorit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("select", "adapter ");
+                onfavoritClicked.insertMealToFavorit(meals.get(position).getIdMeal().toString());
             }
         });
     }
@@ -70,7 +80,7 @@ public class ShowFilterChipAdapter extends RecyclerView.Adapter<ShowFilterChipAd
         public ImageView mealImage;
         public ImageView favorit;
         public ImageView calender;
-        public FrameLayout rowCard;
+        public CardView rowCard;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -78,7 +88,7 @@ public class ShowFilterChipAdapter extends RecyclerView.Adapter<ShowFilterChipAd
             this.mealImage = (ImageView) itemView.findViewById(R.id.mealImageView);
             this.favorit = (ImageView) itemView.findViewById(R.id.favoritView);
             this.calender = (ImageView) itemView.findViewById(R.id.calenderView);
-            this.rowCard=(FrameLayout)itemView.findViewById(R.id.meal_recycle_row);
+            this.rowCard=(CardView)itemView.findViewById(R.id.meal_recycle_row);
         }
 }
 }

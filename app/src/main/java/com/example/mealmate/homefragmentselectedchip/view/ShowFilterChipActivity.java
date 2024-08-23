@@ -2,6 +2,7 @@ package com.example.mealmate.homefragmentselectedchip.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mealmate.MealTransfere;
 import com.example.mealmate.R;
 import com.example.mealmate.homefragmentselectedchip.presenter.ShowFilterChippresenter;
 import com.example.mealmate.homefragmentselectedchip.presenter.ShowFilterChippresenterInterface;
@@ -18,7 +20,7 @@ import com.example.mealmate.model.filterbycategorypojo.Meal;
 
 import java.util.ArrayList;
 
-public class ShowFilterChipActivity extends AppCompatActivity implements com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivityView {
+public class ShowFilterChipActivity extends AppCompatActivity implements com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivityView,OnfavoritClicked {
 
     ShowFilterChippresenterInterface presenter;
     RecyclerView recycleView;
@@ -35,7 +37,7 @@ public class ShowFilterChipActivity extends AppCompatActivity implements com.exa
         StrCategory = intent.getStringExtra("StrCategory");
         query = intent.getStringExtra("query");
 
-        presenter=new ShowFilterChippresenter(this);
+        presenter=new ShowFilterChippresenter(this,this);
         presenter.getFilterByCategory(query,StrCategory);
 
         recycleView=findViewById(R.id.rectangleCategory);
@@ -55,8 +57,13 @@ public class ShowFilterChipActivity extends AppCompatActivity implements com.exa
     @Override
     public void showFilterByCategory(ArrayList<Meal> meals) {
         MealCardClickListener mealCardClickListener = new MealCardClickListener(this);
-        ShowFilterChipAdapter adapter = new ShowFilterChipAdapter(meals,mealCardClickListener);
+        ShowFilterChipAdapter adapter = new ShowFilterChipAdapter(meals,mealCardClickListener,this);
         recycleView.setAdapter(adapter);
     }
 
+    @Override
+    public void insertMealToFavorit(String mealId) {
+        Log.d("select", "chip ");
+        presenter.getMealById(mealId,this);
+    }
 }

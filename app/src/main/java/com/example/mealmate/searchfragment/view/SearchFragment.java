@@ -25,6 +25,7 @@ import com.example.mealmate.homefragment.view.ChipGroupFilterOnClickListener;
 import com.example.mealmate.homefragment.view.HomeFragment;
 import com.example.mealmate.homefragment.view.HomeFragmentRecycleAdapter;
 import com.example.mealmate.homefragmentselectedchip.view.MealCardClickListener;
+import com.example.mealmate.homefragmentselectedchip.view.OnfavoritClicked;
 import com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivity;
 import com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipAdapter;
 import com.example.mealmate.homefragmentselectedchip.view.onMealCArdRecycleClicked;
@@ -39,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SearchFragment extends Fragment implements SearchFragmentView{
+public class SearchFragment extends Fragment implements SearchFragmentView, OnfavoritClicked {
 
     ImageView arrowBack;
     SearchView search;
@@ -76,7 +77,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView{
         spinner=view.findViewById(R.id.searchselectspinner);
         searchResult=view.findViewById(R.id.searchresult);
         chipGroup = view.findViewById(R.id.chipGroup);
-        presenter=new SearchPresenterImp(this);
+        presenter=new SearchPresenterImp(this,getContext());
 
         mealss=null;
 
@@ -117,7 +118,7 @@ public class SearchFragment extends Fragment implements SearchFragmentView{
 
         searchResult.setLayoutManager(new GridLayoutManager(getContext(),2));
         MealCardClickListener mealCardClickListener = new MealCardClickListener(getContext());
-         adapter = new ShowFilterChipAdapter(new ArrayList<>(), mealCardClickListener);
+         adapter = new ShowFilterChipAdapter(new ArrayList<>(), mealCardClickListener,this);
         searchResult.setAdapter(adapter);
 
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -176,5 +177,11 @@ public class SearchFragment extends Fragment implements SearchFragmentView{
                 // Handle case where nothing is selected if needed
             }
         });
+    }
+
+    @Override
+    public void insertMealToFavorit(String mealId) {
+        Log.d("select", "search ");
+        presenter.insertMealToFavorit(mealId,getContext());
     }
 }

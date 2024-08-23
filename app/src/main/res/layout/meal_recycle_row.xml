@@ -2,11 +2,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
-android:id="@+id/meal_recycle_row"
 xmlns:app="http://schemas.android.com/apk/res-auto">
+
 
 <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
+    android:id="@+id/meal_recycle_row"
     android:layout_height="200dp"
     android:layout_marginTop="15dp"
     android:layout_marginLeft="13dp"
@@ -27,28 +28,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:clipToOutline="true"
             android:scaleType="centerCrop"
             android:src="@drawable/foodimage" />
-        <ImageView
-            android:id="@+id/calenderView"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="start"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/circle_white_background"
-            android:padding="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/calender_green_icon" />
 
-        <ImageView
-            android:id="@+id/favoritView"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/circle_white_background"
-            android:padding="5dp"
-            android:src="@drawable/heart_green_icon" />
 
     </androidx.cardview.widget.CardView>
 
@@ -63,4 +43,26 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         android:textStyle="bold" />
 
 </androidx.cardview.widget.CardView>
+    <ImageView
+        android:id="@+id/calenderView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_gravity="start"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/circle_white_background"
+        android:padding="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/calender_green_icon" />
+
+    <ImageView
+        android:id="@+id/favoritView"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="18dp"
+        android:background="@drawable/circle_white_background"
+        android:padding="5dp"
+        android:src="@drawable/heart_green_icon" />
 </FrameLayout>

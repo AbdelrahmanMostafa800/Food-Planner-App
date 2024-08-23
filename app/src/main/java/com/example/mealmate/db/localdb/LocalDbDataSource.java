@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.example.mealmate.model.MealDb;
 
+import io.reactivex.rxjava3.core.Completable;
+
 public class LocalDbDataSource implements LocalDbDataSourceInterface{
     MealDAO dao;
 
@@ -20,12 +22,7 @@ public class LocalDbDataSource implements LocalDbDataSourceInterface{
     }
 
     @Override
-    public void insertMeal(MealDb mealDb) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                dao.insertProduct(mealDb);
-            }
-        }).start();
+    public Completable insertMeal(MealDb mealDb) {
+           return dao.insertProduct(mealDb);
     }
 }

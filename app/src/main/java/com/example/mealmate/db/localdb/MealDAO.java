@@ -5,8 +5,10 @@ import androidx.room.Insert;
 
 import com.example.mealmate.model.MealDb;
 
+import io.reactivex.rxjava3.core.Completable;
+
 @Dao
 public interface MealDAO {
     @Insert
-    void insertProduct(MealDb mealDb);
+    Completable insertProduct(MealDb mealDb);
 }

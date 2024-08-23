@@ -4,6 +4,8 @@ import com.example.mealmate.db.localdb.LocalDbDataSource;
 import com.example.mealmate.db.localdb.LocalDbDataSourceInterface;
 import com.example.mealmate.model.MealDb;
 
+import io.reactivex.rxjava3.core.Completable;
+
 public class DbReposatory implements DbReposatoryInterface{
     private LocalDbDataSourceInterface localDbDataSource;
     private static DbReposatory instance=null;
@@ -18,7 +20,8 @@ public class DbReposatory implements DbReposatoryInterface{
     }
 
     @Override
-    public void insertMeal(MealDb mealDb) {
-        localDbDataSource.insertMeal(mealDb);
+    public Completable insertMeal(MealDb mealDb) {
+        return localDbDataSource.insertMeal(mealDb);
+//        localDbDataSource.insertMeal(mealDb);
     }
 }
