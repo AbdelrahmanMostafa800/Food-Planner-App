@@ -1,178 +1,139 @@
-package com.example.mealmate.model.meal;
+package com.example.mealmate.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Meal{
+@Entity(tableName = "mealtable", primaryKeys = {"userName", "idMeal"})
+public class MealDb {
+    @NonNull
+    public String userName;
+    @NonNull
     public String idMeal;
     public String strMeal;
-    public Object strDrinkAlternate;
     public String strCategory;
-    public String strArea;
-    public String strInstructions;
-    public String strMealThumb;
-    public String strTags;
-    public String strYoutube;
-    public String strIngredient1;
-    public String strIngredient2;
-    public String strIngredient3;
-    public String strIngredient4;
-    public String strIngredient5;
-    public String strIngredient6;
-    public String strIngredient7;
-    public String strIngredient8;
-    public String strIngredient9;
-    public String strIngredient10;
-    public String strIngredient11;
-    public String strIngredient12;
-    public String strIngredient13;
-    public String strIngredient14;
-    public String strIngredient15;
-    public String strIngredient16;
-    public String strIngredient17;
-    public String strIngredient18;
-    public String strIngredient19;
-    public String strIngredient20;
-    public String strMeasure1;
-    public String strMeasure2;
-    public String strMeasure3;
-    public String strMeasure4;
-    public String strMeasure5;
-    public String strMeasure6;
-    public String strMeasure7;
-    public String strMeasure8;
-    public String strMeasure9;
-    public String strMeasure10;
-    public String strMeasure11;
-    public String strMeasure12;
-    public String strMeasure13;
-    public String strMeasure14;
-    public String strMeasure15;
-    public String strMeasure16;
-    public String strMeasure17;
-    public String strMeasure18;
-    public String strMeasure19;
-    public String strMeasure20;
-    public String strSource;
-    public Object strImageSource;
-    public Object strCreativeCommonsConfirmed;
-    public Object dateModified;
-
-    public List<String> getStrIngredients() {
-        List<String> ingredients = new ArrayList<>();
-        for (int i = 1; i <= 20; i++) {
-            String ingredient = getStrIngredient(i);
-            if (ingredient != null && !ingredient.isEmpty()) {
-                ingredients.add(ingredient);
+    public void seMeasures(List<String> measures) {
+        for (int i = 1; i <measures.size(); i++) {
+            if (measures.get(i) != null && !measures.get(i).isEmpty()) {
+                setStrMeasure(i,measures.get(i));
             }
         }
-        return ingredients;
     }
 
-    private String getStrIngredient(int index) {
+    private void setStrMeasure(int index,String value) {
         switch (index) {
             case 1:
-                return strIngredient1;
+                 strMeasure1=value;
             case 2:
-                return strIngredient2;
+                 strMeasure2=value;
             case 3:
-                return strIngredient3;
+                 strMeasure3=value;
             case 4:
-                return strIngredient4;
+                 strMeasure4=value;
             case 5:
-                return strIngredient5;
+                 strMeasure5=value;
             case 6:
-                return strIngredient6;
+                 strMeasure6=value;
             case 7:
-                return strIngredient7;
+                 strMeasure7=value;
             case 8:
-                return strIngredient8;
+                 strMeasure8=value;
             case 9:
-                return strIngredient9;
+                 strMeasure9=value;
             case 10:
-                return strIngredient10;
+                 strMeasure10=value;
             case 11:
-                return strIngredient11;
+                 strMeasure11=value;
             case 12:
-                return strIngredient12;
+                 strMeasure12=value;
             case 13:
-                return strIngredient13;
+                 strMeasure13=value;
             case 14:
-                return strIngredient14;
+                 strMeasure14=value;
             case 15:
-                return strIngredient15;
+                 strMeasure15=value;
             case 16:
-                return strIngredient16;
+                 strMeasure16=value;
             case 17:
-                return strIngredient17;
+                 strMeasure17=value;
             case 18:
-                return strIngredient18;
+                 strMeasure18=value;
             case 19:
-                return strIngredient19;
+                 strMeasure19=value;
             case 20:
-                return strIngredient20;
-            default:
-                return null;
+                 strMeasure20=value;
         }
     }
-    public List<String> getStrMeasures() {
-        List<String> measures = new ArrayList<>();
-        for (int i = 1; i <= 20; i++) {
-            String measure = getStrMeasure(i);
-            if (measure != null && !measure.isEmpty()) {
-                measures.add(measure);
+
+    public void setIngredients(List<String> ingredients) {
+        for (int i = 1; i <ingredients.size(); i++) {
+            if (ingredients.get(i) != null && !ingredients.get(i).isEmpty()) {
+                setStrIngredient(i,ingredients.get(i));
             }
         }
-        return measures;
     }
 
-    private String getStrMeasure(int index) {
+    private void setStrIngredient(int index,String value) {
         switch (index) {
             case 1:
-                return strMeasure1;
+                strIngredient1=value;
             case 2:
-                return strMeasure2;
+                strIngredient2=value;
             case 3:
-                return strMeasure3;
+                strIngredient3=value;
             case 4:
-                return strMeasure4;
+                strIngredient4=value;
             case 5:
-                return strMeasure5;
+                strIngredient5=value;
             case 6:
-                return strMeasure6;
+                strIngredient6=value;
             case 7:
-                return strMeasure7;
+                strIngredient7=value;
             case 8:
-                return strMeasure8;
+                strIngredient8=value;
             case 9:
-                return strMeasure9;
+                strIngredient9=value;
             case 10:
-                return strMeasure10;
+                strIngredient10=value;
             case 11:
-                return strMeasure11;
+                strIngredient11=value;
             case 12:
-                return strMeasure12;
+                strIngredient12=value;
             case 13:
-                return strMeasure13;
+                strIngredient13=value;
             case 14:
-                return strMeasure14;
+                strIngredient14=value;
             case 15:
-                return strMeasure15;
+                strIngredient15=value;
             case 16:
-                return strMeasure16;
+                strIngredient16=value;
             case 17:
-                return strMeasure17;
+                strIngredient17=value;
             case 18:
-                return strMeasure18;
+                strIngredient18=value;
             case 19:
-                return strMeasure19;
+                strIngredient19=value;
             case 20:
-                return strMeasure20;
-            default:
-                return null;
+                strIngredient20=value;
         }
+    }
+
+    public String getStrArea() {
+        return strArea;
+    }
+
+    public void setStrArea(String strArea) {
+        this.strArea = strArea;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getIdMeal() {
@@ -191,14 +152,6 @@ public class Meal{
         this.strMeal = strMeal;
     }
 
-    public Object getStrDrinkAlternate() {
-        return strDrinkAlternate;
-    }
-
-    public void setStrDrinkAlternate(Object strDrinkAlternate) {
-        this.strDrinkAlternate = strDrinkAlternate;
-    }
-
     public String getStrCategory() {
         return strCategory;
     }
@@ -207,36 +160,12 @@ public class Meal{
         this.strCategory = strCategory;
     }
 
-    public String getStrArea() {
-        return strArea;
-    }
-
-    public void setStrArea(String strArea) {
-        this.strArea = strArea;
-    }
-
     public String getStrInstructions() {
         return strInstructions;
     }
 
     public void setStrInstructions(String strInstructions) {
         this.strInstructions = strInstructions;
-    }
-
-    public String getStrMealThumb() {
-        return strMealThumb;
-    }
-
-    public void setStrMealThumb(String strMealThumb) {
-        this.strMealThumb = strMealThumb;
-    }
-
-    public String getStrTags() {
-        return strTags;
-    }
-
-    public void setStrTags(String strTags) {
-        this.strTags = strTags;
     }
 
     public String getStrYoutube() {
@@ -567,37 +496,56 @@ public class Meal{
         this.strMeasure20 = strMeasure20;
     }
 
-    public String getStrSource() {
-        return strSource;
+    public String strArea;
+    public String strInstructions;
+    public String strYoutube;
+    public String strIngredient1;
+    public String strIngredient2;
+    public String strIngredient3;
+    public String strIngredient4;
+    public String strIngredient5;
+    public String strIngredient6;
+    public String strIngredient7;
+    public String strIngredient8;
+    public String strIngredient9;
+    public String strIngredient10;
+    public String strIngredient11;
+    public String strIngredient12;
+    public String strIngredient13;
+    public String strIngredient14;
+    public String strIngredient15;
+    public String strIngredient16;
+    public String strIngredient17;
+    public String strIngredient18;
+    public String strIngredient19;
+    public String strIngredient20;
+    public String strMeasure1;
+    public String strMeasure2;
+    public String strMeasure3;
+    public String strMeasure4;
+    public String strMeasure5;
+    public String strMeasure6;
+    public String strMeasure7;
+    public String strMeasure8;
+    public String strMeasure9;
+    public String strMeasure10;
+    public String strMeasure11;
+    public String strMeasure12;
+    public String strMeasure13;
+    public String strMeasure14;
+    public String strMeasure15;
+    public String strMeasure16;
+    public String strMeasure17;
+    public String strMeasure18;
+    public String strMeasure19;
+    public String strMeasure20;
+    
+    public byte[] image;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setStrSource(String strSource) {
-        this.strSource = strSource;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
-
-    public Object getStrImageSource() {
-        return strImageSource;
-    }
-
-    public void setStrImageSource(Object strImageSource) {
-        this.strImageSource = strImageSource;
-    }
-
-    public Object getStrCreativeCommonsConfirmed() {
-        return strCreativeCommonsConfirmed;
-    }
-
-    public void setStrCreativeCommonsConfirmed(Object strCreativeCommonsConfirmed) {
-        this.strCreativeCommonsConfirmed = strCreativeCommonsConfirmed;
-    }
-
-    public Object getDateModified() {
-        return dateModified;
-    }
-
-    public void setDateModified(Object dateModified) {
-        this.dateModified = dateModified;
-    }
-
-
 }

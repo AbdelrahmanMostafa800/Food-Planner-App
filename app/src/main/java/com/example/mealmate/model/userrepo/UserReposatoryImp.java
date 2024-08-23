@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.mealmate.login.presenter.LoginPresenter;
-import com.example.mealmate.remotedb.RemotaDbDataSource;
+import com.example.mealmate.db.remotedb.RemotaDbDataSource;
 import com.example.mealmate.signup.presenter.SignUpPresenterInterface;
 
 import io.reactivex.rxjava3.core.CompletableObserver;

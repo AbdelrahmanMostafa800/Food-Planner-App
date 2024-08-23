@@ -1,4 +1,4 @@
-package com.example.mealmate.remotedb;
+package com.example.mealmate.db.remotedb;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

@@ -1,8 +1,13 @@
 package com.example.mealmate.homefragment.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.example.mealmate.db.localdb.LocalDbDataSource;
+import com.example.mealmate.model.MealDb;
 import com.example.mealmate.model.category.CategoryList;
+import com.example.mealmate.model.dbreposatory.DbReposatory;
+import com.example.mealmate.model.dbreposatory.DbReposatoryInterface;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
@@ -19,9 +24,13 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     HomeFragmentView view;
     DataReposatoryInterface reposatory;
-    public HomeFragmentPresenterImp(HomeFragmentView view) {
+    DbReposatoryInterface dbReposatory;
+    Context context;
+    public HomeFragmentPresenterImp(HomeFragmentView view, Context context) {
         this.view = view;
         this.reposatory= DataReposatoryImp.getInstance();
+        this.context=context;
+        this.dbReposatory= DbReposatory.getInstance(LocalDbDataSource.getInstance(context));
     }
     @Override
     public void getSingleMeal(){
@@ -106,5 +115,10 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
             }
         };
         observable.subscribe(observer);
+    }
+
+    @Override
+    public void insertMeal(MealDb mealDb) {
+        dbReposatory.insertMeal(mealDb);
     }
 }
