@@ -55,7 +55,7 @@ public class FavoritsFragment extends Fragment implements FavoritsFragmentView,O
         recyclerView=view.findViewById(R.id.favorits_recycle);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         saveToCloud=view.findViewById(R.id.cloud);
-        presenter.getLocalFavorits("ahmed")
+        presenter.getLocalFavorits(presenter.getUserId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()) // Switch to main thread
                 .subscribe(mealDbs -> {

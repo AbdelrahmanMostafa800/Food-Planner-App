@@ -22,11 +22,11 @@ import com.example.mealmate.mealplane.presenter.MealPlaneFragmentPresenterInterf
 import java.util.Arrays;
 import java.util.List;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 
 
-public class MealPlaneFragment extends Fragment implements OnDayClickListener,MealPlaneFragmentView{
+public class MealPlaneFragment extends Fragment implements OnDayClickListener,MealPlaneFragmentView,OnCalenderClickListener{
 
     MealPlaneFragmentPresenterInterface presenter;
     RecyclerView mealPlaneRecycle;
@@ -70,12 +70,28 @@ public class MealPlaneFragment extends Fragment implements OnDayClickListener,Me
                     if (mealDbs.isEmpty()) {
                         Log.d("fav", "No favorite meals found");
                     } else {
-                        MealPlaneAdapter adapter = new MealPlaneAdapter(mealDbs);
+                        MealPlaneAdapter adapter = new MealPlaneAdapter(mealDbs,this);
                         mealPlaneRecycle.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                     }
                 }, throwable -> {
                     Log.e("fav", "Error occurred", throwable);
+                });
+    }
+
+    @Override
+    public void deleteMealFromDb(String day, String userName, String idMeal) {
+        presenter.deleteDayMealFromDb(day,userName,idMeal)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    // Update the adapter after deletion
+                    MealPlaneAdapter adapter = (MealPlaneAdapter) mealPlaneRecycle.getAdapter();
+                    if (adapter != null) {
+                        adapter.notifyDataSetChanged();
+                    }
+                }, throwable -> {
+                    Log.e("fav", "Error occurred while deleting meal", throwable);
                 });
     }
 }

@@ -13,4 +13,6 @@ public interface FavoritsPresenterInterface {
     Completable deleteMealFromDb(String userName, String idMeal);
 
     void saveToFirebaseDb(List<MealDb> mealDbsList);
+
+    String getUserId();
 }

@@ -5,7 +5,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class UserAuthReposatoryImp {
+public class UserAuthReposatoryImp implements UserAuthReposatoryInterface{
     FirebaseAuth auth;
     private static UserAuthReposatoryImp instance=null;
     private UserAuthReposatoryImp(){
@@ -48,6 +48,10 @@ public class UserAuthReposatoryImp {
 
     public void googleLogin() {
 
+    }
+
+    public String getUserId() {
+        return auth.getCurrentUser().getUid();
     }
 }
 

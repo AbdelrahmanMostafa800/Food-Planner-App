@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_onBoardScreen1Fragment_to_onBoardScreen2Fragment"
             app:destination="@id/OnBoardScreen2Fragment" />
+        <action
+            android:id="@+id/action_OnBoardScreen1Fragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/OnBoardScreen2Fragment"
@@ -25,6 +28,9 @@
             android:name="v"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_OnBoardScreen2Fragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/OnBoardScreen3Fragment"
@@ -33,6 +39,9 @@
         tools:layout="@layout/fragment_on_board_screen3" >
         <action
             android:id="@+id/action_OnBoardScreen3Fragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_OnBoardScreen3Fragment_to_loginFragment2"
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment

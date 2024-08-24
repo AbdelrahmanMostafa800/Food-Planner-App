@@ -140,6 +140,7 @@ public class LoginFragment extends Fragment implements LoginView {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
+                                    presenter.googleLogin();
                                     Intent intent = new Intent(getActivity(),HomeActivity.class);
                                     startActivity(intent);
 

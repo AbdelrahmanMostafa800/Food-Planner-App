@@ -3,6 +3,7 @@ package com.example.mealmate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +11,8 @@ import com.example.mealmate.model.userrepo.UserReposatoryImp;
 import com.example.mealmate.model.userrepo.UserReposatoryInterface;
 import com.example.mealmate.navigationstart.onboarding.OnBoardingActivity;
 import com.google.firebase.FirebaseApp;
+
+import java.util.Objects;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -20,8 +23,15 @@ public class SplashScreenActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_splash_screen);
         reposatory= UserReposatoryImp.getInstance(this);
+        String loginStatus = reposatory.getUserLoginStatus();
+        if (loginStatus != null) {
+            Log.d("user", loginStatus);
+        } else {
+            Log.d("user", "Login status is null");
+        }
         new Handler().postDelayed(() -> {
-            if(reposatory.getUserLoginStatus()==null) {
+            if(reposatory.getUserLoginStatus()==null|| Objects.equals(reposatory.getUserLoginStatus(), "Guest")) {
+
                 Intent intent = new Intent(this, OnBoardingActivity.class);
                 startActivity(intent);
             }else{

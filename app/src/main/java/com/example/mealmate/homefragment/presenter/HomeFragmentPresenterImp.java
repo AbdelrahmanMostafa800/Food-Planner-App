@@ -14,11 +14,18 @@ import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryInterface;
 import com.example.mealmate.homefragment.view.HomeFragmentView;
+import com.example.mealmate.model.userrepo.UserAuthReposatoryImp;
+import com.example.mealmate.model.userrepo.UserAuthReposatoryInterface;
+import com.example.mealmate.model.userrepo.UserReposatoryImp;
+import com.example.mealmate.model.userrepo.UserReposatoryInterface;
+
+import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -26,12 +33,16 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     HomeFragmentView view;
     DataReposatoryInterface reposatory;
     DbReposatoryInterface dbReposatory;
+    UserAuthReposatoryInterface userAuth;
+    UserReposatoryInterface userReposatory;
     Context context;
     public HomeFragmentPresenterImp(HomeFragmentView view, Context context) {
         this.view = view;
         this.reposatory= DataReposatoryImp.getInstance();
         this.context=context;
         this.dbReposatory= DbReposatory.getInstance(LocalDbDataSource.getInstance(context));
+        userAuth= UserAuthReposatoryImp.getInstance();
+        userReposatory= UserReposatoryImp.getInstance(context);
     }
     @Override
     public void getSingleMeal(){
@@ -140,5 +151,35 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
                 }, throwable -> {
                     Log.d("insert", "fail ");
                 });
+    }
+
+    @Override
+    public void retrieveMealsFromFirestore() {
+        Log.d("userid", userAuth.getUserId());
+        dbReposatory.retrieveMealsFromFirestore(userAuth.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mealDbsList -> {
+                    // do something with the list of meals
+                    for (MealDb mealDb : mealDbsList) {
+                        Log.d("MealCallback", "Received meal: " + mealDb.getStrMeal());
+                        dbReposatory.insertMeal(mealDb)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(() -> {
+                                    Log.d("insert", "don ");
+                                }, throwable -> {
+                                    Log.d("insert", "fail ");
+                                });
+                    }
+                    Log.d("MealCallback", "Received meals: " + mealDbsList.size());
+                }, throwable -> {
+                    Log.w("MealCallback", "Error retrieving meals", throwable);
+                });
+    }
+
+    @Override
+    public String getUserStatus() {
+        return userReposatory.getUserLoginStatus();
     }
 }

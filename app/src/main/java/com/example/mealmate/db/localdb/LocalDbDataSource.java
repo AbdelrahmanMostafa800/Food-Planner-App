@@ -51,4 +51,9 @@ public class LocalDbDataSource implements LocalDbDataSourceInterface{
     public Flowable<List<DayMealDb>> getLocalMealPlane(String day, String userName) {
         return dDao.getMealPlaneByDay(userName,day);
     }
+
+    @Override
+    public Completable deleteDayMealFromDb(String day, String userName, String idMeal) {
+        return dDao.deleteMealFromDb(day,userName,idMeal);
+    }
 }

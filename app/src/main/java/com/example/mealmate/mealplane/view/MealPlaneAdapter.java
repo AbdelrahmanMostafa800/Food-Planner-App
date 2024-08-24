@@ -42,8 +42,10 @@ import java.util.List;
 
 public class MealPlaneAdapter extends RecyclerView.Adapter<MealPlaneAdapter.ViewHolder> {
     List<DayMealDb> meal;
-    public MealPlaneAdapter(List<DayMealDb> meal) {
+    OnCalenderClickListener cardListener;
+    public MealPlaneAdapter(List<DayMealDb> meal,OnCalenderClickListener cardListener) {
         this.meal = meal;
+        this.cardListener=cardListener;
     }
 
     @NonNull
@@ -62,9 +64,9 @@ public class MealPlaneAdapter extends RecyclerView.Adapter<MealPlaneAdapter.View
             Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
             holder.imagee.setImageBitmap(bitmap);
         }
-//        holder.favoritView.setOnClickListener(v-> {
-//            cardListener.deleteMealFromDb("ahmed",meal.get(position).getIdMeal());
-//        });
+        holder.calenderView.setOnClickListener(v-> {
+            cardListener.deleteMealFromDb(meal.get(position).getDay(),meal.get(position).getUserName(),meal.get(position).getIdMeal());
+        });
 
     }
 
@@ -74,7 +76,7 @@ public class MealPlaneAdapter extends RecyclerView.Adapter<MealPlaneAdapter.View
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imagee;
+        public ImageView imagee,calenderView;
         public TextView titlee;
         public FrameLayout rowCard;
 
@@ -83,6 +85,7 @@ public class MealPlaneAdapter extends RecyclerView.Adapter<MealPlaneAdapter.View
             this.titlee = (TextView) itemView.findViewById(R.id.mealNameView);
             this.imagee = (ImageView) itemView.findViewById(R.id.mealImageView);
             this.rowCard = (FrameLayout) itemView.findViewById(R.id.meal_recycle_row);
+            this.calenderView=(ImageView) itemView.findViewById(R.id.calenderView);
         }
     }
 }

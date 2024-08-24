@@ -9,6 +9,8 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.mealmate.model.MealDb;
 import com.example.mealmate.model.meal.Meal;
+import com.example.mealmate.model.userrepo.UserAuthReposatoryImp;
+import com.example.mealmate.model.userrepo.UserAuthReposatoryInterface;
 
 import java.io.ByteArrayOutputStream;
 
@@ -19,10 +21,12 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MealTransfere {
+    static UserAuthReposatoryInterface auth;
     public static Observable<MealDb> insertMealIntoDb(Meal meall, Context context){
+        auth= UserAuthReposatoryImp.getInstance();
         return Observable.create(emitter -> {
             MealDb mealDb=new MealDb();
-            mealDb.setUserName("ahmed");
+            mealDb.setUserName(auth.getUserId());
             mealDb.setIdMeal(meall.getIdMeal());
             mealDb.setStrMeal(meall.getStrMeal());
             mealDb.setStrCategory(meall.getStrCategory());

@@ -3,9 +3,18 @@ package com.example.mealmate.model.userrepo;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.mealmate.login.presenter.LoginPresenter;
 import com.example.mealmate.db.remotedb.RemotaDbDataSource;
 import com.example.mealmate.signup.presenter.SignUpPresenterInterface;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+
+import java.util.Map;
 
 import io.reactivex.rxjava3.core.CompletableObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -38,8 +47,7 @@ public class UserReposatoryImp implements UserReposatoryInterface{
 
                     @Override
                     public void onComplete() {
-                        userLocal.addUser("UserLogidIn",name,email);
-                        Log.d("userrepo", "onComplete: ");
+                        userLocal.addUser("UserSignedUp",name,email);
                         spresenter.isuserAdded(true);
                     }
 
@@ -82,7 +90,46 @@ public class UserReposatoryImp implements UserReposatoryInterface{
 
     @Override
     public void googleLogin() {
-        userAuth.googleLogin();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            user.getIdToken(true)
+                    .addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<GetTokenResult> task) {
+                            if (task.isSuccessful()) {
+                                GetTokenResult result = task.getResult();
+                                Map<String, Object> claims = result.getClaims();
+                                Object createdAtObject = claims.get("created_at");
+                                Object lastSignInAtObject = claims.get("last_sign_in_at");
+
+                                long creationTime = 0;
+                                long lastSignInTime = 0;
+
+                                if (createdAtObject != null && createdAtObject instanceof Long) {
+                                    creationTime = (Long) createdAtObject;
+                                }
+
+                                if (lastSignInAtObject != null && lastSignInAtObject instanceof Long) {
+                                    lastSignInTime = (Long) lastSignInAtObject;
+                                }
+
+                                // Check if user is new or old
+                                if (creationTime == lastSignInTime) {
+                                    // User is new
+                                    userLocal.addUser("UserSignedUp", "", user.getUid());
+                                } else {
+                                    // User is old
+                                    userLocal.addUser("UserLogidIn", "", user.getUid());
+                                }
+                            } else {
+                                // Handle error
+                            }
+                        }
+                    });
+        } else {
+            // User is signed out
+            userLocal.addUser("UserSignedOut", "", "");
+        }
     }
 
     @Override
@@ -97,6 +144,9 @@ public class UserReposatoryImp implements UserReposatoryInterface{
         lpresenter.isLoginSuccess(true);
     }
 
-
+@Override
+    public String getUserID(){
+   return userAuth.getUserId();
+}
 
 }

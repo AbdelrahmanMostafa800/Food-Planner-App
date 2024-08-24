@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         UserReposatoryInterface reposatory= UserReposatoryImp.getInstance(getContext());
-
+        hpresenter=new HomeFragmentPresenterImp(this,getContext());
         TextView nameText=view.findViewById(R.id.nameText);
          mealName=view.findViewById(R.id.mealNameView);
         mealdesc=view.findViewById(R.id.mealdesc);
@@ -84,6 +84,10 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
          mealImageView=view.findViewById(R.id.mealImageView);
         calenderView=view.findViewById(R.id.calenderView);
         nameText.setText(getString(R.string.hellow)+reposatory.getUserLocalData()[1]+"!");
+
+        if(hpresenter.getUserStatus()=="UserSignedUp"){
+        hpresenter.retrieveMealsFromFirestore();
+        }
 
         calenderView.setOnClickListener(v-> {
             MealDayTransfere.insertMealIntoDb("Monday",meall,getContext())
@@ -146,7 +150,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
             });
 
         chipGroup = view.findViewById(R.id.chipGroup);
-        hpresenter=new HomeFragmentPresenterImp(this,getContext());
+
         //api
         hpresenter.getSingleMeal();
         //api
@@ -205,7 +209,10 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
     }
 
 
+
+
 }
+
 
 /*
 Bitmap bitmap = ...; // Load the image bitmap

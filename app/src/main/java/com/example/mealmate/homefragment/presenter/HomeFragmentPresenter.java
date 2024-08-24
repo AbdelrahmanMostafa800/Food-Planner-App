@@ -13,4 +13,8 @@ public interface HomeFragmentPresenter {
     void insertMeal(MealDb mealDb);
 
     void insertDayMeal(String day,DayMealDb mealDb);
+
+    void retrieveMealsFromFirestore();
+
+    String getUserStatus();
 }

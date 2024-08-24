@@ -7,6 +7,8 @@ import com.example.mealmate.favoritsfragment.view.FavoritsFragmentView;
 import com.example.mealmate.model.MealDb;
 import com.example.mealmate.model.dbreposatory.DbReposatory;
 import com.example.mealmate.model.dbreposatory.DbReposatoryInterface;
+import com.example.mealmate.model.userrepo.UserAuthReposatoryImp;
+import com.example.mealmate.model.userrepo.UserAuthReposatoryInterface;
 
 import java.util.List;
 
@@ -17,11 +19,13 @@ import io.reactivex.rxjava3.core.Flowable;
 public class FavoritsPresenter implements FavoritsPresenterInterface{
     FavoritsFragmentView view;
     DbReposatoryInterface dbReposatory;
+    UserAuthReposatoryInterface userAuthReposatory;
     Context context;
     public FavoritsPresenter(FavoritsFragmentView view, Context context) {
         this.view = view;
         this.context=context;
         this.dbReposatory= DbReposatory.getInstance(LocalDbDataSource.getInstance(context));
+        this.userAuthReposatory= UserAuthReposatoryImp.getInstance();
     }
 
     @Override
@@ -37,5 +41,10 @@ public class FavoritsPresenter implements FavoritsPresenterInterface{
     @Override
     public void saveToFirebaseDb(List<MealDb> mealDbsList) {
         dbReposatory.saveToFirebaseDb(mealDbsList);
+    }
+
+    @Override
+    public String getUserId() {
+        return userAuthReposatory.getUserId();
     }
 }

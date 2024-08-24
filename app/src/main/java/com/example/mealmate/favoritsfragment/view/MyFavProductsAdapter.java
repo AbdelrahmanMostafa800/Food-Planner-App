@@ -45,7 +45,7 @@ public class MyFavProductsAdapter extends RecyclerView.Adapter<MyFavProductsAdap
             holder.imagee.setImageBitmap(bitmap);
         }
         holder.favoritView.setOnClickListener(v-> {
-            cardListener.deleteMealFromDb("ahmed",meal.get(position).getIdMeal());
+            cardListener.deleteMealFromDb(meal.get(position).getUserName(),meal.get(position).getIdMeal());
         });
 
     }

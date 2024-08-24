@@ -10,6 +10,7 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Single;
 
 public class DbReposatory implements DbReposatoryInterface{
     private LocalDbDataSourceInterface localDbDataSource;
@@ -53,5 +54,15 @@ public class DbReposatory implements DbReposatoryInterface{
     @Override
     public Flowable<List<DayMealDb>> getLocalMealPlane(String day, String userName) {
         return localDbDataSource.getLocalMealPlane(day,userName);
+    }
+
+    @Override
+    public Completable deleteDayMealFromDb(String day, String userName, String idMeal) {
+        return localDbDataSource.deleteDayMealFromDb(day,userName,idMeal);
+    }
+
+    @Override
+    public Single<List<MealDb>> retrieveMealsFromFirestore(String userId) {
+        return remoteDbDataSource.retrieveMealsFromFirestore(userId);
     }
 }

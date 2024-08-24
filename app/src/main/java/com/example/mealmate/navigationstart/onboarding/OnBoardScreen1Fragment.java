@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.mealmate.R;
 
@@ -35,6 +36,11 @@ public class OnBoardScreen1Fragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Button next=view.findViewById(R.id.nextbtn);
+        TextView skip=view.findViewById(R.id.skip);
+        skip.setOnClickListener(v->{
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.action_OnBoardScreen1Fragment_to_loginFragment);
+        });
        // Navigation.findNavController(next).navigate(R.id.action_onBoardScreen1Fragment_to_onBoardScreen2Fragment);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
