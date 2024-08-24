@@ -215,6 +215,30 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
 
     @Override
     public boolean loginOut() {
-       return userReposatory.loginOut();
+       return userReposatory.loginOut(context);
+    }
+
+    @Override
+    public void retrieveDayMealsFromFirestore() {
+        dbReposatory.retrieveDayMealsFromFirestore(userAuth.getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mealDbsList -> {
+                    // do something with the list of meals
+                    for (DayMealDb mealDb : mealDbsList) {
+                        Log.d("MealCallback", "Received meal: " + mealDb.getStrMeal());
+                        dbReposatory.insertDayMeal(mealDb.getDay(),mealDb)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(() -> {
+                                    Log.d("insert", "don ");
+                                }, throwable -> {
+                                    Log.d("insert", "fail ");
+                                });
+                    }
+                    Log.d("MealCallback", "Received meals: " + mealDbsList.size());
+                }, throwable -> {
+                    Log.w("MealCallback", "Error retrieving meals", throwable);
+                });
     }
 }

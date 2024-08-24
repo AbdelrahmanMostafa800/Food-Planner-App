@@ -13,11 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.mealmate.R;
 import com.example.mealmate.favoritsfragment.view.MyFavProductsAdapter;
 import com.example.mealmate.mealplane.presenter.MealPlaneFragmentPresenter;
 import com.example.mealmate.mealplane.presenter.MealPlaneFragmentPresenterInterface;
+import com.example.mealmate.model.DayMealDb;
+import com.example.mealmate.model.MealDb;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +33,8 @@ public class MealPlaneFragment extends Fragment implements OnDayClickListener,Me
 
     MealPlaneFragmentPresenterInterface presenter;
     RecyclerView mealPlaneRecycle;
+    ImageView saveToCloud;
+    List<DayMealDb> mealDbsList;
     public MealPlaneFragment() {
         // Required empty public constructor
     }
@@ -59,12 +64,27 @@ public class MealPlaneFragment extends Fragment implements OnDayClickListener,Me
         if(!presenter.getUserStatus().equals("Guest")){
             RecyclerView recyclerView = view.findViewById(R.id.daysRecyclerView);
             mealPlaneRecycle = view.findViewById(R.id.mealPlaneRecycle);
-
+            saveToCloud = view.findViewById(R.id.cloud);
             mealPlaneRecycle.setLayoutManager(new GridLayoutManager(getContext(),2));
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
             List<String> chipTitles = Arrays.asList("Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
             DaysRecycleViewAdapter adapter = new DaysRecycleViewAdapter(chipTitles,this);
             recyclerView.setAdapter(adapter);
+            presenter.getAllLocalMealPlane(presenter.getUserID())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread()) // Switch to main thread
+                    .subscribe(mealDbs -> {
+                        if (mealDbs.isEmpty()) {
+                            Log.d("fav", "No favorite meals found");
+                        } else {
+                            mealDbsList = mealDbs;
+                        }
+                    }, throwable -> {
+                        Log.e("fav", "Error occurred", throwable);
+                    });
+            saveToCloud.setOnClickListener(v -> {
+                presenter.saveToFirebaseDb(mealDbsList);
+            });
         }
 
 

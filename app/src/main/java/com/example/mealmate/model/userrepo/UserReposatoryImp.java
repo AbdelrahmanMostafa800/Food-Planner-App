@@ -24,7 +24,6 @@ public class UserReposatoryImp implements UserReposatoryInterface{
     UserLocalDataImp userLocal;
     RemotaDbDataSource dbFirebaseRemote;
     boolean userIsAdded;
-    LoginPresenter presenter;
     private static UserReposatoryImp instance=null;
     private UserReposatoryImp(UserAuthReposatoryImp userAuth, UserLocalDataImp userLocal){
         this.userAuth=userAuth;
@@ -161,8 +160,8 @@ public class UserReposatoryImp implements UserReposatoryInterface{
     }
 
     @Override
-    public boolean loginOut() {
-       if( userAuth.loginOut()){
+    public boolean loginOut(Context context) {
+       if( userAuth.loginOut( context)){
            userLocal.loginOut();
            return true;
        }else{

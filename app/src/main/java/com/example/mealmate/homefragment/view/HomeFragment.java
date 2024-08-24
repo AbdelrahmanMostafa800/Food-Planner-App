@@ -42,6 +42,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Observer;
@@ -103,8 +104,9 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
             }
         });
 
-        if(hpresenter.getUserStatus()=="UserSignedUp"){
+        if(Objects.equals(hpresenter.getUserStatus(), "UserSignedUp")||Objects.equals(hpresenter.getUserStatus(), "UserLogidIn")){
         hpresenter.retrieveMealsFromFirestore();
+        hpresenter.retrieveDayMealsFromFirestore();
         }
 
         calenderView.setOnClickListener(v-> {

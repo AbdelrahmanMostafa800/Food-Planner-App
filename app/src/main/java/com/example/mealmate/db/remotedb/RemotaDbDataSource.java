@@ -1,5 +1,6 @@
 package com.example.mealmate.db.remotedb;
 
+import com.example.mealmate.model.DayMealDb;
 import com.example.mealmate.model.MealDb;
 
 import java.util.List;
@@ -10,4 +11,8 @@ public interface RemotaDbDataSource {
     void saveMealToDb(List<MealDb> mealDbsList);
 
     Single<List<MealDb>> retrieveMealsFromFirestore(String userId);
+
+    void saveDayMealToFirestore(List<DayMealDb> dayMealDb);
+
+    Single<List<DayMealDb>> retrieveDayMealsFromFirestore(String userId);
 }

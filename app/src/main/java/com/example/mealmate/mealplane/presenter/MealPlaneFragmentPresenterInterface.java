@@ -16,4 +16,8 @@ public interface MealPlaneFragmentPresenterInterface {
     String getUserID();
 
     String getUserStatus();
+
+    Flowable<List<DayMealDb>> getAllLocalMealPlane(String userID);
+
+    void saveToFirebaseDb(List<DayMealDb> mealDbsList);
 }

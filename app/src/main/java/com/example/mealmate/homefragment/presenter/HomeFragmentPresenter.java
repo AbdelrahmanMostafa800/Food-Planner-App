@@ -19,4 +19,6 @@ public interface HomeFragmentPresenter {
     String getUserStatus();
 
     boolean loginOut();
+
+    void retrieveDayMealsFromFirestore();
 }

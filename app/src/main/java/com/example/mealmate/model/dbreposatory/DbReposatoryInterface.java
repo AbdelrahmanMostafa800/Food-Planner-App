@@ -26,4 +26,10 @@ public interface DbReposatoryInterface {
     Completable deleteDayMealFromDb(String day, String userName, String idMeal);
 
     Single<List<MealDb>> retrieveMealsFromFirestore(String userId);
+
+    Single<List<DayMealDb>> retrieveDayMealsFromFirestore(String userId);
+
+    void saveToDAyMealFirebaseDb(List<DayMealDb> mealDbsList);
+
+    Flowable<List<DayMealDb>> getAllLocalMealPlane(String userID);
 }

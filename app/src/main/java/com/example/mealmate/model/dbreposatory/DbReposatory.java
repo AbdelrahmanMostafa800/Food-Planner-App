@@ -65,4 +65,18 @@ public class DbReposatory implements DbReposatoryInterface{
     public Single<List<MealDb>> retrieveMealsFromFirestore(String userId) {
         return remoteDbDataSource.retrieveMealsFromFirestore(userId);
     }
+
+    @Override
+    public Single<List<DayMealDb>> retrieveDayMealsFromFirestore(String userId) {
+        return  remoteDbDataSource.retrieveDayMealsFromFirestore(userId);
+    }
+    @Override
+    public void saveToDAyMealFirebaseDb(List<DayMealDb> mealDbsList){
+        remoteDbDataSource.saveDayMealToFirestore(mealDbsList);
+    }
+
+    @Override
+    public Flowable<List<DayMealDb>> getAllLocalMealPlane(String userID) {
+        return localDbDataSource.getMealPlaneByUserName(userID);
+    }
 }

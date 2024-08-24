@@ -52,4 +52,14 @@ public class MealPlaneFragmentPresenter implements MealPlaneFragmentPresenterInt
     public String getUserStatus() {
         return userRepo.getUserLoginStatus();
     }
+
+    @Override
+    public Flowable<List<DayMealDb>> getAllLocalMealPlane(String userID) {
+        return dbReposatory.getAllLocalMealPlane(userID);
+    }
+
+    @Override
+    public void saveToFirebaseDb(List<DayMealDb> mealDbsList) {
+        dbReposatory.saveToDAyMealFirebaseDb(mealDbsList);
+    }
 }

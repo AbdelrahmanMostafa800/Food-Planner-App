@@ -1,5 +1,14 @@
 package com.example.mealmate.model.userrepo;
 
+import android.content.Context;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -55,14 +64,21 @@ public class UserAuthReposatoryImp implements UserAuthReposatoryInterface{
     }
 
     @Override
-    public boolean loginOut() {
-        auth.signOut();
-        boolean isLoggedOut = auth.getCurrentUser() == null;
-        if (isLoggedOut) {
+    public boolean loginOut(Context context) {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("781598236255-rhh2bbtfo3bj7tsmvr6ec2sn60ugeaei.apps.googleusercontent.com")
+                .requestEmail()
+                .build();
+        GoogleSignInClient client = GoogleSignIn.getClient(context, gso);
+
+        client.revokeAccess().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                auth.signOut();
+
+            }
+        });
             return true;
-        } else {
-            return false;
-        }
     }
 }
 
