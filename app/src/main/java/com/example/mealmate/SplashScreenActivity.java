@@ -30,7 +30,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             Log.d("user", "Login status is null");
         }
         new Handler().postDelayed(() -> {
-            if(reposatory.getUserLoginStatus()==null|| Objects.equals(reposatory.getUserLoginStatus(), "Guest")) {
+            if(reposatory.getUserLoginStatus()==null|| Objects.equals(reposatory.getUserLoginStatus(), "Guest")||Objects.equals(reposatory.getUserLoginStatus(), "UserSignedOut")) {
 
                 Intent intent = new Intent(this, OnBoardingActivity.class);
                 startActivity(intent);

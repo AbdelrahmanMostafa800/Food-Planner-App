@@ -160,4 +160,14 @@ public class UserReposatoryImp implements UserReposatoryInterface{
         return userLocal.getSavedMealId();
     }
 
+    @Override
+    public boolean loginOut() {
+       if( userAuth.loginOut()){
+           userLocal.loginOut();
+           return true;
+       }else{
+           return false;
+       }
+    }
+
 }

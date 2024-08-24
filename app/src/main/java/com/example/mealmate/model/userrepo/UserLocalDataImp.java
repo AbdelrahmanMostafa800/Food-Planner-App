@@ -54,4 +54,11 @@ public class UserLocalDataImp {
     public String getSavedMealId() {
         return homeSingleMeal.getString("MealId",null);
     }
+
+    public void loginOut() {
+        sharedPreferencesEditor.putString("Status","UserSignedOut");
+        sharedPreferencesEditor.putString("Name","");
+        sharedPreferencesEditor.putString("Email","");
+        sharedPreferencesEditor.commit();
+    }
 }

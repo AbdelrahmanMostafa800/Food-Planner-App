@@ -18,8 +18,10 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.mealmate.SplashScreenActivity;
 import com.example.mealmate.bottomsheet.BottomSheetAdapter;
 import com.example.mealmate.MealDayTransfere;
 import com.example.mealmate.MealTransfere;
@@ -49,7 +51,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class HomeFragment extends Fragment implements HomeFragmentView {
 
     HomeFragmentPresenter hpresenter;
-    ImageView mealImageView,favoritView,calenderView;
+    ImageView mealImageView,favoritView,calenderView,loginOut;
     TextView mealName;
     RecyclerView recyclerView;
     CardView mealdesc;
@@ -77,7 +79,6 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        UserReposatoryInterface reposatory= UserReposatoryImp.getInstance(getContext());
         hpresenter=new HomeFragmentPresenterImp(this,getContext());
          mealName=view.findViewById(R.id.mealNameView);
         mealdesc=view.findViewById(R.id.mealdesc);
@@ -86,6 +87,16 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
          mealImageView=view.findViewById(R.id.mealImageView);
         calenderView=view.findViewById(R.id.calenderView);
+        loginOut=view.findViewById(R.id.loginout);
+        loginOut.setOnClickListener(v-> {
+            if(hpresenter.loginOut()){
+                Intent intent=new Intent(getContext(), SplashScreenActivity.class);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(getContext(),"Can't logout", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         if(hpresenter.getUserStatus()=="UserSignedUp"){
         hpresenter.retrieveMealsFromFirestore();

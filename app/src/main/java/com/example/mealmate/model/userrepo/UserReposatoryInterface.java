@@ -21,4 +21,6 @@ public interface UserReposatoryInterface {
     void addMeal(String mealId);
 
     String getSavedMealId();
+
+    boolean loginOut();
 }

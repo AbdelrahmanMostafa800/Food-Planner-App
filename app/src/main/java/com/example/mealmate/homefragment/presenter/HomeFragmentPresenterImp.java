@@ -19,13 +19,10 @@ import com.example.mealmate.model.userrepo.UserAuthReposatoryInterface;
 import com.example.mealmate.model.userrepo.UserReposatoryImp;
 import com.example.mealmate.model.userrepo.UserReposatoryInterface;
 
-import java.util.List;
-
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
@@ -213,5 +210,10 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     @Override
     public String getUserStatus() {
         return userReposatory.getUserLoginStatus();
+    }
+
+    @Override
+    public boolean loginOut() {
+       return userReposatory.loginOut();
     }
 }

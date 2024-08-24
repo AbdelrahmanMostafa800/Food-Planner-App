@@ -53,5 +53,16 @@ public class UserAuthReposatoryImp implements UserAuthReposatoryInterface{
     public String getUserId() {
         return auth.getCurrentUser().getUid();
     }
+
+    @Override
+    public boolean loginOut() {
+        auth.signOut();
+        boolean isLoggedOut = auth.getCurrentUser() == null;
+        if (isLoggedOut) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
