@@ -46,4 +46,9 @@ public class LocalDbDataSource implements LocalDbDataSourceInterface{
     public Completable insertDayMeal(String day,DayMealDb mealDb) {
         return dDao.insertProduct(mealDb);
     }
+
+    @Override
+    public Flowable<List<DayMealDb>> getLocalMealPlane(String day, String userName) {
+        return dDao.getMealPlaneByDay(userName,day);
+    }
 }

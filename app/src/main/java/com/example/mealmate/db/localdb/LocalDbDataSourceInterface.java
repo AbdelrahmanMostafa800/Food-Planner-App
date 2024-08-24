@@ -16,4 +16,6 @@ public interface LocalDbDataSourceInterface {
     Completable deleteMealFromDb(String userName, String idMeal);
 
     Completable insertDayMeal(String day,DayMealDb mealDb);
+
+    Flowable<List<DayMealDb>> getLocalMealPlane(String day, String userName);
 }

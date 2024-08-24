@@ -16,8 +16,10 @@ import java.util.List;
 public class DaysRecycleViewAdapter extends RecyclerView.Adapter<DaysRecycleViewAdapter.ViewHolder> {
     private final List<String> chipTitles;
     private int selectedPosition = RecyclerView.NO_POSITION;
-    public DaysRecycleViewAdapter(List<String> chipTitles) {
+    OnDayClickListener onDayClickListener;
+    public DaysRecycleViewAdapter(List<String> chipTitles,OnDayClickListener onDayClickListener) {
         this.chipTitles=chipTitles;
+        this.onDayClickListener=onDayClickListener;
     }
 
 
@@ -43,6 +45,7 @@ public class DaysRecycleViewAdapter extends RecyclerView.Adapter<DaysRecycleView
 //            notifyItemChanged(previousPosition);
 //            notifyItemChanged(selectedPosition);
             Log.d("day", chipTitles.get(position));
+            onDayClickListener.onDayClick(chipTitles.get(position));
         });
     }
 

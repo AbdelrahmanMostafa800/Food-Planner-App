@@ -49,4 +49,9 @@ public class DbReposatory implements DbReposatoryInterface{
     public Completable insertDayMeal(String day,DayMealDb mealDb) {
         return localDbDataSource.insertDayMeal(day,mealDb);
     }
+
+    @Override
+    public Flowable<List<DayMealDb>> getLocalMealPlane(String day, String userName) {
+        return localDbDataSource.getLocalMealPlane(day,userName);
+    }
 }

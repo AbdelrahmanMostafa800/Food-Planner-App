@@ -19,4 +19,6 @@ public interface DbReposatoryInterface {
     void saveToFirebaseDb(List<MealDb> mealDbsList);
 
     Completable insertDayMeal(String day,DayMealDb mealDb);
+
+    Flowable<List<DayMealDb>> getLocalMealPlane(String day, String userName);
 }

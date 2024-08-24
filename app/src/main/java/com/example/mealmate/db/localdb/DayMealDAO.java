@@ -29,9 +29,9 @@ public interface DayMealDAO {
     @Insert
     Completable insertProduct(DayMealDb mealDb);
     @Query("SELECT * FROM daytable WHERE userName = :userName")
-    Flowable<List<MealDb>> getMealPlaneByUserName(String userName);
+    Flowable<List<DayMealDb>> getMealPlaneByUserName(String userName);
     @Query("SELECT * FROM daytable WHERE userName = :userName AND day = :Day")
-    Flowable<List<MealDb>> getMealPlaneByDay(String userName,String Day);
+    Flowable<List<DayMealDb>> getMealPlaneByDay(String userName,String Day);
     @Query("DELETE FROM daytable WHERE userName = :userName AND idMeal = :idMeal AND day = :day")
     Completable deleteMealFromDb(String day,String userName, String idMeal);
 }
