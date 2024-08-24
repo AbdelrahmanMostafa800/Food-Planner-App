@@ -14,4 +14,6 @@ public interface MealPlaneFragmentPresenterInterface {
     Completable deleteDayMealFromDb(String day, String userName, String idMeal);
 
     String getUserID();
+
+    String getUserStatus();
 }

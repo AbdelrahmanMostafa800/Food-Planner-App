@@ -15,4 +15,6 @@ public interface FavoritsPresenterInterface {
     void saveToFirebaseDb(List<MealDb> mealDbsList);
 
     String getUserId();
+
+    String getUserStatus();
 }

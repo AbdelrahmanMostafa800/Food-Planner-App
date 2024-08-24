@@ -44,20 +44,29 @@ public class MealPlaneFragment extends Fragment implements OnDayClickListener,Me
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meal_plane, container, false);
+        presenter=new MealPlaneFragmentPresenter(this,getContext());
+        if(presenter.getUserStatus().equals("Guest")){
+            return inflater.inflate(R.layout.guest_please_login, container, false);
+        }else {
+            return inflater.inflate(R.layout.fragment_meal_plane, container, false);
+        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView recyclerView = view.findViewById(R.id.daysRecyclerView);
-         mealPlaneRecycle = view.findViewById(R.id.mealPlaneRecycle);
         presenter=new MealPlaneFragmentPresenter(this,getContext());
-        mealPlaneRecycle.setLayoutManager(new GridLayoutManager(getContext(),2));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        List<String> chipTitles = Arrays.asList("Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
-        DaysRecycleViewAdapter adapter = new DaysRecycleViewAdapter(chipTitles,this);
-        recyclerView.setAdapter(adapter);
+        if(!presenter.getUserStatus().equals("Guest")){
+            RecyclerView recyclerView = view.findViewById(R.id.daysRecyclerView);
+            mealPlaneRecycle = view.findViewById(R.id.mealPlaneRecycle);
+
+            mealPlaneRecycle.setLayoutManager(new GridLayoutManager(getContext(),2));
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+            List<String> chipTitles = Arrays.asList("Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday");
+            DaysRecycleViewAdapter adapter = new DaysRecycleViewAdapter(chipTitles,this);
+            recyclerView.setAdapter(adapter);
+        }
+
 
     }
 

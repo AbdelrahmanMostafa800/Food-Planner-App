@@ -11,6 +11,8 @@ import com.example.mealmate.model.dbreposatory.DbReposatory;
 import com.example.mealmate.model.dbreposatory.DbReposatoryInterface;
 import com.example.mealmate.model.userrepo.UserAuthReposatoryImp;
 import com.example.mealmate.model.userrepo.UserAuthReposatoryInterface;
+import com.example.mealmate.model.userrepo.UserReposatoryImp;
+import com.example.mealmate.model.userrepo.UserReposatoryInterface;
 
 import java.util.List;
 
@@ -21,12 +23,14 @@ public class MealPlaneFragmentPresenter implements MealPlaneFragmentPresenterInt
     MealPlaneFragmentView mealPlaneFragment;
     DbReposatoryInterface dbReposatory;
     UserAuthReposatoryInterface auth;
+    UserReposatoryInterface userRepo;
     Context context;
     public MealPlaneFragmentPresenter(MealPlaneFragmentView mealPlaneFragment, Context context) {
         this.mealPlaneFragment=mealPlaneFragment;
         this.context=context;
         this.dbReposatory= DbReposatory.getInstance(LocalDbDataSource.getInstance(context));
         auth= UserAuthReposatoryImp.getInstance();
+        userRepo= UserReposatoryImp.getInstance(context);
     }
 
     @Override
@@ -42,5 +46,10 @@ public class MealPlaneFragmentPresenter implements MealPlaneFragmentPresenterInt
     @Override
     public String getUserID() {
         return auth.getUserId();
+    }
+
+    @Override
+    public String getUserStatus() {
+        return userRepo.getUserLoginStatus();
     }
 }

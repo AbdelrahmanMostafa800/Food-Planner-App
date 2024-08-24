@@ -43,5 +43,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="mealplane">My Plan</string>
     <string name="days">Saturday</string>
+    <string name="guest_please_login">Please Login \nTo View This Page</string>
 </resources>
 

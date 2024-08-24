@@ -9,6 +9,8 @@ import com.example.mealmate.model.dbreposatory.DbReposatory;
 import com.example.mealmate.model.dbreposatory.DbReposatoryInterface;
 import com.example.mealmate.model.userrepo.UserAuthReposatoryImp;
 import com.example.mealmate.model.userrepo.UserAuthReposatoryInterface;
+import com.example.mealmate.model.userrepo.UserReposatoryImp;
+import com.example.mealmate.model.userrepo.UserReposatoryInterface;
 
 import java.util.List;
 
@@ -21,11 +23,13 @@ public class FavoritsPresenter implements FavoritsPresenterInterface{
     DbReposatoryInterface dbReposatory;
     UserAuthReposatoryInterface userAuthReposatory;
     Context context;
+    UserReposatoryInterface userRepo;;
     public FavoritsPresenter(FavoritsFragmentView view, Context context) {
         this.view = view;
         this.context=context;
         this.dbReposatory= DbReposatory.getInstance(LocalDbDataSource.getInstance(context));
         this.userAuthReposatory= UserAuthReposatoryImp.getInstance();
+        userRepo= UserReposatoryImp.getInstance(context);
     }
 
     @Override
@@ -46,5 +50,10 @@ public class FavoritsPresenter implements FavoritsPresenterInterface{
     @Override
     public String getUserId() {
         return userAuthReposatory.getUserId();
+    }
+
+    @Override
+    public String getUserStatus() {
+        return userRepo.getUserLoginStatus();
     }
 }

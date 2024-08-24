@@ -88,6 +88,11 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
          mealImageView=view.findViewById(R.id.mealImageView);
         calenderView=view.findViewById(R.id.calenderView);
         loginOut=view.findViewById(R.id.loginout);
+        if(hpresenter.getUserStatus().equals("Guest")){
+            loginOut.setVisibility(View.INVISIBLE);
+        }else{
+            loginOut.setVisibility(View.VISIBLE);
+        }
         loginOut.setOnClickListener(v-> {
             if(hpresenter.loginOut()){
                 Intent intent=new Intent(getContext(), SplashScreenActivity.class);
