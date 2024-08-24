@@ -1,5 +1,6 @@
 package com.example.mealmate.db.localdb;
 
+import com.example.mealmate.model.DayMealDb;
 import com.example.mealmate.model.MealDb;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface LocalDbDataSourceInterface {
     Flowable<List<MealDb>> getFavorits(String userName);
 
     Completable deleteMealFromDb(String userName, String idMeal);
+
+    Completable insertDayMeal(String day,DayMealDb mealDb);
 }

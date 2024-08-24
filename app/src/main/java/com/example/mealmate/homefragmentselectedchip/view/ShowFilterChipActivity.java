@@ -66,4 +66,9 @@ public class ShowFilterChipActivity extends AppCompatActivity implements com.exa
         Log.d("select", "chip ");
         presenter.getMealById(mealId,this);
     }
+
+    @Override
+    public void insertMealTocalender(String day,String mealId) {
+        presenter.insertMealTocalender(day,mealId,this);
+    }
 }

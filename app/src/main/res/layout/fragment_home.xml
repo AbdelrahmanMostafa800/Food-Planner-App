@@ -109,46 +109,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="17dp"
-        android:paddingHorizontal="20dp"
         android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
         app:singleSelection="true">
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_category"
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="105dp"
-            android:checked="true"
-            android:textAlignment="center"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/chip_color_selection"
-            android:elevation="1dp"
-            android:textColor="@color/chip_text_color_selection"
             android:layout_marginRight="8dp"
-            android:text="@string/categories" />
+            android:backgroundTint="@color/chip_color_selection"
+            android:checked="true"
+            android:elevation="1dp"
+            android:text="@string/categories"
+            android:textAlignment="center"
+            android:textColor="@color/chip_text_color_selection" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_countries"
-            android:layout_width="105dp"
-            android:textAlignment="center"
-            android:layout_marginRight="8dp"
             style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="105dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
             android:backgroundTint="@color/chip_color_selection"
-
             android:elevation="1dp"
+
             android:text="@string/countries"
-            android:textColor="@color/chip_text_color_selection"/>
+            android:textAlignment="center"
+            android:textColor="@color/chip_text_color_selection" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chip_ingrediants"
-            android:layout_width="105dp"
-            android:textAlignment="center"
-            android:textColor="@color/chip_text_color_selection"
-            android:backgroundTint="@color/chip_color_selection"
             style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="105dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/chip_color_selection"
             android:elevation="1dp"
-            android:text="@string/ingrediants" />
+            android:text="@string/ingrediants"
+            android:textAlignment="center"
+            android:textColor="@color/chip_text_color_selection" />
     </com.google.android.material.chip.ChipGroup>
 
     <androidx.recyclerview.widget.RecyclerView

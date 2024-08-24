@@ -19,11 +19,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.mealmate.MealDayTransfere;
 import com.example.mealmate.MealTransfere;
 import com.example.mealmate.R;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenter;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenterImp;
 import com.example.mealmate.mealdetails.view.MealDetailsActivity;
+import com.example.mealmate.model.DayMealDb;
 import com.example.mealmate.model.MealDb;
 import com.example.mealmate.model.category.Category;
 import com.example.mealmate.model.meal.Meal;
@@ -43,7 +45,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class HomeFragment extends Fragment implements HomeFragmentView{
 
     HomeFragmentPresenter hpresenter;
-    ImageView mealImageView,favoritView;
+    ImageView mealImageView,favoritView,calenderView;
     TextView mealName;
     RecyclerView recyclerView;
     CardView mealdesc;
@@ -80,7 +82,38 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         favoritView=view.findViewById(R.id.favoritView);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
          mealImageView=view.findViewById(R.id.mealImageView);
+        calenderView=view.findViewById(R.id.calenderView);
         nameText.setText(getString(R.string.hellow)+reposatory.getUserLocalData()[1]+"!");
+
+        calenderView.setOnClickListener(v-> {
+            MealDayTransfere.insertMealIntoDb("Monday",meall,getContext())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<DayMealDb>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            // do nothing
+                        }
+
+                        @Override
+                        public void onNext(DayMealDb mealDb) {
+                            // Image download is complete, you can now use the MealDb object
+                            hpresenter.insertDayMeal("Monday",mealDb);
+
+                            // Save the MealDb object to the database
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            // handle error
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            // observable has completed
+                        }
+                    });
+        });
 
         favoritView.setOnClickListener(v-> {
             MealTransfere.insertMealIntoDb(meall,getContext())

@@ -39,5 +39,9 @@
     <string name="strawbery">Strawberry Pancake</string>
     <string name="ingrediant">Ingredients</string>
     <string name="searchhere">Search Meal Recipes...</string>
+    <string name="backup">Save To Cloud</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="mealplane">My Plan</string>
+    <string name="days">Saturday</string>
 </resources>
 

@@ -4,8 +4,10 @@ package com.example.mealmate.searchfragment.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.mealmate.MealDayTransfere;
 import com.example.mealmate.MealTransfere;
 import com.example.mealmate.db.localdb.LocalDbDataSource;
+import com.example.mealmate.model.DayMealDb;
 import com.example.mealmate.model.MealDb;
 import com.example.mealmate.model.category.CategoryList;
 import com.example.mealmate.model.dbreposatory.DbReposatory;
@@ -16,6 +18,7 @@ import com.example.mealmate.model.ingrediantpojo.IngrediantList;
 import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryInterface;
+import com.example.mealmate.searchfragment.view.SearchFragment;
 import com.example.mealmate.searchfragment.view.SearchFragmentView;
 
 import java.util.ArrayList;
@@ -33,10 +36,12 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
     SearchFragmentView view;
     DataReposatoryInterface reposatory;
     DbReposatoryInterface dbReposatory;
+    Context context;
     public SearchPresenterImp(SearchFragmentView view,Context context) {
         this.view = view;
         this.reposatory = DataReposatoryImp.getInstance();
         this.dbReposatory= DbReposatory.getInstance(LocalDbDataSource.getInstance(context));
+        this.context=context;
     }
     @Override
     public void getCategories() {
@@ -183,6 +188,67 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
                             public void onNext(MealDb mealDb) {
                                 // Image download is complete, you can now use the MealDb object
                                 dbReposatory.insertMeal(mealDb)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(() -> {
+                                            Log.d("insert", "don ");
+                                        }, throwable -> {
+                                            Log.d("insert", "fail ");
+                                        });
+
+                                // Save the MealDb object to the database
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                // handle error
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                // observable has completed
+                            }
+                        });
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        };
+        observable.subscribe(observer);
+    }
+
+    @Override
+    public void insertMealTocalender(String day, String mealId, SearchFragment searchFragment) {
+        Observable<MealList> observable = reposatory.getMealDetails(mealId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        Observer<MealList> observer = new Observer<MealList>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(MealList meal) {
+                MealDayTransfere.insertMealIntoDb(day,meal.getMeals().get(0), context)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Observer<DayMealDb>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                // do nothing
+                            }
+
+                            @Override
+                            public void onNext(DayMealDb mealDb) {
+                                // Image download is complete, you can now use the MealDb object
+                                dbReposatory.insertDayMeal(day,mealDb)
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .subscribe(() -> {

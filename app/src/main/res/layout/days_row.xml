@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/chip_day"
+        android:layout_width="105dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:backgroundTint="@color/chip_color_selection"
+        android:checked="true"
+        android:elevation="1dp"
+        android:text="@string/days"
+        android:textAlignment="center"
+        android:textColor="@color/chip_text_color_selection" />
+
+</FrameLayout>

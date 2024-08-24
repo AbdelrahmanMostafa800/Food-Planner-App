@@ -33,4 +33,9 @@ public class FavoritsPresenter implements FavoritsPresenterInterface{
     public Completable deleteMealFromDb(String userName, String idMeal) {
        return dbReposatory.deleteMealFromDb(userName,idMeal);
     }
+
+    @Override
+    public void saveToFirebaseDb(List<MealDb> mealDbsList) {
+        dbReposatory.saveToFirebaseDb(mealDbsList);
+    }
 }

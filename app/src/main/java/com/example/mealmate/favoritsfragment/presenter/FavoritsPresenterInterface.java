@@ -11,4 +11,6 @@ public interface FavoritsPresenterInterface {
     Flowable<List<MealDb>> getLocalFavorits(String userName);
 
     Completable deleteMealFromDb(String userName, String idMeal);
+
+    void saveToFirebaseDb(List<MealDb> mealDbsList);
 }

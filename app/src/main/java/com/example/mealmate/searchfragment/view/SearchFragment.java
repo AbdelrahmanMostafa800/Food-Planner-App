@@ -184,4 +184,9 @@ public class SearchFragment extends Fragment implements SearchFragmentView, Onfa
         Log.d("select", "search ");
         presenter.insertMealToFavorit(mealId,getContext());
     }
+
+    @Override
+    public void insertMealTocalender(String day, String mealId) {
+        presenter.insertMealTocalender(day,mealId,this);
+    }
 }

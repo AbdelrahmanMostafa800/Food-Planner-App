@@ -46,10 +46,9 @@ dependencies {
 
     implementation (platform("com.google.firebase:firebase-bom:31.5.0"))
     implementation ("com.google.firebase:firebase-analytics")
-
     implementation ("com.google.firebase:firebase-auth:22.0.0")
-    implementation ("com.google.android.gms:play-services-auth:20.7.0")
-    implementation ("com.google.firebase:firebase-database:20.2.2")
+    implementation ("com.google.android.gms:play-services-auth:20.0.0")
+    implementation ("com.google.firebase:firebase-firestore-ktx:25.1.0")
 
     implementation ("androidx.navigation:navigation-fragment:2.5.3")
     implementation ("androidx.navigation:navigation-ui:2.5.3")

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.mealmate.R;
 import com.example.mealmate.favoritsfragment.presenter.FavoritsPresenter;
@@ -29,6 +30,8 @@ public class FavoritsFragment extends Fragment implements FavoritsFragmentView,O
 
     RecyclerView recyclerView;
     FavoritsPresenterInterface presenter;
+    ImageView saveToCloud;
+    List<MealDb> mealDbsList;
     public FavoritsFragment() {
         // Required empty public constructor
     }
@@ -51,6 +54,7 @@ public class FavoritsFragment extends Fragment implements FavoritsFragmentView,O
         presenter=new FavoritsPresenter(this,getContext());
         recyclerView=view.findViewById(R.id.favorits_recycle);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        saveToCloud=view.findViewById(R.id.cloud);
         presenter.getLocalFavorits("ahmed")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()) // Switch to main thread
@@ -58,6 +62,7 @@ public class FavoritsFragment extends Fragment implements FavoritsFragmentView,O
                     if (mealDbs.isEmpty()) {
                         Log.d("fav", "No favorite meals found");
                     } else {
+                         mealDbsList = mealDbs;
                         MyFavProductsAdapter adapter = new MyFavProductsAdapter(mealDbs,this);
                         recyclerView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
@@ -65,12 +70,11 @@ public class FavoritsFragment extends Fragment implements FavoritsFragmentView,O
                 }, throwable -> {
                     Log.e("fav", "Error occurred", throwable);
                 });
+        saveToCloud.setOnClickListener(v->{
+            presenter.saveToFirebaseDb(mealDbsList);
+        });
     }
 
-    @Override
-    public void showFavorites(List<MealDb> mealList) {
-
-    }
 
     @Override
     public void deleteMealFromDb(String userName, String idMeal) {

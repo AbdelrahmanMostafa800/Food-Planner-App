@@ -60,6 +60,12 @@ public class ShowFilterChipAdapter extends RecyclerView.Adapter<ShowFilterChipAd
                 onfavoritClicked.insertMealToFavorit(meals.get(position).getIdMeal().toString());
             }
         });
+        holder.calender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onfavoritClicked.insertMealTocalender("Monday",meals.get(position).getIdMeal().toString());
+            }
+        });
     }
 
     @Override

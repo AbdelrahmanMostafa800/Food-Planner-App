@@ -7,7 +7,7 @@
         android:icon="@drawable/nav_home_item_icon_selector"
         android:title="@string/home" />
     <item
-        android:id="@+id/meal_plan"
+        android:id="@+id/mealPlaneFragment"
         android:title="Meal Plan"
         android:icon="@drawable/nav_calender_item_icon_selector"/>
     <item

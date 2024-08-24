@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mealmate.model.userrepo.UserReposatoryImp;
 import com.example.mealmate.model.userrepo.UserReposatoryInterface;
 import com.example.mealmate.navigationstart.onboarding.OnBoardingActivity;
+import com.google.firebase.FirebaseApp;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseApp.initializeApp(this);
         setContentView(R.layout.activity_splash_screen);
         reposatory= UserReposatoryImp.getInstance(this);
         new Handler().postDelayed(() -> {

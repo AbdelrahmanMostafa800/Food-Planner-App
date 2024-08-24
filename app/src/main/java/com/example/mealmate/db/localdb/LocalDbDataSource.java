@@ -2,6 +2,7 @@ package com.example.mealmate.db.localdb;
 
 import android.content.Context;
 
+import com.example.mealmate.model.DayMealDb;
 import com.example.mealmate.model.MealDb;
 
 import java.util.List;
@@ -11,11 +12,13 @@ import io.reactivex.rxjava3.core.Completable;
 
 public class LocalDbDataSource implements LocalDbDataSourceInterface{
     MealDAO dao;
+    DayMealDAO dDao;
 
     static LocalDbDataSource instance=null;
 
     public LocalDbDataSource(Context context){
         dao= AppDataBase.getInstance(context).getMealDAO();
+        dDao= DayDb.getInstance(context).getDayMealDbDAO();
     }
     public static synchronized LocalDbDataSource getInstance(Context context) {
         if (instance == null) {
@@ -37,5 +40,10 @@ public class LocalDbDataSource implements LocalDbDataSourceInterface{
     @Override
     public Completable deleteMealFromDb(String userName, String idMeal) {
       return dao.deleteMealFromDb(userName,idMeal);
+    }
+
+    @Override
+    public Completable insertDayMeal(String day,DayMealDb mealDb) {
+        return dDao.insertProduct(mealDb);
     }
 }

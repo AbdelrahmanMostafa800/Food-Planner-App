@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.mealmate.db.localdb.LocalDbDataSource;
+import com.example.mealmate.model.DayMealDb;
 import com.example.mealmate.model.MealDb;
 import com.example.mealmate.model.category.CategoryList;
 import com.example.mealmate.model.dbreposatory.DbReposatory;
@@ -120,6 +121,18 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     @Override
     public void insertMeal(MealDb mealDb) {
         dbReposatory.insertMeal(mealDb)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    Log.d("insert", "don ");
+                }, throwable -> {
+                    Log.d("insert", "fail ");
+                });
+    }
+
+    @Override
+    public void insertDayMeal(String day,DayMealDb mealDb) {
+        dbReposatory.insertDayMeal(day,mealDb)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
