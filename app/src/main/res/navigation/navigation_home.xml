@@ -19,4 +19,9 @@
         android:name="com.example.mealmate.favoritsfragment.view.FavoritsFragment"
         android:label="fragment_favorits"
         tools:layout="@layout/fragment_favorits" />
+    <fragment
+        android:id="@+id/mealPlaneFragment"
+        android:name="com.example.mealmate.MealPlaneFragment"
+        android:label="fragment_meal_plane"
+        tools:layout="@layout/fragment_meal_plane" />
 </navigation>
