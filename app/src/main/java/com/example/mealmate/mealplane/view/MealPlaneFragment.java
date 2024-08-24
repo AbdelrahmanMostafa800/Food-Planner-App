@@ -63,7 +63,7 @@ public class MealPlaneFragment extends Fragment implements OnDayClickListener,Me
 
     @Override
     public void onDayClick(String day) {
-        presenter.getLocalMealPlane(day,"ahmed")
+        presenter.getLocalMealPlane(day,presenter.getUserID())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()) // Switch to main thread
                 .subscribe(mealDbs -> {

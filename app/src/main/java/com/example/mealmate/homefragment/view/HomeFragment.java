@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -19,8 +20,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.mealmate.bottomsheet.BottomSheetAdapter;
 import com.example.mealmate.MealDayTransfere;
 import com.example.mealmate.MealTransfere;
+import com.example.mealmate.bottomsheet.OnDaySelectedListener;
 import com.example.mealmate.R;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenter;
 import com.example.mealmate.homefragment.presenter.HomeFragmentPresenterImp;
@@ -32,6 +35,7 @@ import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.countriespojo.CountriesList;
 import com.example.mealmate.model.userrepo.UserReposatoryImp;
 import com.example.mealmate.model.userrepo.UserReposatoryInterface;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -42,7 +46,7 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class HomeFragment extends Fragment implements HomeFragmentView{
+public class HomeFragment extends Fragment implements HomeFragmentView {
 
     HomeFragmentPresenter hpresenter;
     ImageView mealImageView,favoritView,calenderView;
@@ -75,7 +79,6 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         super.onViewCreated(view, savedInstanceState);
         UserReposatoryInterface reposatory= UserReposatoryImp.getInstance(getContext());
         hpresenter=new HomeFragmentPresenterImp(this,getContext());
-        TextView nameText=view.findViewById(R.id.nameText);
          mealName=view.findViewById(R.id.mealNameView);
         mealdesc=view.findViewById(R.id.mealdesc);
          recyclerView = view.findViewById(R.id.recycleView);
@@ -83,40 +86,57 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
          mealImageView=view.findViewById(R.id.mealImageView);
         calenderView=view.findViewById(R.id.calenderView);
-        nameText.setText(getString(R.string.hellow)+reposatory.getUserLocalData()[1]+"!");
 
         if(hpresenter.getUserStatus()=="UserSignedUp"){
         hpresenter.retrieveMealsFromFirestore();
         }
 
         calenderView.setOnClickListener(v-> {
-            MealDayTransfere.insertMealIntoDb("Monday",meall,getContext())
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<DayMealDb>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-                            // do nothing
-                        }
+            View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_layout, null);
+            BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+            bottomSheetDialog.setContentView(bottomSheetView);
 
-                        @Override
-                        public void onNext(DayMealDb mealDb) {
-                            // Image download is complete, you can now use the MealDb object
-                            hpresenter.insertDayMeal("Monday",mealDb);
+            RecyclerView recyclerView = bottomSheetView.findViewById(R.id.recycler_view);
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-                            // Save the MealDb object to the database
-                        }
+            String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+            Log.d("homeday", " weekDays");
+            BottomSheetAdapter adapter = new BottomSheetAdapter(weekDays, new OnDaySelectedListener(){
+                @Override
+                public void onDaySelected(String day) {
+                    Log.d("homeday", day+" onDaySelected");
+                    MealDayTransfere.insertMealIntoDb(day,meall,getContext())
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Observer<DayMealDb>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    Log.d("homeday", day+" onSubscribe");
+                                }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            // handle error
-                        }
+                                @Override
+                                public void onNext(DayMealDb mealDb) {
+                                    Log.d("homeday", day+" onNext");
+                                    hpresenter.insertDayMeal(day,mealDb);
+                                }
 
-                        @Override
-                        public void onComplete() {
-                            // observable has completed
-                        }
-                    });
+                                @Override
+                                public void onError(Throwable e) {
+                                    Log.d("homeday", day+" onError "+e.toString());
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    // observable has completed
+                                }
+                            });
+                    bottomSheetDialog.dismiss();
+                }
+            });
+            recyclerView.setAdapter(adapter);
+
+            bottomSheetDialog.show();
+            Log.d("homeday", " show");
         });
 
         favoritView.setOnClickListener(v-> {
@@ -207,8 +227,6 @@ public class HomeFragment extends Fragment implements HomeFragmentView{
         HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,null,meals,chipGroupFilterOnClickListener);
         recyclerView.setAdapter(adapter);
     }
-
-
 
 
 }

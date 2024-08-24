@@ -46,30 +46,61 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
     }
     @Override
     public void getSingleMeal(){
-        Observable<MealList> observable=reposatory.getSingleMeal()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
-        Observer<MealList> observer=new Observer<MealList>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                Log.d("retro", "onSubscribe: ");
-            }
+        String idMeal=userReposatory.getSavedMealId();
+        Log.d("idMeal", "getSingleMeal: "+idMeal);
+        if(idMeal==null) {
+            Observable<MealList> observable = reposatory.getSingleMeal()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread());
+            Observer<MealList> observer = new Observer<MealList>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+                    Log.d("retro", "onSubscribe: ");
+                }
 
-            @Override
-            public void onNext(MealList meal) {
-                view.showMeal(meal.getMeals().get(0));
-            }
+                @Override
+                public void onNext(MealList meal) {
+                    userReposatory.addMeal(meal.getMeals().get(0).getIdMeal());
+                    view.showMeal(meal.getMeals().get(0));
+                }
 
-            @Override
-            public void onError(@NonNull Throwable e) {
-            }
+                @Override
+                public void onError(@NonNull Throwable e) {
+                }
 
-            @Override
-            public void onComplete() {
+                @Override
+                public void onComplete() {
 
-            }
-        };
-        observable.subscribe(observer);
+                }
+            };
+            observable.subscribe(observer);
+        }else{
+            Observable<MealList> observable=reposatory.getMealDetails(idMeal)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread());
+            Observer<MealList> observer=new Observer<MealList>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(MealList meal) {
+                    view.showMeal(meal.getMeals().get(0));
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            };
+            observable.subscribe(observer);
+
+        }
     }
 
     @Override
@@ -143,6 +174,7 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
 
     @Override
     public void insertDayMeal(String day,DayMealDb mealDb) {
+        Log.d("homeday", " insertDayMeal"+day);
         dbReposatory.insertDayMeal(day,mealDb)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

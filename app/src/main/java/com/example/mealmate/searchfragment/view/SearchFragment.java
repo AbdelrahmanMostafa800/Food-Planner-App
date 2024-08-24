@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -13,26 +14,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.mealmate.R;
-import com.example.mealmate.homefragment.view.ChipGroupFilterOnClickListener;
-import com.example.mealmate.homefragment.view.HomeFragment;
-import com.example.mealmate.homefragment.view.HomeFragmentRecycleAdapter;
+import com.example.mealmate.bottomsheet.BottomSheetAdapter;
+import com.example.mealmate.bottomsheet.OnDaySelectedListener;
 import com.example.mealmate.homefragmentselectedchip.view.MealCardClickListener;
 import com.example.mealmate.homefragmentselectedchip.view.OnfavoritClicked;
-import com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipActivity;
 import com.example.mealmate.homefragmentselectedchip.view.ShowFilterChipAdapter;
-import com.example.mealmate.homefragmentselectedchip.view.onMealCArdRecycleClicked;
 import com.example.mealmate.model.countriespojo.CountriesList;
-import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.searchfragment.presenter.SearchPresenterImp;
 import com.example.mealmate.searchfragment.presenter.SearchPresenterInterface;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -186,7 +182,25 @@ public class SearchFragment extends Fragment implements SearchFragmentView, Onfa
     }
 
     @Override
-    public void insertMealTocalender(String day, String mealId) {
-        presenter.insertMealTocalender(day,mealId,this);
+    public void insertMealTocalender(String mealId) {
+        View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_layout, null);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        bottomSheetDialog.setContentView(bottomSheetView);
+
+        RecyclerView recyclerView = bottomSheetView.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        BottomSheetAdapter adapter = new BottomSheetAdapter(weekDays, new OnDaySelectedListener(){
+            @Override
+            public void onDaySelected(String day) {
+                presenter.insertMealTocalender(day,mealId,SearchFragment.this);
+                bottomSheetDialog.dismiss();
+            }
+        });
+        recyclerView.setAdapter(adapter);
+
+        bottomSheetDialog.show();
+
     }
 }

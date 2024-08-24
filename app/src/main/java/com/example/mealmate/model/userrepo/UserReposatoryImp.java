@@ -149,4 +149,15 @@ public class UserReposatoryImp implements UserReposatoryInterface{
    return userAuth.getUserId();
 }
 
+@Override
+    public void addMeal(String mealId) {
+    Log.d("idMeal", "getSingleMeal: "+mealId);
+        userLocal.addMeal(mealId);
+    }
+    @Override
+    public String getSavedMealId() {
+        Log.d("idMeal", "getSingleMeal: "+userLocal.getSavedMealId());
+        return userLocal.getSavedMealId();
+    }
+
 }

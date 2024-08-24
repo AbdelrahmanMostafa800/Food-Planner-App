@@ -8,11 +8,15 @@ import android.util.Log;
 
 public class UserLocalDataImp {
     SharedPreferences sharedPreferences;
+    SharedPreferences homeSingleMeal;
     SharedPreferences.Editor sharedPreferencesEditor;
+    SharedPreferences.Editor homeSingleMealEditor;
     private static UserLocalDataImp instance=null;
     private UserLocalDataImp(Context context){
         sharedPreferences= context.getSharedPreferences("User",MODE_PRIVATE);
+        homeSingleMeal=context.getSharedPreferences("Meal",MODE_PRIVATE);
         sharedPreferencesEditor = sharedPreferences.edit();
+        homeSingleMealEditor = homeSingleMeal.edit();
     }
     public static synchronized UserLocalDataImp getInstance(Context context) {
         if (instance == null) {
@@ -42,5 +46,12 @@ public class UserLocalDataImp {
         sharedPreferencesEditor.putString("Name","Guest");
         sharedPreferencesEditor.putString("Email","Guest");
         sharedPreferencesEditor.commit();
+    }
+    public void addMeal(String mealId) {
+        homeSingleMealEditor.putString("MealId",mealId);
+        homeSingleMealEditor.commit();
+    }
+    public String getSavedMealId() {
+        return homeSingleMeal.getString("MealId",null);
     }
 }

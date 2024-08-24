@@ -17,4 +17,8 @@ public interface UserReposatoryInterface {
     void loginUserGuest(LoginPresenter lpresenter);
 
     String getUserID();
+
+    void addMeal(String mealId);
+
+    String getSavedMealId();
 }

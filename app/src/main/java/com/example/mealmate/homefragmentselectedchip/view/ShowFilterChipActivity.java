@@ -9,14 +9,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mealmate.MealTransfere;
 import com.example.mealmate.R;
+import com.example.mealmate.bottomsheet.BottomSheetAdapter;
+import com.example.mealmate.bottomsheet.OnDaySelectedListener;
 import com.example.mealmate.homefragmentselectedchip.presenter.ShowFilterChippresenter;
 import com.example.mealmate.homefragmentselectedchip.presenter.ShowFilterChippresenterInterface;
-import com.example.mealmate.mealdetails.view.MealDetailsActivity;
 import com.example.mealmate.model.filterbycategorypojo.Meal;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 
@@ -68,7 +70,27 @@ public class ShowFilterChipActivity extends AppCompatActivity implements com.exa
     }
 
     @Override
-    public void insertMealTocalender(String day,String mealId) {
-        presenter.insertMealTocalender(day,mealId,this);
+    public void insertMealTocalender(String mealId) {
+        Log.d("cal", mealId);
+        View bottomSheetView = getLayoutInflater().inflate(R.layout.bottom_sheet_layout, null);
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(bottomSheetView);
+
+        RecyclerView recyclerView = bottomSheetView.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        BottomSheetAdapter adapter = new BottomSheetAdapter(weekDays, new OnDaySelectedListener(){
+            @Override
+            public void onDaySelected(String day) {
+                Log.d("cal", day);
+                presenter.insertMealTocalender(day,mealId,ShowFilterChipActivity.this);
+                bottomSheetDialog.dismiss();
+            }
+        });
+        recyclerView.setAdapter(adapter);
+
+        bottomSheetDialog.show();
+
     }
 }
