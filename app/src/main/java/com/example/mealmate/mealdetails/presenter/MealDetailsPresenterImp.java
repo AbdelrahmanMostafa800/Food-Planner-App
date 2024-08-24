@@ -1,5 +1,7 @@
 package com.example.mealmate.mealdetails.presenter;
 
+import android.content.Context;
+
 import com.example.mealmate.mealdetails.view.MealDetailsActivityView;
 import com.example.mealmate.model.meal.MealList;
 import com.example.mealmate.model.mealdatarepo.DataReposatoryImp;
@@ -15,9 +17,11 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MealDetailsPresenterImp implements MealDetailsPresenterInterface {
     MealDetailsActivityView view;
     DataReposatoryInterface reposatory;
-    public MealDetailsPresenterImp(MealDetailsActivityView view) {
+    Context context;
+    public MealDetailsPresenterImp(MealDetailsActivityView view, Context context) {
         this.view = view;
-        this.reposatory= DataReposatoryImp.getInstance();
+        this.context=context;
+        this.reposatory= DataReposatoryImp.getInstance(context);
     }
 
     @Override

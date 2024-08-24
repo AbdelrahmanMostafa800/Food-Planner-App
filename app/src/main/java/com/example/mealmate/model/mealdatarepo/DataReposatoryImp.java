@@ -1,5 +1,7 @@
 package com.example.mealmate.model.mealdatarepo;
 
+import android.content.Context;
+
 import com.example.mealmate.model.category.CategoryList;
 import com.example.mealmate.model.filterbycategorypojo.CategoryByFilter;
 import com.example.mealmate.model.ingrediantpojo.IngrediantList;
@@ -12,12 +14,14 @@ import io.reactivex.rxjava3.core.Observable;
 public class DataReposatoryImp implements DataReposatoryInterface{
     MealRemoteDataSourceInterface mealdatasource;
     private static DataReposatoryImp instance=null;
-    private DataReposatoryImp(){
-        this.mealdatasource=  MealRemoteDataSourceImp.getInstance();
+    Context context;
+    private DataReposatoryImp( Context context){
+        this.context=context;
+        this.mealdatasource=  MealRemoteDataSourceImp.getInstance(context);
     }
-    public static synchronized DataReposatoryImp getInstance() {
+    public static synchronized DataReposatoryImp getInstance( Context context) {
         if (instance == null) {
-            instance = new DataReposatoryImp();
+            instance = new DataReposatoryImp(context);
         }
         return instance;
     }

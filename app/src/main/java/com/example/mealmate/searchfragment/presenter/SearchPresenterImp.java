@@ -39,7 +39,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
     Context context;
     public SearchPresenterImp(SearchFragmentView view,Context context) {
         this.view = view;
-        this.reposatory = DataReposatoryImp.getInstance();
+        this.reposatory = DataReposatoryImp.getInstance(context);
         this.dbReposatory= DbReposatory.getInstance(LocalDbDataSource.getInstance(context));
         this.context=context;
     }

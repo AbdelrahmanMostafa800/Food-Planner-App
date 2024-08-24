@@ -38,7 +38,7 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         setContentView(R.layout.activity_meal_details);
         Intent intent = getIntent();
         mealID= intent.getStringExtra("idMeal");
-        presenter=new MealDetailsPresenterImp(this);
+        presenter=new MealDetailsPresenterImp(this,this);
         presenter.getMealDetails(mealID);
 
         arrowBack=findViewById(R.id.arrow_back);

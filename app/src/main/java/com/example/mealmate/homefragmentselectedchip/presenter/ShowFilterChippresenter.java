@@ -35,7 +35,8 @@ public class ShowFilterChippresenter implements com.example.mealmate.homefragmen
 
     public ShowFilterChippresenter(ShowFilterChipActivityView view, Context context){
         this.view=view;
-        this.reposatory= DataReposatoryImp.getInstance();
+        this.context=context;
+        this.reposatory= DataReposatoryImp.getInstance(context);
         this.dbReposatory= DbReposatory.getInstance(LocalDbDataSource.getInstance(context));
         this.context=context;
     }
