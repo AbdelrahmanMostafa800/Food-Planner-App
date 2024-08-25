@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".homefragmentselectedchip.view.ShowFilterChipActivity">
+
+    <TextView
+        android:id="@+id/categoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="52dp"
+        android:text="Meat"
+        android:textColor="@color/dailygray"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/arrow_back"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_gravity="start"
+        android:layout_marginTop="52dp"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/arrow_back" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rectangleCategory"
+        android:layout_width="match_parent"
+        android:layout_gravity="clip_horizontal"
+        android:layout_marginTop="115dp"
+        android:layout_height="match_parent" />
+</FrameLayout>

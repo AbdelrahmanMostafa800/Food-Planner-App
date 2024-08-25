@@ -5,4 +5,44 @@
     <string name="skip">Skip</string>
     <string name="pesonalize">Personalize Your Plan</string>
     <string name="discover">Discover Delicious Recipes</string>
+    <string name="screen1">"Welcome to MealMate, your culinary companion.\nLet us start on a voyage of tastes and convenience\ntogether."</string>
+    <string name="screen2">"Create your own meals plan. Take initiative and\ncreate customized meals based on your own\npreferences."</string>
+    <string name="screen3">"Discover a variety of delicious meals, from\nhealthful salads to elegant desserts. Let's explore\nmeals that suit your preferences."</string>
+    <string name="signin">Sign In</string>
+    <string name="signup">Sign Up</string>
+    <string name="please_login">Please log in your account</string>
+    <string name="enter_email">Enter your email</string>
+    <string name="email">Email</string>
+    <string name="enter_password">Enter your password</string>
+    <string name="name">Name</string>
+    <string name="enter_name">Enter your name</string>
+    <string name="passowrd">Password</string>
+    <string name="or">Or\n\nContinue with</string>
+    <string name="guest">Guest Mode</string>
+    <string name="ready">Ready to plan your feast?</string>Ready to plan your feast?
+    <string name="create_account">Create an account</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="favorit">Favorites</string>
+    <string name="home">Home</string>
+    <string name="hellowjohnny">Welcome</string>
+    <string name="hellow">Hello, </string>
+    <string name="readytotasty">Ready to make something <font color="#51CB56">tasty</font>?</string>
+    <string name="dailyisp">Daily Inspiration</string>
+    <string name="srawberry">Strawberry Pancake</string>
+    <string name="categories">Categories</string>
+    <string name="countries">Countries</string>
+    <string name="ingrediants">Ingrediants</string>
+    <string name="errormsg">Please Fill All Data</string>
+    <!--    <string name="default_web_client_id">781598236255-rhh2bbtfo3bj7tsmvr6ec2sn60ugeaei.apps.googleusercontent.com</string>-->
+    <string name="default_web_client_id">781598236255-rhh2bbtfo3bj7tsmvr6ec2sn60ugeaei.apps.googleusercontent.com</string>
+    <string name="istructions">Instructions</string>
+    <string name="strawbery">Strawberry Pancake</string>
+    <string name="ingrediant">Ingredients</string>
+    <string name="searchhere">Search Meal Recipes...</string>
+    <string name="backup">Save To Cloud</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="mealplane">My Plan</string>
+    <string name="days">Saturday</string>
+    <string name="guest_please_login">Please Login \nTo View This Page</string>
 </resources>
+

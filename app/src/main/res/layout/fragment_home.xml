@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".homefragment.view.HomeFragment">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/nameText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/hellowjohnny"
+            android:textColor="@color/dailygray"
+            android:textSize="24sp"
+
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/loginout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end|bottom"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            app:srcCompat="@drawable/logout" />
+
+    </FrameLayout>
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:tint="@color/green"
+        android:text="@string/readytotasty"
+        android:textColor="@color/text_gray"
+        android:textSize="14sp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="33dp"
+        android:text="@string/dailyisp"
+        android:textColor="@color/dailygray"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/mealdesc"
+        android:layout_width="253dp"
+        android:layout_height="209dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        app:cardElevation="0dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="214dp"
+            android:layout_height="170dp"
+            android:layout_gravity="center_horizontal"
+            app:cardCornerRadius="18dp">
+
+            <ImageView
+                android:id="@+id/mealImageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToOutline="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/foodimage" />
+
+            <ImageView
+                android:id="@+id/calenderView"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="start"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/circle_white_background"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/calender_green_icon" />
+
+            <ImageView
+                android:id="@+id/favoritView"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="12dp"
+                android:background="@drawable/circle_white_background"
+                android:padding="5dp"
+                android:src="@drawable/heart_green_icon" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/mealNameView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom | center_horizontal"
+            android:layout_marginBottom="7dp"
+            android:text="@string/srawberry"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_category"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:backgroundTint="@color/chip_color_selection"
+            android:checked="true"
+            android:elevation="1dp"
+            android:text="@string/categories"
+            android:textAlignment="center"
+            android:textColor="@color/chip_text_color_selection" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_countries"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:backgroundTint="@color/chip_color_selection"
+            android:elevation="1dp"
+
+            android:text="@string/countries"
+            android:textAlignment="center"
+            android:textColor="@color/chip_text_color_selection" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_ingrediants"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="105dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/chip_color_selection"
+            android:elevation="1dp"
+            android:text="@string/ingrediants"
+            android:textAlignment="center"
+            android:textColor="@color/chip_text_color_selection" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+</androidx.core.widget.NestedScrollView>
