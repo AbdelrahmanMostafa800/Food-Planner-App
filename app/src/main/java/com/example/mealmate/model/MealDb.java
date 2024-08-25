@@ -3,11 +3,12 @@ package com.example.mealmate.model;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName = "mealtable", primaryKeys = {"userName", "idMeal"})
-public class MealDb {
+public class MealDb implements Serializable {
     @NonNull
     public String userName;
     @NonNull

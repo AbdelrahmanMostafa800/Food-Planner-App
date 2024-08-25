@@ -10,5 +10,5 @@ public interface LoginPresenter {
 
     void loginUserGuest();
 
-    void isLoginSuccess(boolean b);
+    void isLoginSuccess(String b);
 }

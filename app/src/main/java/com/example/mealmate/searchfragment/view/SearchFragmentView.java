@@ -9,4 +9,6 @@ public interface SearchFragmentView {
     void showMeals(ArrayList<com.example.mealmate.model.filterbycategorypojo.Meal> meals);
 
     void showListInSpinner(String selectedChip,List<String> f);
+
+    void showMessage(String message);
 }

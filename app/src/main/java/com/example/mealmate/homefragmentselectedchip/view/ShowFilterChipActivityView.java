@@ -6,4 +6,6 @@ import java.util.ArrayList;
 
 public interface ShowFilterChipActivityView {
     void showFilterByCategory(ArrayList<Meal> meals);
+
+    void showMessage(String message);
 }

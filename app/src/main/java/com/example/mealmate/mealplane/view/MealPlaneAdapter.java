@@ -2,6 +2,7 @@ package com.example.mealmate.mealplane.view;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mealmate.R;
@@ -67,6 +69,10 @@ public class MealPlaneAdapter extends RecyclerView.Adapter<MealPlaneAdapter.View
         holder.calenderView.setOnClickListener(v-> {
             cardListener.deleteMealFromDb(meal.get(position).getDay(),meal.get(position).getUserName(),meal.get(position).getIdMeal());
         });
+        holder.rowCard.setOnClickListener(v->{
+            Log.d("rowCard", "onBindViewHolder: "+meal.get(position).getStrMeal());
+            cardListener.showMealDeatails(meal.get(position));
+        });
 
     }
 
@@ -78,13 +84,13 @@ public class MealPlaneAdapter extends RecyclerView.Adapter<MealPlaneAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imagee,calenderView;
         public TextView titlee;
-        public FrameLayout rowCard;
+        public CardView rowCard;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.titlee = (TextView) itemView.findViewById(R.id.mealNameView);
             this.imagee = (ImageView) itemView.findViewById(R.id.mealImageView);
-            this.rowCard = (FrameLayout) itemView.findViewById(R.id.meal_recycle_row);
+            this.rowCard = (CardView) itemView.findViewById(R.id.meal_recycle_row);
             this.calenderView=(ImageView) itemView.findViewById(R.id.calenderView);
         }
     }

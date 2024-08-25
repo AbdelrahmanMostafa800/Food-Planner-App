@@ -122,7 +122,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
             BottomSheetAdapter adapter = new BottomSheetAdapter(weekDays, new OnDaySelectedListener(){
                 @Override
                 public void onDaySelected(String day) {
-                    Log.d("homeday", day+" onDaySelected");
+                    Toast.makeText(getContext(),day,Toast.LENGTH_SHORT).show();
                     MealDayTransfere.insertMealIntoDb(day,meall,getContext())
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
@@ -140,7 +140,7 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    Log.d("homeday", day+" onError "+e.toString());
+                                   Toast.makeText(getContext(),"error",Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
@@ -244,6 +244,11 @@ public class HomeFragment extends Fragment implements HomeFragmentView {
     public void showIngrediants(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals) {
         HomeFragmentRecycleAdapter adapter = new HomeFragmentRecycleAdapter(null,null,meals,chipGroupFilterOnClickListener);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 

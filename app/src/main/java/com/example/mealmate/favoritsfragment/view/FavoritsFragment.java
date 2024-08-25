@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mealmate.R;
 import com.example.mealmate.favoritsfragment.presenter.FavoritsPresenter;
@@ -77,7 +78,15 @@ public class FavoritsFragment extends Fragment implements FavoritsFragmentView,O
                         Log.e("fav", "Error occurred", throwable);
                     });
             saveToCloud.setOnClickListener(v -> {
-                presenter.saveToFirebaseDb(mealDbsList);
+                presenter.saveToFirebaseDb(mealDbsList)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(() -> {
+                            Log.d("SAVE", "onViewCreated: ");
+                            Toast.makeText(getContext(), "Saved to cloud", Toast.LENGTH_SHORT).show();
+                        }, throwable -> {
+                            Toast.makeText(getContext(), "Can't save to cloud try again ", Toast.LENGTH_SHORT).show();
+                        });
             });
         }
     }
@@ -90,12 +99,13 @@ public class FavoritsFragment extends Fragment implements FavoritsFragmentView,O
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                     // Update the adapter after deletion
+                    Toast.makeText(getContext(), "Meal is deleted", Toast.LENGTH_SHORT).show();
                     MyFavProductsAdapter adapter = (MyFavProductsAdapter) recyclerView.getAdapter();
                     if (adapter != null) {
                         adapter.notifyDataSetChanged();
                     }
                 }, throwable -> {
-                    Log.e("fav", "Error occurred while deleting meal", throwable);
+                    Toast.makeText(getContext(), "Can't delete meal try again ", Toast.LENGTH_SHORT).show();
                 });
     }
 }

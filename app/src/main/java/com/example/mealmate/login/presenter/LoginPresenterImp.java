@@ -30,12 +30,12 @@ public class LoginPresenterImp implements LoginPresenter{
     }
 
     @Override
-    public void isLoginSuccess(boolean b) {
-        if(b) {
+    public void isLoginSuccess(String b) {
+        if(b.equals("true")) {
             view.loginSuccess();
         }
         else {
-            view.loginfail();
+            view.loginfail(b);
         }
     }
 }

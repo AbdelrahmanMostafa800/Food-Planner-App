@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -47,6 +48,9 @@ public class MyFavProductsAdapter extends RecyclerView.Adapter<MyFavProductsAdap
         holder.favoritView.setOnClickListener(v-> {
             cardListener.deleteMealFromDb(meal.get(position).getUserName(),meal.get(position).getIdMeal());
         });
+        holder.rowCard.setOnClickListener(v->{
+//            cardListener.showMealDeatails(meal.get(position));
+        });
 
     }
 
@@ -58,13 +62,13 @@ public class MyFavProductsAdapter extends RecyclerView.Adapter<MyFavProductsAdap
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView imagee,favoritView;
         public TextView titlee;
-        public FrameLayout rowCard;
+        public CardView rowCard;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.titlee = (TextView) itemView.findViewById(R.id.mealNameView);
             this.imagee = (ImageView) itemView.findViewById(R.id.mealImageView);
-            this.rowCard = (FrameLayout) itemView.findViewById(R.id.meal_recycle_row);
+            this.rowCard = (CardView) itemView.findViewById(R.id.meal_recycle_row);
             this.favoritView=(ImageView) itemView.findViewById(R.id.favoritView);
         }
     }

@@ -14,4 +14,5 @@ public interface HomeFragmentView {
 
     void showIngrediants(ArrayList<com.example.mealmate.model.ingrediantpojo.Meal> meals);
 
+    void showMessage(String message);
 }

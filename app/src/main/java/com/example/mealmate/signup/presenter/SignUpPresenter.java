@@ -19,11 +19,11 @@ public class SignUpPresenter implements SignUpPresenterInterface{
     }
 
     @Override
-    public void isuserAdded(boolean b) {
-        if(b){
+    public void isuserAdded(String b) {
+        if(b.equals("true")){
             view.userAddSuccess();
         }else{
-            view.userAddSerror();
+            view.userAddSerror(b);
         }
     }
 

@@ -59,6 +59,7 @@ public class ShowFilterChippresenter implements com.example.mealmate.homefragmen
 
             @Override
             public void onError(@NonNull Throwable e) {
+                view.showMessage(e.getMessage());
             }
 
             @Override
@@ -93,14 +94,15 @@ public class ShowFilterChippresenter implements com.example.mealmate.homefragmen
 
                             @Override
                             public void onNext(MealDb mealDb) {
-                                // Image download is complete, you can now use the MealDb object
                                 dbReposatory.insertMeal(mealDb)
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .subscribe(() -> {
+                                            view.showMessage("Meal is added to favorits");
                                             Log.d("insert", "don ");
                                         }, throwable -> {
-                                            Log.d("insert", "fail ");
+                                            view.showMessage("Meal already exist");
+//
                                         });
 
                                 // Save the MealDb object to the database
@@ -108,7 +110,7 @@ public class ShowFilterChippresenter implements com.example.mealmate.homefragmen
 
                             @Override
                             public void onError(Throwable e) {
-                                // handle error
+                                view.showMessage(e.getMessage());
                             }
 
                             @Override
@@ -161,9 +163,9 @@ public class ShowFilterChippresenter implements com.example.mealmate.homefragmen
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .subscribe(() -> {
-                                            Log.d("insert", "don ");
+                                           view.showMessage("Meal is added to meal plane");
                                         }, throwable -> {
-                                            Log.d("insert", "fail ");
+                                            view.showMessage("can't add meal to meal plane");
                                         });
 
                                 // Save the MealDb object to the database
@@ -171,7 +173,7 @@ public class ShowFilterChippresenter implements com.example.mealmate.homefragmen
 
                             @Override
                             public void onError(Throwable e) {
-                                // handle error
+                                view.showMessage(e.getMessage());
                             }
 
                             @Override
@@ -183,6 +185,7 @@ public class ShowFilterChippresenter implements com.example.mealmate.homefragmen
 
             @Override
             public void onError(@NonNull Throwable e) {
+                view.showMessage(e.getMessage());
             }
 
             @Override

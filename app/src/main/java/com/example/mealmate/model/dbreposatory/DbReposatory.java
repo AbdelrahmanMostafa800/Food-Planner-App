@@ -42,8 +42,8 @@ public class DbReposatory implements DbReposatoryInterface{
       return  localDbDataSource.deleteMealFromDb(userName,idMeal);
     }
     @Override
-    public void saveToFirebaseDb(List<MealDb> mealDbsList){
-        remoteDbDataSource.saveMealToDb(mealDbsList);
+    public Completable saveToFirebaseDb(List<MealDb> mealDbsList){
+       return remoteDbDataSource.saveMealToDb(mealDbsList);
     }
 
     @Override

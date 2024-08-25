@@ -1,5 +1,6 @@
 package com.example.mealmate.mealplane.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,9 +15,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.mealmate.R;
 import com.example.mealmate.favoritsfragment.view.MyFavProductsAdapter;
+import com.example.mealmate.mealdetails.view.MealDetailsActivity;
 import com.example.mealmate.mealplane.presenter.MealPlaneFragmentPresenter;
 import com.example.mealmate.mealplane.presenter.MealPlaneFragmentPresenterInterface;
 import com.example.mealmate.model.DayMealDb;
@@ -72,15 +75,16 @@ public class MealPlaneFragment extends Fragment implements OnDayClickListener,Me
             recyclerView.setAdapter(adapter);
             presenter.getAllLocalMealPlane(presenter.getUserID())
                     .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread()) // Switch to main thread
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(mealDbs -> {
                         if (mealDbs.isEmpty()) {
-                            Log.d("fav", "No favorite meals found");
+                            Toast.makeText(getContext(), "No meals found", Toast.LENGTH_SHORT).show();
                         } else {
                             mealDbsList = mealDbs;
                         }
                     }, throwable -> {
                         Log.e("fav", "Error occurred", throwable);
+                        Toast.makeText(getContext(), "Can't get meals", Toast.LENGTH_SHORT).show();
                     });
             saveToCloud.setOnClickListener(v -> {
                 presenter.saveToFirebaseDb(mealDbsList);
@@ -98,13 +102,14 @@ public class MealPlaneFragment extends Fragment implements OnDayClickListener,Me
                 .subscribe(mealDbs -> {
                     if (mealDbs.isEmpty()) {
                         Log.d("fav", "No favorite meals found");
+                        Toast.makeText(getContext(), "No meals found for this day", Toast.LENGTH_SHORT).show();
                     } else {
                         MealPlaneAdapter adapter = new MealPlaneAdapter(mealDbs,this);
                         mealPlaneRecycle.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
                     }
                 }, throwable -> {
-                    Log.e("fav", "Error occurred", throwable);
+                   Toast.makeText(getContext(),"Can't get meals for this day", Toast.LENGTH_SHORT).show();
                 });
     }
 
@@ -114,13 +119,23 @@ public class MealPlaneFragment extends Fragment implements OnDayClickListener,Me
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
-                    // Update the adapter after deletion
+                    Toast.makeText(getContext(), "Meal deleted successfully", Toast.LENGTH_SHORT).show();
                     MealPlaneAdapter adapter = (MealPlaneAdapter) mealPlaneRecycle.getAdapter();
                     if (adapter != null) {
                         adapter.notifyDataSetChanged();
                     }
                 }, throwable -> {
-                    Log.e("fav", "Error occurred while deleting meal", throwable);
+                 Toast.makeText(getContext(), "Can't delete meal\n try again ", Toast.LENGTH_SHORT).show();
                 });
+    }
+
+    @Override
+    public void showMealDeatails(DayMealDb dayMealDb) {
+//        Log.d("rowCard", "onBindViewHolder: "+dayMealDb.getStrMeal());
+//        MealDetailsActivity activity = (MealDetailsActivity) getActivity();
+//        activity.setDayMealDb(dayMealDb);
+//        Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
+//        intent.putExtra("dayMealDb", "dayMealDb");
+//        startActivity(intent);
     }
 }

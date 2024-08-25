@@ -89,7 +89,7 @@ public class LoginFragment extends Fragment implements LoginView {
                     if (SignUpFragment.isValidEmail(emailText.getEditText().getText().toString())) {
                         presenter.loginUser(emailText.getEditText().getText().toString(), passowrdTex.getEditText().getText().toString());
                     } else {
-                        errorText.setText("Invalid Email");
+                        errorText.setText("Please Enter Email Again");
                         errorText.setVisibility(View.VISIBLE);
                     }
                 } else {
@@ -152,7 +152,7 @@ public class LoginFragment extends Fragment implements LoginView {
                         });
 
             } catch (ApiException e) {
-                e.printStackTrace();
+                Toast.makeText(view.getContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -167,8 +167,8 @@ public class LoginFragment extends Fragment implements LoginView {
     }
 
     @Override
-    public void loginfail() {
-        errorText.setText("Not Valid User");
+    public void loginfail(String error) {
+        errorText.setText(error);
         errorText.setVisibility(View.VISIBLE);
         isErrorMsgVisble=true;
     }

@@ -17,7 +17,7 @@ public interface DbReposatoryInterface {
 
     Completable deleteMealFromDb(String userName, String idMeal);
 
-    void saveToFirebaseDb(List<MealDb> mealDbsList);
+    Completable saveToFirebaseDb(List<MealDb> mealDbsList);
 
     Completable insertDayMeal(String day,DayMealDb mealDb);
 

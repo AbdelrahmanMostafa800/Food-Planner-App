@@ -39,6 +39,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/enter_name"
             app:boxBackgroundMode="none"
+            app:startIconDrawable="@drawable/lock"
             android:textSize="14sp"
             android:textColor="@color/gray"/>
 
@@ -60,6 +61,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/enter_email"
             android:textSize="14sp"
+            android:inputType="textEmailAddress"
             android:textColor="@color/gray"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -81,6 +83,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/enter_password"
             android:textSize="14sp"
+            android:inputType="textPassword"
             android:textColor="@color/gray"/>
 
     </com.google.android.material.textfield.TextInputLayout>

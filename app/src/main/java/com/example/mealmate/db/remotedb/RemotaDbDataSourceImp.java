@@ -2,6 +2,7 @@ package com.example.mealmate.db.remotedb;
 
 import android.util.Log;
 
+import com.example.mealmate.favoritsfragment.presenter.FirestorePresenterInterface;
 import com.example.mealmate.model.DayMealDb;
 import com.example.mealmate.model.MealDb;
 import com.google.android.gms.tasks.Tasks;
@@ -24,14 +25,14 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class RemotaDbDataSourceImp implements RemotaDbDataSource {
     private FirebaseFirestore db;
-
+    FirestorePresenterInterface result;
     public RemotaDbDataSourceImp() {
         db = FirebaseFirestore.getInstance();
     }
 
     @Override
-    public void saveMealToDb(List<MealDb> mealDbsList) {
-//        MealDb mealDb =mealDbsList.get(0);
+    public Completable saveMealToDb(List<MealDb> mealDbsList) {
+        Completable completabl=null;
         for (MealDb mealDb : mealDbsList) {
             Map<String, Object> mealMap = new HashMap<>();
             mealMap.put("userName", mealDb.getUserName());
@@ -57,11 +58,6 @@ public class RemotaDbDataSourceImp implements RemotaDbDataSource {
 
             Blob imageBlob = Blob.fromBytes(mealDb.getImage());
             mealMap.put("image", imageBlob);
-            //reconvert
-            /*Blob imageBlob = (Blob) mealMap.get("image");
-byte[] imageData = imageBlob.toBytes();*/
-
-            //DocumentReference docRef = db.collection(mealDb.getUserName()).document(mealDb.getIdMeal());
             DocumentReference docRef = db.collection("mealmate").document(mealDb.getUserName()).collection("favoritmeals").document(mealDb.getIdMeal());
             Completable completable = Completable.fromCallable(() -> Tasks.await(docRef.set(mealMap)));
             completable.subscribeOn(Schedulers.io())
@@ -74,6 +70,7 @@ byte[] imageData = imageBlob.toBytes();*/
 
                         @Override
                         public void onComplete() {
+
                             Log.d("Firestore", "Meal saved successfully");
                         }
 
@@ -82,7 +79,9 @@ byte[] imageData = imageBlob.toBytes();*/
                             Log.w("Firestore", "Error saving meal", e);
                         }
                     });
+            completabl= completable;
         }
+        return completabl;
     }
 
     public Single<List<MealDb>> retrieveMealsFromFirestore(String userId) {
@@ -201,51 +200,3 @@ byte[] imageData = imageBlob.toBytes();*/
         });
     }
     }
-
-//        CollectionReference mealsRef = db.collection("users").document("ahmed").collection("meals");
-//        mealsRef.add(meal)
-//                .addOnCompleteListener(task -> {
-//                    if (task.isSuccessful()) {
-//                        Log.d("fav", "Meal saved successfully");
-//                    } else {
-//                        Log.e("fav", "Error saving meal", task.getException());
-//                    }
-//                });
-//        docRef.set(mealMap);
-//        docRef.set(mealMap)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Log.d("Firestore", "Document saved successfully");
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w("Firestore", "Error saving document", e);
-//                    }
-//                });
-   /* FirebaseDatabase database;
-    DatabaseReference myRef;
- Write a message to the database
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
-
-myRef.setValue("Hello, World!");*//*
-*//*    // Read from the database
-myRef.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            // This method is called once with the initial value and again
-            // whenever data at this location is updated.
-            String value = dataSnapshot.getValue(String.class);
-            Log.d(TAG, "Value is: " + value);
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-            // Failed to read value
-            Log.w(TAG, "Failed to read value.", error.toException());
-        }
-    });*/
-

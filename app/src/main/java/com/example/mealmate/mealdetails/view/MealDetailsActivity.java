@@ -1,6 +1,8 @@
 package com.example.mealmate.mealdetails.view;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.mealmate.R;
 import com.example.mealmate.mealdetails.presenter.MealDetailsPresenterImp;
 import com.example.mealmate.mealdetails.presenter.MealDetailsPresenterInterface;
+import com.example.mealmate.model.DayMealDb;
 import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.countriespojo.CountriesList;
 import com.example.mealmate.model.countriespojo.Country;
@@ -27,6 +30,7 @@ import com.example.mealmate.model.countriespojo.Country;
 public class MealDetailsActivity extends AppCompatActivity implements MealDetailsActivityView{
     RecyclerView recyclerView;
     String mealID;
+    DayMealDb dayMealDb;
     MealDetailsPresenterInterface presenter;
     ImageView arrowBack,mealFlag,mealImage;
     TextView mealName,mealDescription;
@@ -37,9 +41,14 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_details);
         Intent intent = getIntent();
-        mealID= intent.getStringExtra("idMeal");
+
         presenter=new MealDetailsPresenterImp(this,this);
-        presenter.getMealDetails(mealID);
+        if(intent.hasExtra("idMeal")) {
+            mealID= intent.getStringExtra("idMeal");
+            if(mealID!=null) {
+                presenter.getMealDetails(mealID);
+            }
+        }
 
         arrowBack=findViewById(R.id.arrow_back);
         arrowBack.setOnClickListener(new View.OnClickListener() {
@@ -56,9 +65,38 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
-
         mealVideo=findViewById(R.id.mealVideoView);
-
+//         dayMealDb=null;
+//        if(intent.hasExtra("dayMealDb")) {
+//            Log.d("TAG", "onCreate2: ");
+////            DayMealDb mealDb = (DayMealDb) intent.getSerializableExtra("mealDb");
+//            if(dayMealDb!=null) {
+//                showDayMealDetails(dayMealDb);
+//            }
+//        }
+    }
+public void setDayMealDb( DayMealDb dayMealDb){
+//        this.dayMealDb=dayMealDb;
+}
+    private void showDayMealDetails(DayMealDb mealDb) {
+        String areaName=mealDb.getStrArea();
+//        CountriesList countryList=CountriesList.getInstance();
+//        String countryImg = countryList.getcountries().stream()
+//                .filter(country -> country.getStrArea().equals(areaName))
+//                .map(Country::getstrContryThumb)
+//                .findFirst()
+//                .orElse(null);
+//        byte[] imageData = mealDb.getImage();
+//
+//        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
+//
+//        ImageView imageView = findViewById(R.id.mealFlagView); // or mealImage, depending on where you want to display the image
+//        imageView.setImageBitmap(bitmap);
+//        mealName.setText(mealDb.getStrMeal());
+//        mealDescription.setText(mealDb.getStrInstructions());
+//        mealDescription.setText(mealDb.getStrInstructions());
+//        IngeridiantRecycleAdapter adapter = new IngeridiantRecycleAdapter(mealDb.getStrIngredients(),mealDb.getStrMeasures());
+//        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -82,27 +120,6 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         mealDescription.setText(meal.getStrInstructions());
         IngeridiantRecycleAdapter adapter = new IngeridiantRecycleAdapter(meal.getStrIngredients(),meal.getStrMeasures());
         recyclerView.setAdapter(adapter);
-
-//        mealVideo.setVideoPath(meal.getStrYoutube());
-//        MediaController mediaController = new MediaController(this);
-//        mediaController.setAnchorView(mealVideo);
-//        mediaController.setMediaPlayer(mealVideo);
-//        mealVideo.setMediaController(mediaController);
-//        mealVideo.start();
-
-//        MediaController mediaController= new MediaController(this);
-//        mediaController.setAnchorView(mealVideo);
-//        Log.d("uri", meal.getStrYoutube());
-//        Uri uri=Uri.parse(meal.getStrYoutube());
-//        mealVideo.setMediaController(mediaController);
-//        mealVideo.setVideoURI(meal.getStrYoutube());
-//        mealVideo.requestFocus();
-//        mealVideo.start();
-//        String videoUrl = meal.getStrYoutube();
-//        String html = "<iframe width=\"100%\" height=\"100%\" src=\"" + videoUrl + "\" frameborder=\"0\" allowfullscreen></iframe>";
-//        mealVideo.loadData(html, "text/html", "utf-8");
-//        mealVideo.getSettings().setJavaScriptEnabled(true);
-//        mealVideo.setWebChromeClient(new WebChromeClient());
         Log.d("url", meal.getStrYoutube());
         if(meal.getStrYoutube()!=null && !meal.getStrYoutube().isEmpty()) {
             String videoId = meal.getStrYoutube().split("=")[1]; // extract the video ID from the YouTube URL

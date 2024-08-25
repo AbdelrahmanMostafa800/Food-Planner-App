@@ -64,6 +64,7 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
 
                 @Override
                 public void onError(@NonNull Throwable e) {
+                    view.showMessage(e.getMessage());
                 }
 
                 @Override
@@ -89,6 +90,7 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
 
                 @Override
                 public void onError(@NonNull Throwable e) {
+                    view.showMessage(e.getMessage());
                 }
 
                 @Override
@@ -120,6 +122,7 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
 
             @Override
             public void onError(@NonNull Throwable e) {
+                view.showMessage(e.getMessage());
             }
 
             @Override
@@ -148,6 +151,7 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
 
             @Override
             public void onError(@NonNull Throwable e) {
+                view.showMessage(e.getMessage());
             }
 
             @Override
@@ -164,8 +168,10 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
+                    view.showMessage("Meal Is saved To Favorits");
                     Log.d("insert", "don ");
                 }, throwable -> {
+                    view.showMessage("Meal aleady saved To favorits");
                     Log.d("insert", "fail ");
                 });
     }
@@ -177,9 +183,10 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
+                    view.showMessage("Meal Is saved to Meal Plane");
                     Log.d("insert", "don ");
                 }, throwable -> {
-                    Log.d("insert", "fail ");
+                    view.showMessage("Can't save meal to meal plane");
                 });
     }
 
@@ -190,9 +197,9 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealDbsList -> {
+                    view.showMessage("Favorits Data Is saved From Cloud");
                     // do something with the list of meals
                     for (MealDb mealDb : mealDbsList) {
-                        Log.d("MealCallback", "Received meal: " + mealDb.getStrMeal());
                         dbReposatory.insertMeal(mealDb)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
@@ -202,9 +209,9 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
                                     Log.d("insert", "fail ");
                                 });
                     }
-                    Log.d("MealCallback", "Received meals: " + mealDbsList.size());
+                    view.showMessage("Favorits Data Is Retrived");
                 }, throwable -> {
-                    Log.w("MealCallback", "Error retrieving meals", throwable);
+                    view.showMessage("can't retrive Your Favorits Data");
                 });
     }
 
@@ -224,9 +231,8 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(mealDbsList -> {
-                    // do something with the list of meals
+                    view.showMessage("Meal Plane Data Is saved From Cloud");
                     for (DayMealDb mealDb : mealDbsList) {
-                        Log.d("MealCallback", "Received meal: " + mealDb.getStrMeal());
                         dbReposatory.insertDayMeal(mealDb.getDay(),mealDb)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
@@ -236,9 +242,9 @@ public class HomeFragmentPresenterImp implements HomeFragmentPresenter {
                                     Log.d("insert", "fail ");
                                 });
                     }
-                    Log.d("MealCallback", "Received meals: " + mealDbsList.size());
+                    view.showMessage("Meal Plane Data Is Retrived");
                 }, throwable -> {
-                    Log.w("MealCallback", "Error retrieving meals", throwable);
+                    view.showMessage("can't retrive Your Meal Plane Data");
                 });
     }
 }

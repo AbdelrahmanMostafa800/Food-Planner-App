@@ -61,6 +61,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
             @Override
             public void onError(@NonNull Throwable e) {
+                view.showMessage(e.getMessage());
             }
 
             @Override
@@ -89,6 +90,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
             @Override
             public void onError(@NonNull Throwable e) {
+                view.showMessage(e.getMessage());
             }
 
             @Override
@@ -123,6 +125,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
             @Override
             public void onError(@NonNull Throwable e) {
+                view.showMessage(e.getMessage());
             }
 
             @Override
@@ -152,6 +155,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
             @Override
             public void onError(@NonNull Throwable e) {
+                view.showMessage(e.getMessage());
             }
 
             @Override
@@ -191,9 +195,9 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .subscribe(() -> {
-                                            Log.d("insert", "don ");
+                                            view.showMessage("Meal is added to favorit");
                                         }, throwable -> {
-                                            Log.d("insert", "fail ");
+                                            view.showMessage("can't add meal to favorit");
                                         });
 
                                 // Save the MealDb object to the database
@@ -201,7 +205,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
                             @Override
                             public void onError(Throwable e) {
-                                // handle error
+                                view.showMessage(e.getMessage());
                             }
 
                             @Override
@@ -213,6 +217,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
             @Override
             public void onError(@NonNull Throwable e) {
+                view.showMessage(e.getMessage());
             }
 
             @Override
@@ -252,9 +257,9 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
                                         .subscribeOn(Schedulers.io())
                                         .observeOn(AndroidSchedulers.mainThread())
                                         .subscribe(() -> {
-                                            Log.d("insert", "don ");
+                                            view.showMessage("Meal is added to meal plane");
                                         }, throwable -> {
-                                            Log.d("insert", "fail ");
+                                            view.showMessage("Can't add meal to meal plane");
                                         });
 
                                 // Save the MealDb object to the database
@@ -274,6 +279,7 @@ public class SearchPresenterImp implements  SearchPresenterInterface{
 
             @Override
             public void onError(@NonNull Throwable e) {
+                view.showMessage(e.getMessage());
             }
 
             @Override

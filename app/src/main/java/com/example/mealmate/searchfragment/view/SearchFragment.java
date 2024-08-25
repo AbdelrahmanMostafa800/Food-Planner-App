@@ -18,6 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.mealmate.R;
 import com.example.mealmate.bottomsheet.BottomSheetAdapter;
@@ -170,9 +171,14 @@ public class SearchFragment extends Fragment implements SearchFragmentView, Onfa
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Handle case where nothing is selected if needed
+
             }
         });
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

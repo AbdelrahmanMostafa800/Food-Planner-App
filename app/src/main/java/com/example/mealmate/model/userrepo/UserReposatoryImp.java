@@ -47,13 +47,13 @@ public class UserReposatoryImp implements UserReposatoryInterface{
                     @Override
                     public void onComplete() {
                         userLocal.addUser("UserSignedUp",name,email);
-                        spresenter.isuserAdded(true);
+                        spresenter.isuserAdded("true");
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.d("userrepo", "onError: ");
-                        spresenter.isuserAdded(false);
+                        spresenter.isuserAdded(e.getMessage());
                     }
                 });
 
@@ -76,13 +76,13 @@ public class UserReposatoryImp implements UserReposatoryInterface{
                     @Override
                     public void onComplete() {
                         userLocal.addUser("UserLogidIn","",email);
-                        lpresenter.isLoginSuccess(true);
+                        lpresenter.isLoginSuccess("true");
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.d("userrepo", "onError: ");
-                        lpresenter.isLoginSuccess(false);
+                        lpresenter.isLoginSuccess(e.getMessage());
                     }
                 });
     }
@@ -140,7 +140,7 @@ public class UserReposatoryImp implements UserReposatoryInterface{
     @Override
     public void loginUserGuest(LoginPresenter lpresenter) {
         userLocal.addUserGuest();
-        lpresenter.isLoginSuccess(true);
+        lpresenter.isLoginSuccess("true");
     }
 
 @Override

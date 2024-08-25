@@ -75,7 +75,7 @@ public class SignUpFragment extends Fragment implements SignUpView{
                     if (isValidEmail(emailText.getEditText().getText().toString())) {
                         presenter.createUserWithEmailPassword( emailText.getEditText().getText().toString(), passowrdTex.getEditText().getText().toString(), nameText.getEditText().getText().toString());
                     }else{
-                        errorText.setText("Invalid Email");
+                        errorText.setText("Please RE Enter Email");
                         errorText.setVisibility(View.VISIBLE);
                     }
                 }
@@ -101,8 +101,8 @@ public class SignUpFragment extends Fragment implements SignUpView{
     }
 
     @Override
-    public void userAddSerror() {
-        errorText.setText("Not Valid User");
+    public void userAddSerror(String b) {
+        errorText.setText(b);
         errorText.setVisibility(View.VISIBLE);
         isErrorMsgVisble=true;
     }

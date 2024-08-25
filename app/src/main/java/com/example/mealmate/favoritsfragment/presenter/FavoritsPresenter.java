@@ -43,8 +43,8 @@ public class FavoritsPresenter implements FavoritsPresenterInterface{
     }
 
     @Override
-    public void saveToFirebaseDb(List<MealDb> mealDbsList) {
-        dbReposatory.saveToFirebaseDb(mealDbsList);
+    public Completable saveToFirebaseDb(List<MealDb> mealDbsList) {
+       return dbReposatory.saveToFirebaseDb(mealDbsList);
     }
 
     @Override

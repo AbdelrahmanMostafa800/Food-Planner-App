@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -61,6 +62,11 @@ public class ShowFilterChipActivity extends AppCompatActivity implements com.exa
         MealCardClickListener mealCardClickListener = new MealCardClickListener(this);
         ShowFilterChipAdapter adapter = new ShowFilterChipAdapter(meals,mealCardClickListener,this);
         recycleView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
