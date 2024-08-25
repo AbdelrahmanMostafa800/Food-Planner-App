@@ -37,7 +37,7 @@ public class MealDetailsPresenterImp implements MealDetailsPresenterInterface {
 
             @Override
             public void onNext(MealList meal) {
-                view.showMealDetails(meal.getMeals().get(0));
+                view.showMealDetails(meal.getMeals().get(0),null);
             }
 
             @Override

@@ -70,7 +70,110 @@ public class Meal{
         }
         return ingredients;
     }
+    public void seMeasures(List<String> measures) {
+        for (int i = 1; i <measures.size(); i++) {
+            if (measures.get(i) != null && !measures.get(i).isEmpty()) {
+                setStrMeasure(i,measures.get(i));
+            }
+        }
+    }
+    private void setStrMeasure(int index,String value) {
+        switch (index) {
+            case 1:
+                strMeasure1=value;
+            case 2:
+                strMeasure2=value;
+            case 3:
+                strMeasure3=value;
+            case 4:
+                strMeasure4=value;
+            case 5:
+                strMeasure5=value;
+            case 6:
+                strMeasure6=value;
+            case 7:
+                strMeasure7=value;
+            case 8:
+                strMeasure8=value;
+            case 9:
+                strMeasure9=value;
+            case 10:
+                strMeasure10=value;
+            case 11:
+                strMeasure11=value;
+            case 12:
+                strMeasure12=value;
+            case 13:
+                strMeasure13=value;
+            case 14:
+                strMeasure14=value;
+            case 15:
+                strMeasure15=value;
+            case 16:
+                strMeasure16=value;
+            case 17:
+                strMeasure17=value;
+            case 18:
+                strMeasure18=value;
+            case 19:
+                strMeasure19=value;
+            case 20:
+                strMeasure20=value;
+        }
+    }
 
+    public void setIngredients(List<String> ingredients) {
+        for (int i = 1; i <ingredients.size(); i++) {
+            if (ingredients.get(i) != null && !ingredients.get(i).isEmpty()) {
+                setStrIngredient(i,ingredients.get(i));
+            }
+        }
+    }
+
+    private void setStrIngredient(int index,String value) {
+        switch (index) {
+            case 1:
+                strIngredient1=value;
+            case 2:
+                strIngredient2=value;
+            case 3:
+                strIngredient3=value;
+            case 4:
+                strIngredient4=value;
+            case 5:
+                strIngredient5=value;
+            case 6:
+                strIngredient6=value;
+            case 7:
+                strIngredient7=value;
+            case 8:
+                strIngredient8=value;
+            case 9:
+                strIngredient9=value;
+            case 10:
+                strIngredient10=value;
+            case 11:
+                strIngredient11=value;
+            case 12:
+                strIngredient12=value;
+            case 13:
+                strIngredient13=value;
+            case 14:
+                strIngredient14=value;
+            case 15:
+                strIngredient15=value;
+            case 16:
+                strIngredient16=value;
+            case 17:
+                strIngredient17=value;
+            case 18:
+                strIngredient18=value;
+            case 19:
+                strIngredient19=value;
+            case 20:
+                strIngredient20=value;
+        }
+    }
     private String getStrIngredient(int index) {
         switch (index) {
             case 1:

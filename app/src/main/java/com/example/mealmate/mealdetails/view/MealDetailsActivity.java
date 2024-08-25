@@ -23,14 +23,17 @@ import com.example.mealmate.R;
 import com.example.mealmate.mealdetails.presenter.MealDetailsPresenterImp;
 import com.example.mealmate.mealdetails.presenter.MealDetailsPresenterInterface;
 import com.example.mealmate.model.DayMealDb;
+import com.example.mealmate.model.MealDb;
 import com.example.mealmate.model.meal.Meal;
 import com.example.mealmate.model.countriespojo.CountriesList;
 import com.example.mealmate.model.countriespojo.Country;
 
+import java.util.List;
+
 public class MealDetailsActivity extends AppCompatActivity implements MealDetailsActivityView{
     RecyclerView recyclerView;
     String mealID;
-    DayMealDb dayMealDb;
+//    DayMealDb dayMealDb;
     MealDetailsPresenterInterface presenter;
     ImageView arrowBack,mealFlag,mealImage;
     TextView mealName,mealDescription;
@@ -66,41 +69,11 @@ public class MealDetailsActivity extends AppCompatActivity implements MealDetail
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
         mealVideo=findViewById(R.id.mealVideoView);
-//         dayMealDb=null;
-//        if(intent.hasExtra("dayMealDb")) {
-//            Log.d("TAG", "onCreate2: ");
-////            DayMealDb mealDb = (DayMealDb) intent.getSerializableExtra("mealDb");
-//            if(dayMealDb!=null) {
-//                showDayMealDetails(dayMealDb);
-//            }
-//        }
-    }
-public void setDayMealDb( DayMealDb dayMealDb){
-//        this.dayMealDb=dayMealDb;
-}
-    private void showDayMealDetails(DayMealDb mealDb) {
-        String areaName=mealDb.getStrArea();
-//        CountriesList countryList=CountriesList.getInstance();
-//        String countryImg = countryList.getcountries().stream()
-//                .filter(country -> country.getStrArea().equals(areaName))
-//                .map(Country::getstrContryThumb)
-//                .findFirst()
-//                .orElse(null);
-//        byte[] imageData = mealDb.getImage();
-//
-//        Bitmap bitmap = BitmapFactory.decodeByteArray(imageData, 0, imageData.length);
-//
-//        ImageView imageView = findViewById(R.id.mealFlagView); // or mealImage, depending on where you want to display the image
-//        imageView.setImageBitmap(bitmap);
-//        mealName.setText(mealDb.getStrMeal());
-//        mealDescription.setText(mealDb.getStrInstructions());
-//        mealDescription.setText(mealDb.getStrInstructions());
-//        IngeridiantRecycleAdapter adapter = new IngeridiantRecycleAdapter(mealDb.getStrIngredients(),mealDb.getStrMeasures());
-//        recyclerView.setAdapter(adapter);
+
     }
 
     @Override
-    public void showMealDetails(Meal meal) {
+    public void showMealDetails(Meal meal,byte[] image) {
         String areaName=meal.getStrArea();
         CountriesList countryList=CountriesList.getInstance();
         String countryImg = countryList.getcountries().stream()
@@ -109,12 +82,14 @@ public void setDayMealDb( DayMealDb dayMealDb){
                 .findFirst()
                 .orElse(null);
         Log.d("mealflag", countryImg);
-        Glide.with(mealFlag)
-                .load(countryImg)
-                .into(mealFlag);
-        Glide.with(mealImage)
-                .load(meal.getStrMealThumb())
-                .into(mealImage);
+        if(image==null) {
+            Glide.with(mealFlag)
+                    .load(countryImg)
+                    .into(mealFlag);
+            Glide.with(mealImage)
+                    .load(meal.getStrMealThumb())
+                    .into(mealImage);
+        }
         mealName.setText(meal.getStrMeal());
         mealDescription.setText(meal.getStrInstructions());
         mealDescription.setText(meal.getStrInstructions());

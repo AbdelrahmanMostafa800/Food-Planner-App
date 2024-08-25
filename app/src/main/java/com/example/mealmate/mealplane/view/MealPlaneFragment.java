@@ -131,11 +131,8 @@ public class MealPlaneFragment extends Fragment implements OnDayClickListener,Me
 
     @Override
     public void showMealDeatails(DayMealDb dayMealDb) {
-//        Log.d("rowCard", "onBindViewHolder: "+dayMealDb.getStrMeal());
-//        MealDetailsActivity activity = (MealDetailsActivity) getActivity();
-//        activity.setDayMealDb(dayMealDb);
 //        Intent intent = new Intent(getActivity(), MealDetailsActivity.class);
-//        intent.putExtra("dayMealDb", "dayMealDb");
+//        intent.putExtra("me",dayMealDb);
 //        startActivity(intent);
     }
 }

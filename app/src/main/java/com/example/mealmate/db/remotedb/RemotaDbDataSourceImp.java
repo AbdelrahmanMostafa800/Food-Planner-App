@@ -33,6 +33,7 @@ public class RemotaDbDataSourceImp implements RemotaDbDataSource {
     @Override
     public Completable saveMealToDb(List<MealDb> mealDbsList) {
         Completable completabl=null;
+        if(mealDbsList!=null){
         for (MealDb mealDb : mealDbsList) {
             Map<String, Object> mealMap = new HashMap<>();
             mealMap.put("userName", mealDb.getUserName());
@@ -80,7 +81,7 @@ public class RemotaDbDataSourceImp implements RemotaDbDataSource {
                         }
                     });
             completabl= completable;
-        }
+        }}
         return completabl;
     }
 

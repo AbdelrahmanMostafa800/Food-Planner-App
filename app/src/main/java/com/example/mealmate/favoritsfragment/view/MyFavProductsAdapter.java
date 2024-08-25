@@ -49,7 +49,7 @@ public class MyFavProductsAdapter extends RecyclerView.Adapter<MyFavProductsAdap
             cardListener.deleteMealFromDb(meal.get(position).getUserName(),meal.get(position).getIdMeal());
         });
         holder.rowCard.setOnClickListener(v->{
-//            cardListener.showMealDeatails(meal.get(position));
+            cardListener.showMealDeatails(meal.get(position));
         });
 
     }

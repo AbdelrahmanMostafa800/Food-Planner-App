@@ -12,7 +12,7 @@
         android:text="@string/signup"
         android:textColor="#51CB56"
         android:textSize="34sp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="100dp"
         android:layout_marginLeft="20dp"
         android:textStyle="bold" />
 
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:layout_marginBottom="20dp"
         android:textColor="#EB0707" />
 

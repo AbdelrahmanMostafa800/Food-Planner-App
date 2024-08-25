@@ -1,5 +1,6 @@
 package com.example.mealmate.favoritsfragment.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -18,9 +19,11 @@ import android.widget.Toast;
 import com.example.mealmate.R;
 import com.example.mealmate.favoritsfragment.presenter.FavoritsPresenter;
 import com.example.mealmate.favoritsfragment.presenter.FavoritsPresenterInterface;
+import com.example.mealmate.mealdetails.view.MealDetailsActivity;
 import com.example.mealmate.mealplane.presenter.MealPlaneFragmentPresenter;
 import com.example.mealmate.model.MealDb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Flowable;
@@ -78,16 +81,21 @@ public class FavoritsFragment extends Fragment implements FavoritsFragmentView,O
                         Log.e("fav", "Error occurred", throwable);
                     });
             saveToCloud.setOnClickListener(v -> {
-                presenter.saveToFirebaseDb(mealDbsList)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(() -> {
-                            Log.d("SAVE", "onViewCreated: ");
-                            Toast.makeText(getContext(), "Saved to cloud", Toast.LENGTH_SHORT).show();
-                        }, throwable -> {
-                            Toast.makeText(getContext(), "Can't save to cloud try again ", Toast.LENGTH_SHORT).show();
-                        });
+                if(presenter.saveToFirebaseDb(mealDbsList)!=null) {
+                    presenter.saveToFirebaseDb(mealDbsList)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(() -> {
+                                Log.d("SAVE", "onViewCreated: ");
+                                Toast.makeText(getContext(), "Saved to cloud", Toast.LENGTH_SHORT).show();
+                            }, throwable -> {
+                                Toast.makeText(getContext(), "Can't save to cloud try again ", Toast.LENGTH_SHORT).show();
+                            });
+                }else{
+                    Toast.makeText(getContext(), "favourits is empty", Toast.LENGTH_SHORT).show();
+                }
             });
+
         }
     }
 
@@ -108,4 +116,9 @@ public class FavoritsFragment extends Fragment implements FavoritsFragmentView,O
                     Toast.makeText(getContext(), "Can't delete meal try again ", Toast.LENGTH_SHORT).show();
                 });
     }
-}
+
+    @Override
+    public void showMealDeatails(MealDb mealDb) {
+
+        }
+    }
